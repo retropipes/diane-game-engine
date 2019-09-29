@@ -8,4 +8,4 @@ Diane integrates natively with **macOS, Windows, and Linux** via the [Native Int
 
 Ideas for expanding what Diane can do are welcomed!
 
-Diane is quite incomplete right now... at the moment, only the image and sound loaders exist, and they cannot yet be used by dependent code as the relevant exports are not yet defined. This will change as Diane matures.
+Diane is quite incomplete right now... at the moment, only the loader API exists, but is fully usable by dependent code. This will change as Diane matures.
