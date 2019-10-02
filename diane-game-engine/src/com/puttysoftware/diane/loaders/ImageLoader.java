@@ -17,11 +17,9 @@ import com.puttysoftware.errorlogger.ErrorLogger;
 import com.puttysoftware.images.BufferedImageIcon;
 
 public class ImageLoader {
-    static BufferedImageIcon loadUncached(final String name,
-            final String imgpath, final Class<?> resourceLoader,
+    static BufferedImageIcon loadUncached(final String name, final URL url,
             final ErrorLogger errorHandler) {
         try {
-            final URL url = resourceLoader.getResource(imgpath + name);
             final BufferedImage image = ImageIO.read(url);
             final BufferedImageIcon icon = new BufferedImageIcon(image);
             return icon;
@@ -31,11 +29,9 @@ public class ImageLoader {
         }
     }
 
-    public static BufferedImageIcon load(final String name,
-            final String imgpath, final Class<?> resourceLoader,
+    public static BufferedImageIcon load(final String name, final URL url,
             final ErrorLogger errorHandler) {
-        return ImageCache.getCachedImage(name, imgpath, resourceLoader,
-                errorHandler);
+        return ImageCache.getCachedImage(name, url, errorHandler);
     }
 
     private static class ImageCache {
@@ -45,8 +41,7 @@ public class ImageLoader {
 
         // Methods
         public static BufferedImageIcon getCachedImage(final String name,
-                final String imgpath, final Class<?> resourceLoader,
-                final ErrorLogger errorHandler) {
+                final URL url, final ErrorLogger errorHandler) {
             if (!ImageCache.cacheCreated) {
                 ImageCache.createCache();
             }
@@ -57,8 +52,8 @@ public class ImageLoader {
                 }
             }
             // Not found: Add to cache
-            BufferedImageIcon newImage = ImageLoader.loadUncached(name, imgpath,
-                    resourceLoader, errorHandler);
+            BufferedImageIcon newImage = ImageLoader.loadUncached(name, url,
+                    errorHandler);
             ImageCacheEntry newEntry = new ImageCacheEntry(newImage, name);
             ImageCache.cache.add(newEntry);
             return newImage;

@@ -26,9 +26,8 @@ public class SoundLoader {
 
     private static final int BUFFER_SIZE = 4096; // 4Kb
 
-    public static void play(final String filepath,
-            final Class<?> resourceLoader, final ErrorLogger errorHandler) {
-        final URL soundURL = resourceLoader.getResource(filepath);
+    public static void play(final URL soundURL,
+            final ErrorLogger errorHandler) {
         new Thread() {
             @Override
             public void run() {
