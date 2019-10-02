@@ -6,14 +6,9 @@ Any questions should be directed to the author via email at: products@puttysoftw
 package com.puttysoftware.diane.loaders;
 
 import java.awt.Color;
-import java.awt.FlowLayout;
 import java.util.ArrayList;
 import java.util.Objects;
 
-import javax.swing.JFrame;
-import javax.swing.WindowConstants;
-
-import com.puttysoftware.help.GraphicalHelpViewer;
 import com.puttysoftware.images.BufferedImageIcon;
 
 public class ImageShader {
@@ -40,28 +35,6 @@ public class ImageShader {
         return ImageCache.getCachedImage(name, input, shade);
     }
 
-    public static void viewCache() {
-        if (!ImageCache.cacheCreated) {
-            ImageCache.createCache();
-        }
-        final GraphicalHelpViewer cv = new GraphicalHelpViewer(
-                ImageCache.images(), ImageCache.names());
-        final JFrame viewFrame = new JFrame("Shaded Image Cache Viewer");
-        viewFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        viewFrame.setLayout(new FlowLayout());
-        viewFrame.add(cv.getHelp());
-        cv.setHelpSize(ImageLoader.MAX_WINDOW_SIZE,
-                ImageLoader.MAX_WINDOW_SIZE);
-        viewFrame.pack();
-        viewFrame.setResizable(false);
-        viewFrame.setVisible(true);
-    }
-
-    public static void recreateCache() {
-        ImageCache.cacheCreated = false;
-        ImageCache.createCache();
-    }
-
     private static class ImageCache {
         // Fields
         private static ArrayList<ImageCacheEntry> cache;
@@ -85,24 +58,6 @@ public class ImageShader {
             ImageCacheEntry newEntry = new ImageCacheEntry(newImage, name);
             ImageCache.cache.add(newEntry);
             return newImage;
-        }
-
-        public static BufferedImageIcon[] images() {
-            int limit = ImageCache.cache.size();
-            BufferedImageIcon[] result = new BufferedImageIcon[limit];
-            for (int x = 0; x < limit; x++) {
-                result[x] = ImageCache.cache.get(x).image();
-            }
-            return result;
-        }
-
-        public static String[] names() {
-            int limit = ImageCache.cache.size();
-            String[] result = new String[limit];
-            for (int x = 0; x < limit; x++) {
-                result[x] = ImageCache.cache.get(x).name();
-            }
-            return result;
         }
 
         private static void createCache() {
