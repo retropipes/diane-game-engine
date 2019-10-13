@@ -10,4 +10,4 @@ Diane integrates natively with **macOS, Windows, and Linux** via the [Native Int
 
 Ideas for expanding what Diane can do are welcomed!
 
-Diane is quite incomplete right now... at the moment, only the loader API exists, but is fully usable by dependent code. This will change as Diane matures.
+Diane is quite incomplete right now... at the moment (v0.1.0-alpha), the loader API, direction utilities, and an object model all exist, which should now be enough to build games on top of. More additions are planned as Diane matures.
