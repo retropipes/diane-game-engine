@@ -1,6 +1,6 @@
 # Diane Java Game Engine / Framework
 
-Diane is a 2D, top-down, tiled GUI framework for Java games. It was originally written in Java SE 6, but has been updated numerous times. Currently, it uses Java SE 12.
+Diane is a 2D, top-down, tiled GUI framework for Java games. It was originally written in Java SE 6, but has been updated numerous times. Currently, it uses Java SE 13.
 
 Diane gets its name from the initial letters of "*Drunken Input Atomic Nucleus Engine*", so derived from its most unique feature, drunk simulation, and its deep integration with games that use it.
 
