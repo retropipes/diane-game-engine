@@ -15,6 +15,7 @@ public abstract class GameObject implements ObjectModel {
     private final int uniqueID;
     private final Tile tile;
     private final SolidProperties sp;
+    private final VisionProperties vp;
     private final MoveProperties mp;
     private final OtherProperties op;
     private final OtherCounters oc;
@@ -27,6 +28,7 @@ public abstract class GameObject implements ObjectModel {
         this.uniqueID = objectID;
         this.tile = new Tile(appearance);
         this.sp = new SolidProperties();
+        this.vp = new VisionProperties();
         this.mp = new MoveProperties();
         this.op = new OtherProperties();
         this.oc = new OtherCounters();
@@ -216,6 +218,36 @@ public abstract class GameObject implements ObjectModel {
     protected final void setInternallyDirectionallySolid(final int dir,
             final boolean value) {
         this.sp.setInternallyDirectionallySolid(dir, value);
+    }
+
+    @Override
+    public final boolean isSightBlocking() {
+        return this.vp.isSightBlocking();
+    }
+
+    @Override
+    public final boolean isDirectionallySightBlocking(final int dirX, final int dirY) {
+        return this.vp.isDirectionallySightBlocking(dirX, dirY);
+    }
+
+    @Override
+    public final boolean isInternallyDirectionallySightBlocking(final int dirX,
+            final int dirY) {
+        return this.vp.isInternallyDirectionallySightBlocking(dirX, dirY);
+    }
+
+    protected final void setSightBlocking(final boolean value) {
+        this.vp.setSightBlocking(value);
+    }
+
+    protected final void setDirectionallySightBlocking(final int dir,
+            final boolean value) {
+        this.vp.setDirectionallySightBlocking(dir, value);
+    }
+
+    protected final void setInternallyDirectionallySightBlocking(final int dir,
+            final boolean value) {
+        this.vp.setInternallyDirectionallySightBlocking(dir, value);
     }
 
     @Override

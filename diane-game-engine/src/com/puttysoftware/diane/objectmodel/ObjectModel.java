@@ -60,4 +60,10 @@ public interface ObjectModel {
     boolean isChainReactingVertically();
 
     boolean isCarryable();
+
+    boolean isSightBlocking();
+
+    boolean isDirectionallySightBlocking(int inDirX, int inDirY);
+
+    boolean isInternallyDirectionallySightBlocking(int inDirX, int inDirY);
 }
