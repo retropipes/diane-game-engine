@@ -155,6 +155,10 @@ public abstract class GameObject implements ObjectModel {
         return this.cc.add(count);
     }
 
+    protected final void addOneCustomCounter() {
+        this.cc.addOne();
+    }
+
     protected final void appendCustomCounter(final int count) {
         this.cc.append(count);
     }
@@ -192,6 +196,10 @@ public abstract class GameObject implements ObjectModel {
         return this.cf.add(count);
     }
 
+    protected final void addOneCustomFlag() {
+        this.cf.addOne();
+    }
+
     protected final void appendCustomFlag(final int count) {
         this.cf.append(count);
     }
@@ -219,6 +227,10 @@ public abstract class GameObject implements ObjectModel {
 
     protected final boolean addCustomText(final int count) {
         return this.ct.add(count);
+    }
+
+    protected final void addOneCustomText() {
+        this.ct.addOne();
     }
 
     protected final void appendCustomText(final int count) {

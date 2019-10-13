@@ -27,6 +27,12 @@ final class CustomFlags {
         return true;
     }
 
+    public void addOne() {
+        if (this.flags.size() == 0) {
+            this.flags.add(false);
+        }
+    }
+
     public void append(final int count) {
         this.flags.addAll(Collections.nCopies(count, false));
     }

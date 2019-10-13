@@ -27,6 +27,12 @@ final class CustomCounters {
         return true;
     }
 
+    public void addOne() {
+        if (this.counters.size() == 0) {
+            this.counters.add(0);
+        }
+    }
+
     public void append(final int count) {
         this.counters.addAll(Collections.nCopies(count, 0));
     }

@@ -27,6 +27,12 @@ final class CustomTexts {
         return true;
     }
 
+    public void addOne() {
+        if (this.texts.size() == 0) {
+            this.texts.add("");
+        }
+    }
+
     public void append(final int count) {
         this.texts.addAll(Collections.nCopies(count, ""));
     }
