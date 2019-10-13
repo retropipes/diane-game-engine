@@ -66,4 +66,10 @@ public interface ObjectModel {
     boolean isDirectionallySightBlocking(int inDirX, int inDirY);
 
     boolean isInternallyDirectionallySightBlocking(int inDirX, int inDirY);
+
+    int getTimerTicks();
+
+    void tickTimer();
+
+    void resetTimer();
 }

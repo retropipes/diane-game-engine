@@ -444,4 +444,32 @@ public abstract class GameObject implements ObjectModel {
     protected final void setCarryable(final boolean value) {
         this.op.setCarryable(value);
     }
+
+    @Override
+    public final int getTimerTicks() {
+        return this.oc.getTimerTicks();
+    }
+
+    protected final void setTimerTicks(final int value) {
+        this.oc.setTimerTicks(value);
+    }
+
+    @Override
+    public final void tickTimer() {
+        this.oc.tickTimer();
+    }
+
+
+    protected final int getTimerReset() {
+        return this.oc.getTimerReset();
+    }
+
+    protected final void setTimerReset(final int value) {
+        this.oc.setTimerReset(value);
+    }
+
+    @Override
+    public final void resetTimer() {
+        this.oc.resetTimer();
+    }
 }
