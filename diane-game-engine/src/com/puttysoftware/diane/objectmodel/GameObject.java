@@ -24,6 +24,19 @@ public abstract class GameObject implements ObjectModel {
     private final CustomTexts ct;
 
     // Constructors
+    public GameObject(final int objectID) {
+        this.uniqueID = objectID;
+        this.tile = null;
+        this.sp = new SolidProperties();
+        this.vp = new VisionProperties();
+        this.mp = new MoveProperties();
+        this.op = new OtherProperties();
+        this.oc = new OtherCounters();
+        this.cc = new CustomCounters();
+        this.cf = new CustomFlags();
+        this.ct = new CustomTexts();
+    }
+
     public GameObject(final int objectID, final Appearance appearance) {
         this.uniqueID = objectID;
         this.tile = new Tile(appearance);
@@ -69,35 +82,69 @@ public abstract class GameObject implements ObjectModel {
     }
 
     protected final void setGameLook(final Appearance appearance) {
-        this.tile.setGameLook(appearance);
+        if (this.tile != null) {
+            this.tile.setGameLook(appearance);
+        }
     }
 
     protected final void setEditorLook(final Appearance appearance) {
-        this.tile.setEditorLook(appearance);
+        if (this.tile != null) {
+            this.tile.setEditorLook(appearance);
+        }
     }
 
     protected final void setBattleLook(final Appearance appearance) {
-        this.tile.setBattleLook(appearance);
+        if (this.tile != null) {
+            this.tile.setBattleLook(appearance);
+        }
     }
 
     @Override
     public final BufferedImageIcon getImage() {
-        return this.tile.getImage();
+        return this.getImageHook();
     }
 
     @Override
     public final BufferedImageIcon getGameImage() {
-        return this.tile.getGameImage();
+        return this.getGameImageHook();
     }
 
     @Override
     public final BufferedImageIcon getEditorImage() {
-        return this.tile.getEditorImage();
+        return this.getEditorImageHook();
     }
 
     @Override
     public final BufferedImageIcon getBattleImage() {
-        return this.tile.getBattleImage();
+        return this.getBattleImageHook();
+    }
+
+    protected BufferedImageIcon getImageHook() {
+        if (this.tile != null) {
+            return this.tile.getImage();
+        }
+        return null;
+    }
+
+    protected BufferedImageIcon getGameImageHook() {
+        if (this.tile != null) {
+            return this.tile.getGameImage();
+        }
+        return null;
+    }
+
+    protected BufferedImageIcon getEditorImageHook() {
+        if (this.tile != null) {
+            return this.tile.getEditorImage();
+        }
+        return null;
+    }
+
+    protected BufferedImageIcon getBattleImageHook() {
+        if (this.tile != null) {
+            return this.tile.getBattleImage();
+        }
+        return null;
     }
 
     protected final int customCountersLength() {
@@ -226,7 +273,8 @@ public abstract class GameObject implements ObjectModel {
     }
 
     @Override
-    public final boolean isDirectionallySightBlocking(final int dirX, final int dirY) {
+    public final boolean isDirectionallySightBlocking(final int dirX,
+            final int dirY) {
         return this.vp.isDirectionallySightBlocking(dirX, dirY);
     }
 
@@ -458,7 +506,6 @@ public abstract class GameObject implements ObjectModel {
     public final void tickTimer() {
         this.oc.tickTimer();
     }
-
 
     protected final int getTimerReset() {
         return this.oc.getTimerReset();
