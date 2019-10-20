@@ -1,7 +1,6 @@
 module com.puttysoftware.diane {
     requires transitive java.desktop;
     requires transitive com.puttysoftware.errorlogger;
-    requires transitive com.puttysoftware.audio.wav;
     exports com.puttysoftware.commondialogs;
     exports com.puttysoftware.diane.assets;
     exports com.puttysoftware.diane.loaders;
