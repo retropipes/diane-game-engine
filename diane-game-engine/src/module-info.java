@@ -1,11 +1,11 @@
 module com.puttysoftware.diane {
     requires transitive java.desktop;
-    requires transitive com.puttysoftware.errorlogger;
     exports com.puttysoftware.commondialogs;
     exports com.puttysoftware.diane.assets;
     exports com.puttysoftware.diane.loaders;
     exports com.puttysoftware.diane.objectmodel;
     exports com.puttysoftware.diane.utilties;
+    exports com.puttysoftware.errorlogger;
     exports com.puttysoftware.fileutils;
     exports com.puttysoftware.help;
     exports com.puttysoftware.images;
