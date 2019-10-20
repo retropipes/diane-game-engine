@@ -6,7 +6,6 @@ Any questions should be directed to the author via email at: products@puttysoftw
 package com.puttysoftware.diane.loaders;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.URL;
 
 import javax.sound.sampled.AudioFormat;
@@ -31,42 +30,36 @@ public class SoundLoader {
         new Thread() {
             @Override
             public void run() {
-                try {
-                    if (soundURL != null) {
-                        try (InputStream inputStream = soundURL.openStream()) {
-                            try (AudioInputStream audioInputStream = AudioSystem
-                                    .getAudioInputStream(inputStream)) {
-                                final AudioFormat format = audioInputStream
-                                        .getFormat();
-                                final DataLine.Info info = new DataLine.Info(
-                                        SourceDataLine.class, format);
-                                try (SourceDataLine auline = (SourceDataLine) AudioSystem
-                                        .getLine(info)) {
-                                    auline.open(format);
-                                    auline.start();
-                                    int nBytesRead = 0;
-                                    final byte[] abData = new byte[SoundLoader.BUFFER_SIZE];
-                                    try {
-                                        while (nBytesRead != -1) {
-                                            nBytesRead = audioInputStream.read(
-                                                    abData, 0, abData.length);
-                                            if (nBytesRead >= 0) {
-                                                auline.write(abData, 0,
-                                                        nBytesRead);
-                                            }
-                                        }
-                                    } finally {
-                                        auline.drain();
-                                    }
-                                } catch (final LineUnavailableException e) {
-                                    errorHandler.logError(e);
+                try (AudioInputStream audioInputStream = AudioSystem
+                        .getAudioInputStream(soundURL)) {
+                    final AudioFormat format = audioInputStream.getFormat();
+                    final DataLine.Info info = new DataLine.Info(
+                            SourceDataLine.class, format);
+                    try (SourceDataLine auline = (SourceDataLine) AudioSystem
+                            .getLine(info)) {
+                        auline.open(format);
+                        auline.start();
+                        int nBytesRead = 0;
+                        final byte[] abData = new byte[BUFFER_SIZE];
+                        try {
+                            while (nBytesRead != -1) {
+                                nBytesRead = audioInputStream.read(abData, 0,
+                                        abData.length);
+                                if (nBytesRead >= 0) {
+                                    auline.write(abData, 0, nBytesRead);
                                 }
-                            } catch (final UnsupportedAudioFileException e) {
-                                errorHandler.logError(e);
                             }
+                        } catch (final IOException e) {
+                            errorHandler.logError(e);
+                        } finally {
+                            auline.drain();
                         }
+                    } catch (final LineUnavailableException e) {
+                        errorHandler.logError(e);
                     }
-                } catch (IOException e) {
+                } catch (final UnsupportedAudioFileException e) {
+                    errorHandler.logError(e);
+                } catch (final IOException e) {
                     errorHandler.logError(e);
                 }
             }
