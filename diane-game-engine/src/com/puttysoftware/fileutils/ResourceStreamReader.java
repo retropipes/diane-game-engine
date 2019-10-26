@@ -33,7 +33,7 @@ public class ResourceStreamReader implements AutoCloseable {
     public int readInt() throws IOException {
         final String line = this.br.readLine();
         if (line == null) {
-            throw new IOException("Input == null!"); //$NON-NLS-1$
+            throw new IOException("Input line == null!"); //$NON-NLS-1$
         }
         return Integer.parseInt(line);
     }
