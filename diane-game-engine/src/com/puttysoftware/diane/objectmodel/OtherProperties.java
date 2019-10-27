@@ -29,6 +29,8 @@ class OtherProperties {
     // Constructors
     public OtherProperties() {
         this.otherData = new FlagStorage(OtherProperties.OTHER_DATA_TYPES);
+        this.setFriction(true);
+        this.setDestroyable(true);
     }
 
     // Methods
