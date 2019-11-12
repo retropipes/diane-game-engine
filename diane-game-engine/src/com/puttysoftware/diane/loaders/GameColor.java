@@ -10,6 +10,14 @@ public class GameColor {
     this.color = new Color(inRgba, true);
   }
 
+  public GameColor(final int inRgba, final boolean ignored) {
+    this.color = new Color(inRgba, true);
+  }
+
+  public GameColor(final int inR, final int inG, final int inB) {
+    this.color = new Color(inR, inG, inB, 255);
+  }
+
   public GameColor(final int inR, final int inG, final int inB, final int inA) {
     this.color = new Color(inR, inG, inB, inA);
   }
