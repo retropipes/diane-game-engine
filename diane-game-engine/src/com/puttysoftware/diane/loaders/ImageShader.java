@@ -12,7 +12,7 @@ import com.puttysoftware.diane.gui.GameImage;
 
 public class ImageShader {
   static GameImage shadeUncached(final String name, final GameImage input,
-      final GameColorShader shade) {
+      final ColorShader shade) {
     if (input != null) {
       final int width = input.getWidth();
       final int height = input.getHeight();
@@ -30,7 +30,7 @@ public class ImageShader {
   }
 
   public static GameImage shade(final String name, final GameImage input,
-      final GameColorShader shade) {
+      final ColorShader shade) {
     return ImageCache.getCachedImage(name, input, shade);
   }
 
@@ -41,7 +41,7 @@ public class ImageShader {
 
     // Methods
     public static GameImage getCachedImage(final String name,
-        final GameImage input, final GameColorShader shade) {
+        final GameImage input, final ColorShader shade) {
       if (!ImageCache.cacheCreated) {
         ImageCache.createCache();
       }

@@ -8,13 +8,13 @@ package com.puttysoftware.diane.loaders;
 import java.awt.color.ColorSpace;
 import java.util.Objects;
 
-public class GameColorShader {
+public class ColorShader {
   // Fields
   private final GameColor shadeColor;
   private final String shadeName;
 
   // Constructor
-  public GameColorShader(final String name, final GameColor shade) {
+  public ColorShader(final String name, final GameColor shade) {
     this.shadeColor = new GameColor(ColorSpace.getInstance(ColorSpace.CS_sRGB),
         shade.getColorComponents(null), (float) 1.0);
     this.shadeName = name;
@@ -32,9 +32,9 @@ public class GameColorShader {
     final ColorSpace linear = ColorSpace.getInstance(ColorSpace.CS_LINEAR_RGB);
     final float[] inputColor = source.getColorComponents(linear);
     final float[] linearShade = this.shadeColor.getColorComponents(linear);
-    final float[] outputColor = GameColorShader.doColorMath(inputColor,
+    final float[] outputColor = ColorShader.doColorMath(inputColor,
         linearShade);
-    return GameColorShader.convertFromLinearRGB(outputColor);
+    return ColorShader.convertFromLinearRGB(outputColor);
   }
 
   private static float[] doColorMath(final float[] inputColor,
@@ -65,10 +65,10 @@ public class GameColorShader {
     if (this == obj) {
       return true;
     }
-    if (!(obj instanceof GameColorShader)) {
+    if (!(obj instanceof ColorShader)) {
       return false;
     }
-    final GameColorShader other = (GameColorShader) obj;
+    final ColorShader other = (ColorShader) obj;
     return Objects.equals(this.shadeColor, other.shadeColor)
         && Objects.equals(this.shadeName, other.shadeName);
   }
