@@ -7,12 +7,12 @@ package com.puttysoftware.diane.objectmodel;
 
 import com.puttysoftware.diane.assets.ImageIndex;
 import com.puttysoftware.diane.gui.GameImage;
-import com.puttysoftware.diane.loaders.ColorShader;
+import com.puttysoftware.diane.loaders.GameColorShader;
 
 public abstract class Appearance {
   private final String cacheName;
   private final ImageIndex whichImage;
-  private final ColorShader shading;
+  private final GameColorShader shading;
 
   public Appearance(final String name, final ImageIndex imageIndex) {
     this.cacheName = name;
@@ -21,7 +21,7 @@ public abstract class Appearance {
   }
 
   public Appearance(final String name, final ImageIndex imageIndex,
-      final ColorShader shader) {
+      final GameColorShader shader) {
     this.cacheName = name;
     this.whichImage = imageIndex;
     this.shading = shader;
@@ -39,7 +39,7 @@ public abstract class Appearance {
     return this.shading != null;
   }
 
-  public final ColorShader getShading() {
+  public final GameColorShader getShading() {
     return this.shading;
   }
 

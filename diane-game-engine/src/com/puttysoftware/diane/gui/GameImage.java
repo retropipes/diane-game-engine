@@ -11,7 +11,10 @@ import javax.imageio.ImageIO;
 
 import com.puttysoftware.diane.internal.BufferedImageIcon;
 
-public final class GameImage extends BufferedImageIcon {
+public final class GameImage {
+  // Fields
+  private final BufferedImageIcon image;
+
   // Constructors
   /**
    * Creates a GameImage of a given size.
@@ -20,7 +23,7 @@ public final class GameImage extends BufferedImageIcon {
    * @param height
    */
   public GameImage(final int width, final int height) {
-    super(width, height);
+    this.image = new BufferedImageIcon(width, height);
   }
 
   /**
@@ -29,10 +32,11 @@ public final class GameImage extends BufferedImageIcon {
    * @param gi
    */
   public GameImage(final GameImage gi) {
-    super(gi.getWidth(), gi.getHeight());
-    for (int x = 0; x < gi.getWidth(); x++) {
-      for (int y = 0; y < gi.getHeight(); y++) {
-        this.setRGB(x, y, gi.getRGB(x, y));
+    this.image = new BufferedImageIcon(gi.image.getWidth(),
+        gi.image.getHeight());
+    for (int x = 0; x < gi.image.getWidth(); x++) {
+      for (int y = 0; y < gi.image.getHeight(); y++) {
+        this.image.setRGB(x, y, gi.image.getRGB(x, y));
       }
     }
   }
@@ -43,10 +47,10 @@ public final class GameImage extends BufferedImageIcon {
    * @param gi
    */
   private GameImage(final BufferedImage bi) {
-    super(bi.getWidth(), bi.getHeight());
+    this.image = new BufferedImageIcon(bi.getWidth(), bi.getHeight());
     for (int x = 0; x < bi.getWidth(); x++) {
       for (int y = 0; y < bi.getHeight(); y++) {
-        this.setRGB(x, y, bi.getRGB(x, y));
+        this.image.setRGB(x, y, bi.getRGB(x, y));
       }
     }
   }
@@ -62,7 +66,7 @@ public final class GameImage extends BufferedImageIcon {
    */
   public void paint(final Component c, final Graphics g, final int x,
       final int y) {
-    g.drawImage(this, x, y, c);
+    g.drawImage(this.image, x, y, c);
   }
 
   /**
@@ -72,12 +76,41 @@ public final class GameImage extends BufferedImageIcon {
    * @param color
    */
   public GameImage(final int size, final Color color) {
-    super(size, size);
+    this.image = new BufferedImageIcon(size, size);
     for (int x = 0; x < size; x++) {
       for (int y = 0; y < size; y++) {
-        this.setRGB(x, y, color.getRGB());
+        this.image.setRGB(x, y, color.getRGB());
       }
     }
+  }
+
+  /**
+   * @return the width of this GameImage, in pixels
+   */
+  public int getWidth() {
+    return this.image.getWidth();
+  }
+
+  /**
+   * @return the height of this GameImage, in pixels
+   */
+  public int getHeight() {
+    return this.image.getHeight();
+  }
+
+  /**
+   * @return the RGB color in this GameImage at the given x, y location.
+   */
+  public int getRGB(final int x, final int y) {
+    return this.image.getRGB(x, y);
+  }
+
+  /**
+   * Changes the RGB color in this GameImage at the given x, y location to the
+   * provided RGB color.
+   */
+  public void setRGB(final int x, final int y, final int rgb) {
+    this.image.setRGB(x, y, rgb);
   }
 
   public static GameImage read(final URL input) throws IOException {
