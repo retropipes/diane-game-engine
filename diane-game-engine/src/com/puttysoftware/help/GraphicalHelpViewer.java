@@ -1,8 +1,6 @@
 package com.puttysoftware.help;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FileDialog;
 import java.awt.GridLayout;
@@ -18,71 +16,51 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
 
 import com.puttysoftware.commondialogs.CommonDialogs;
+import com.puttysoftware.diane.gui.GameImage;
+import com.puttysoftware.diane.gui.MainContent;
 import com.puttysoftware.diane.internal.BufferedImageIcon;
 import com.puttysoftware.fileutils.FilenameChecker;
 
 public final class GraphicalHelpViewer {
   // Fields
-  private final Container helpContainer;
-  private final Container choiceContainer;
+  private final MainContent helpMainContent;
+  private final MainContent choiceMainContent;
   private final JScrollPane scrollPane;
-  private final Color fill;
 
   // Constructor
-  public GraphicalHelpViewer(final BufferedImageIcon[] pictures,
+  public GraphicalHelpViewer(final GameImage[] pictures,
       final String[] descriptions) {
-    this.helpContainer = new Container();
-    this.helpContainer.setLayout(new BorderLayout());
-    this.choiceContainer = new Container();
-    this.scrollPane = new JScrollPane(this.choiceContainer);
+    this.helpMainContent = new MainContent();
+    this.helpMainContent.setLayout(new BorderLayout());
+    this.choiceMainContent = new MainContent();
+    this.scrollPane = new JScrollPane(this.choiceMainContent);
     this.scrollPane.setHorizontalScrollBarPolicy(
         ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
     this.scrollPane.setVerticalScrollBarPolicy(
         ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-    this.helpContainer.add(this.scrollPane, BorderLayout.CENTER);
-    this.fill = null;
-    this.updateHelp(pictures, descriptions);
-  }
-
-  public GraphicalHelpViewer(final BufferedImageIcon[] pictures,
-      final String[] descriptions, final Color fillColor) {
-    this.helpContainer = new Container();
-    this.helpContainer.setLayout(new BorderLayout());
-    this.choiceContainer = new Container();
-    this.scrollPane = new JScrollPane(this.choiceContainer);
-    this.scrollPane.setHorizontalScrollBarPolicy(
-        ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-    this.scrollPane.setVerticalScrollBarPolicy(
-        ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-    this.helpContainer.add(this.scrollPane, BorderLayout.CENTER);
-    this.fill = fillColor;
-    this.helpContainer.setBackground(fillColor);
-    this.choiceContainer.setBackground(fillColor);
-    this.scrollPane.setBackground(fillColor);
+    this.helpMainContent.add(this.scrollPane, BorderLayout.CENTER);
     this.updateHelp(pictures, descriptions);
   }
 
   // Methods
-  public Container getHelp() {
-    return this.helpContainer;
+  public MainContent getHelp() {
+    return this.helpMainContent;
   }
 
-  public void updateHelp(final BufferedImageIcon[] newImages,
-      final String[] newNames) {
-    BufferedImageIcon[] choices;
+  public void updateHelp(final GameImage[] newImages, final String[] newNames) {
+    GameImage[] choices;
     String[] choiceNames;
     JLabel[] choiceArray;
     choices = newImages;
     choiceNames = newNames;
-    this.choiceContainer.removeAll();
-    this.choiceContainer.setLayout(new GridLayout(choices.length, 1));
+    this.choiceMainContent.removeAll();
+    this.choiceMainContent.setLayout(new GridLayout(choices.length, 1));
     choiceArray = new JLabel[choices.length];
     for (int x = 0; x < choices.length; x++) {
-      choiceArray[x] = new JLabel(choiceNames[x], choices[x],
-          SwingConstants.LEFT);
+      choiceArray[x] = new JLabel(choiceNames[x],
+          new BufferedImageIcon(choices[x]), SwingConstants.LEFT);
       choiceArray[x].setOpaque(true);
-      choiceArray[x].setBackground(this.fill);
-      this.choiceContainer.add(choiceArray[x]);
+      this.choiceMainContent.add(choiceArray[x]);
     }
   }
 
@@ -116,17 +94,10 @@ public final class GraphicalHelpViewer {
           } else {
             filename += ".png"; //$NON-NLS-1$
           }
-          final Container c = this.choiceContainer;
+          final MainContent c = this.choiceMainContent;
           final Dimension d = c.getPreferredSize();
           final BufferedImage bi = new BufferedImage(d.width, d.height,
               BufferedImage.TYPE_INT_ARGB);
-          if (this.fill != null) {
-            for (int x = 0; x < d.width; x++) {
-              for (int y = 0; y < d.height; y++) {
-                bi.setRGB(x, y, this.fill.getRGB());
-              }
-            }
-          }
           c.paintComponents(bi.createGraphics());
           try {
             ImageIO.write(bi, "PNG", new File(filename)); //$NON-NLS-1$
@@ -142,7 +113,7 @@ public final class GraphicalHelpViewer {
   }
 
   public void setHelpSize(final int horz, final int vert) {
-    this.helpContainer.setPreferredSize(new Dimension(horz, vert));
+    this.helpMainContent.setPreferredSize(new Dimension(horz, vert));
     this.scrollPane.setPreferredSize(new Dimension(horz, vert));
   }
 

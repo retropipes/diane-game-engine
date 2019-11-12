@@ -1,6 +1,5 @@
 package com.puttysoftware.picturepicker;
 
-import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -12,6 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JRadioButton;
 import javax.swing.SwingConstants;
 
+import com.puttysoftware.diane.gui.GameImage;
 import com.puttysoftware.diane.internal.BufferedImageIcon;
 
 public final class StackedPicturePicker {
@@ -19,31 +19,27 @@ public final class StackedPicturePicker {
    * @version 2.0.0
    */
   // Fields
-  private BufferedImageIcon[] choices;
+  private GameImage[] choices;
   private JLabel[] choiceArray;
   private final Container pickerContainer;
   private final ButtonGroup radioGroup;
   private JRadioButton[] radioButtons;
   int index;
-  private Color savedCRCColor;
-  private Color savedCHColor;
   private final EventHandler handler;
   private final int stackCount;
   private final int imageSize;
 
   // Constructor
-  public StackedPicturePicker(final BufferedImageIcon[] pictures,
-      final boolean[] enabled, final Color choiceColor, final int newStackCount,
+  public StackedPicturePicker(final GameImage[] pictures,
+      final boolean[] enabled, final int newStackCount,
       final int placeholderSize) {
     this.imageSize = placeholderSize;
-    this.savedCHColor = choiceColor;
     this.stackCount = newStackCount;
     this.handler = new EventHandler();
     this.radioGroup = new ButtonGroup();
     this.pickerContainer = new Container();
     this.updatePicker(pictures, enabled);
     this.index = 0;
-    this.savedCRCColor = this.pickerContainer.getBackground();
   }
 
   // Methods
@@ -51,20 +47,8 @@ public final class StackedPicturePicker {
     return this.pickerContainer;
   }
 
-  public void changePickerColor(final Color c) {
-    this.pickerContainer.setBackground(c);
-    for (int x = 0; x < this.choiceArray.length; x++) {
-      this.choiceArray[x].setBackground(c);
-      this.radioButtons[x].setBackground(c);
-    }
-    // Update saved colors
-    this.savedCRCColor = c;
-    this.savedCHColor = c;
-  }
-
   public void disablePicker() {
     this.pickerContainer.setEnabled(false);
-    this.pickerContainer.setBackground(Color.gray);
     for (final JRadioButton radioButton : this.radioButtons) {
       radioButton.setEnabled(false);
     }
@@ -72,13 +56,12 @@ public final class StackedPicturePicker {
 
   public void enablePicker() {
     this.pickerContainer.setEnabled(true);
-    this.pickerContainer.setBackground(this.savedCRCColor);
     for (final JRadioButton radioButton : this.radioButtons) {
       radioButton.setEnabled(true);
     }
   }
 
-  public void updatePicker(final BufferedImageIcon[] newImages,
+  public void updatePicker(final GameImage[] newImages,
       final boolean[] enabled) {
     this.choices = newImages;
     this.pickerContainer.removeAll();
@@ -97,14 +80,14 @@ public final class StackedPicturePicker {
       for (int y = 0; y < this.stackCount; y++) {
         if (picCounter < this.choices.length) {
           this.choiceArray[picCounter] = new JLabel("", //$NON-NLS-1$
-              this.choices[picCounter], SwingConstants.LEFT);
+              new BufferedImageIcon(this.choices[picCounter]),
+              SwingConstants.LEFT);
           this.choiceArray[picCounter].setOpaque(true);
-          this.choiceArray[picCounter].setBackground(this.savedCHColor);
           this.pickerContainer.add(this.choiceArray[picCounter]);
         } else if (rowCounter == rows - 2) {
           // Add spacer
           final JLabel spacer = new JLabel("", //$NON-NLS-1$
-              new BufferedImageIcon(this.imageSize, this.savedCHColor),
+              new BufferedImageIcon(this.imageSize, this.imageSize),
               SwingConstants.LEFT);
           this.pickerContainer.add(spacer);
         }
@@ -117,7 +100,6 @@ public final class StackedPicturePicker {
           this.radioButtons[radioCounter]
               .setHorizontalAlignment(SwingConstants.CENTER);
           this.radioButtons[radioCounter].setOpaque(true);
-          this.radioButtons[radioCounter].setBackground(this.savedCHColor);
           this.radioButtons[radioCounter]
               .setActionCommand(Integer.valueOf(radioCounter).toString());
           this.radioGroup.add(this.radioButtons[radioCounter]);
@@ -127,7 +109,7 @@ public final class StackedPicturePicker {
         } else if (rowCounter == rows - 1) {
           // Add spacer
           final JLabel spacer = new JLabel("", //$NON-NLS-1$
-              new BufferedImageIcon(this.imageSize, this.savedCHColor),
+              new BufferedImageIcon(this.imageSize, this.imageSize),
               SwingConstants.LEFT);
           this.pickerContainer.add(spacer);
         }

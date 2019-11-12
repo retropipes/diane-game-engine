@@ -1,6 +1,5 @@
 package com.puttysoftware.diane.gui;
 
-import java.awt.Container;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowListener;
 
@@ -52,7 +51,7 @@ public final class MainWindow {
     this.frame.removeKeyListener(l);
   }
 
-  public void setContentPane(final Container contentPane) {
+  public void setContentPane(final MainContent contentPane) {
     this.frame.setContentPane(contentPane);
   }
 
