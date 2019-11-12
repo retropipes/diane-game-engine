@@ -3,11 +3,6 @@ package com.puttysoftware.diane.gui;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Graphics;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.net.URL;
-
-import javax.imageio.ImageIO;
 
 import com.puttysoftware.diane.internal.BufferedImageIcon;
 
@@ -37,20 +32,6 @@ public final class GameImage {
     for (int x = 0; x < gi.image.getWidth(); x++) {
       for (int y = 0; y < gi.image.getHeight(); y++) {
         this.image.setRGB(x, y, gi.image.getRGB(x, y));
-      }
-    }
-  }
-
-  /**
-   * Creates a GameImage based on a BufferedImage object.
-   *
-   * @param gi
-   */
-  private GameImage(final BufferedImage bi) {
-    this.image = new BufferedImageIcon(bi.getWidth(), bi.getHeight());
-    for (int x = 0; x < bi.getWidth(); x++) {
-      for (int y = 0; y < bi.getHeight(); y++) {
-        this.image.setRGB(x, y, bi.getRGB(x, y));
       }
     }
   }
@@ -111,9 +92,5 @@ public final class GameImage {
    */
   public void setRGB(final int x, final int y, final int rgb) {
     this.image.setRGB(x, y, rgb);
-  }
-
-  public static GameImage read(final URL input) throws IOException {
-    return new GameImage(ImageIO.read(input));
   }
 }

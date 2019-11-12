@@ -1,9 +1,9 @@
 package com.puttysoftware.diane.gui;
 
-import javax.swing.JPanel;
+import java.awt.Container;
 
 @SuppressWarnings("serial")
-public class MainContent extends JPanel {
+public class MainContent extends Container {
   public MainContent() {
     super();
   }
