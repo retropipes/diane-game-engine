@@ -1,75 +1,75 @@
 package com.puttysoftware.diane.objectmodel;
 
-import com.puttysoftware.diane.gui.GameImage;
+import com.puttysoftware.images.BufferedImageIcon;
 
 public interface ObjectModel {
-  int getUniqueID();
+    int getUniqueID();
 
-  GameImage getImage();
+    BufferedImageIcon getImage();
 
-  GameImage getGameImage();
+    BufferedImageIcon getGameImage();
 
-  GameImage getEditorImage();
+    BufferedImageIcon getEditorImage();
 
-  GameImage getBattleImage();
+    BufferedImageIcon getBattleImage();
 
-  boolean isSolid();
+    boolean isSolid();
 
-  boolean isDirectionallySolid(int dirX, int dirY);
+    boolean isDirectionallySolid(int dirX, int dirY);
 
-  boolean isInternallyDirectionallySolid(int dirX, int dirY);
+    boolean isInternallyDirectionallySolid(int dirX, int dirY);
 
-  boolean isPushable();
+    boolean isPushable();
 
-  boolean isDirectionallyPushable(int dirX, int dirY);
+    boolean isDirectionallyPushable(int dirX, int dirY);
 
-  boolean isPullable();
+    boolean isPullable();
 
-  boolean isDirectionallyPullable(int dirX, int dirY);
+    boolean isDirectionallyPullable(int dirX, int dirY);
 
-  boolean isPullableInto();
+    boolean isPullableInto();
 
-  boolean isPushableInto();
+    boolean isPushableInto();
 
-  boolean isDirectionallyPushableInto(int dirX, int dirY);
+    boolean isDirectionallyPushableInto(int dirX, int dirY);
 
-  boolean isDirectionallyPullableInto(int dirX, int dirY);
+    boolean isDirectionallyPullableInto(int dirX, int dirY);
 
-  boolean isPullableOut();
+    boolean isPullableOut();
 
-  boolean isPushableOut();
+    boolean isPushableOut();
 
-  boolean isDirectionallyPushableOut(int dirX, int dirY);
+    boolean isDirectionallyPushableOut(int dirX, int dirY);
 
-  boolean isDirectionallyPullableOut(int dirX, int dirY);
+    boolean isDirectionallyPullableOut(int dirX, int dirY);
 
-  boolean hasFriction();
+    boolean hasFriction();
 
-  boolean isUsable();
+    boolean isUsable();
 
-  int getUses();
+    int getUses();
 
-  void use();
+    void use();
 
-  boolean isDestroyable();
+    boolean isDestroyable();
 
-  boolean isChainReacting();
+    boolean isChainReacting();
 
-  boolean isChainReactingHorizontally();
+    boolean isChainReactingHorizontally();
 
-  boolean isChainReactingVertically();
+    boolean isChainReactingVertically();
 
-  boolean isCarryable();
+    boolean isCarryable();
 
-  boolean isSightBlocking();
+    boolean isSightBlocking();
 
-  boolean isDirectionallySightBlocking(int inDirX, int inDirY);
+    boolean isDirectionallySightBlocking(int inDirX, int inDirY);
 
-  boolean isInternallyDirectionallySightBlocking(int inDirX, int inDirY);
+    boolean isInternallyDirectionallySightBlocking(int inDirX, int inDirY);
 
-  int getTimerTicks();
+    int getTimerTicks();
 
-  void tickTimer();
+    void tickTimer();
 
-  void resetTimer();
+    void resetTimer();
 }

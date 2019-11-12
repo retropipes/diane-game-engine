@@ -1,4 +1,4 @@
-package com.puttysoftware.edges;
+package com.puttysoftware.images.edges;
 
 import java.awt.Color;
 

@@ -1,8 +1,8 @@
-package com.puttysoftware.edges;
+package com.puttysoftware.images.edges;
 
 import java.awt.Color;
 
-import com.puttysoftware.diane.internal.BufferedImageIcon;
+import com.puttysoftware.images.BufferedImageIcon;
 
 public class EdgeGenerator {
     // Constants

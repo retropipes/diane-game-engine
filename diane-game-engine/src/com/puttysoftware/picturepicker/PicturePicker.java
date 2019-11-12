@@ -15,7 +15,7 @@ import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
 
-import com.puttysoftware.diane.internal.BufferedImageIcon;
+import com.puttysoftware.images.BufferedImageIcon;
 
 public final class PicturePicker {
     /**

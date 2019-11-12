@@ -18,8 +18,8 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
 
 import com.puttysoftware.commondialogs.CommonDialogs;
-import com.puttysoftware.diane.internal.BufferedImageIcon;
 import com.puttysoftware.fileutils.FilenameChecker;
+import com.puttysoftware.images.BufferedImageIcon;
 
 public final class GraphicalHelpViewer {
     // Fields
