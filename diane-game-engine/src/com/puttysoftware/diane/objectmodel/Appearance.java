@@ -5,42 +5,43 @@
  */
 package com.puttysoftware.diane.objectmodel;
 
-import com.puttysoftware.diane.loaders.ColorShader;
 import com.puttysoftware.diane.assets.ImageIndex;
-import com.puttysoftware.images.BufferedImageIcon;
+import com.puttysoftware.diane.gui.GameImage;
+import com.puttysoftware.diane.loaders.ColorShader;
 
 public abstract class Appearance {
-    private final String cacheName;
-    private final ImageIndex whichImage;
-    private final ColorShader shading;
+  private final String cacheName;
+  private final ImageIndex whichImage;
+  private final ColorShader shading;
 
-    public Appearance(final String name, final ImageIndex imageIndex) {
-        this.cacheName = name;
-        this.whichImage = imageIndex;
-        this.shading = null;
-    }
+  public Appearance(final String name, final ImageIndex imageIndex) {
+    this.cacheName = name;
+    this.whichImage = imageIndex;
+    this.shading = null;
+  }
 
-    public Appearance(final String name, final ImageIndex imageIndex, final ColorShader shader) {
-        this.cacheName = name;
-        this.whichImage = imageIndex;
-        this.shading = shader;
-    }
+  public Appearance(final String name, final ImageIndex imageIndex,
+      final ColorShader shader) {
+    this.cacheName = name;
+    this.whichImage = imageIndex;
+    this.shading = shader;
+  }
 
-    public final String getCacheName() {
-        return this.cacheName;
-    }
+  public final String getCacheName() {
+    return this.cacheName;
+  }
 
-    protected final ImageIndex getWhichImage() {
-        return this.whichImage;
-    }
+  protected final ImageIndex getWhichImage() {
+    return this.whichImage;
+  }
 
-    public final boolean hasShading() {
-        return this.shading != null;
-    }
+  public final boolean hasShading() {
+    return this.shading != null;
+  }
 
-    public final ColorShader getShading() {
-        return this.shading;
-    }
+  public final ColorShader getShading() {
+    return this.shading;
+  }
 
-    public abstract BufferedImageIcon getImage();
+  public abstract GameImage getImage();
 }

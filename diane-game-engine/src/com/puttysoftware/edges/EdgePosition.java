@@ -1,4 +1,4 @@
-package com.puttysoftware.images.edges;
+package com.puttysoftware.edges;
 
 public class EdgePosition {
     // Fields

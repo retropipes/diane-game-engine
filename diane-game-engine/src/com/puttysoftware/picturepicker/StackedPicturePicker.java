@@ -12,7 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JRadioButton;
 import javax.swing.SwingConstants;
 
-import com.puttysoftware.images.BufferedImageIcon;
+import com.puttysoftware.diane.internal.BufferedImageIcon;
 
 public final class StackedPicturePicker {
     /**

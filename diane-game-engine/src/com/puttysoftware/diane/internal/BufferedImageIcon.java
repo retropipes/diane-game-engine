@@ -1,0 +1,115 @@
+package com.puttysoftware.diane.internal;
+
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+
+import javax.swing.Icon;
+
+import com.puttysoftware.diane.gui.GameImage;
+
+public class BufferedImageIcon extends BufferedImage implements Icon {
+  // Fields
+  private static final int DEFAULT_TYPE = BufferedImage.TYPE_INT_ARGB;
+
+  // Constructors
+  /**
+   * Creates a BufferedImageIcon of a given size.
+   *
+   * @param width
+   * @param height
+   */
+  public BufferedImageIcon(final int width, final int height) {
+    super(width, height, BufferedImageIcon.DEFAULT_TYPE);
+  }
+
+  /**
+   * Creates a BufferedImageIcon based on a BufferedImage object.
+   *
+   * @param bi
+   */
+  public BufferedImageIcon(final BufferedImage bi) {
+    super(bi.getWidth(), bi.getHeight(), BufferedImageIcon.DEFAULT_TYPE);
+    for (int x = 0; x < bi.getWidth(); x++) {
+      for (int y = 0; y < bi.getHeight(); y++) {
+        this.setRGB(x, y, bi.getRGB(x, y));
+      }
+    }
+  }
+
+  /**
+   * Creates a BufferedImageIcon based on a GameImage object.
+   *
+   * @param gi
+   */
+  public BufferedImageIcon(final GameImage gi) {
+    super(gi.getWidth(), gi.getHeight(), BufferedImageIcon.DEFAULT_TYPE);
+    for (int x = 0; x < gi.getWidth(); x++) {
+      for (int y = 0; y < gi.getHeight(); y++) {
+        this.setRGB(x, y, gi.getRGB(x, y));
+      }
+    }
+  }
+
+  /**
+   * Creates a square BufferedImageIcon of a given size and color.
+   *
+   * @param size
+   * @param color
+   */
+  public BufferedImageIcon(final int size, final Color color) {
+    super(size, size, BufferedImageIcon.DEFAULT_TYPE);
+    for (int x = 0; x < size; x++) {
+      for (int y = 0; y < size; y++) {
+        this.setRGB(x, y, color.getRGB());
+      }
+    }
+  }
+
+  /**
+   * Creates a GameImage based on this BufferedImageIcon object.
+   *
+   * @param gi
+   */
+  public GameImage createGameImage() {
+    GameImage gi = new GameImage(this.getWidth(), this.getHeight());
+    for (int x = 0; x < this.getWidth(); x++) {
+      for (int y = 0; y < this.getHeight(); y++) {
+        gi.setRGB(x, y, this.getRGB(x, y));
+      }
+    }
+    return gi;
+  }
+
+  /**
+   * Paints the BufferedImageIcon, using the given Graphics, on the given
+   * Component at the given x, y location.
+   *
+   * @param c
+   * @param g
+   * @param x
+   * @param y
+   */
+  @Override
+  public void paintIcon(final Component c, final Graphics g, final int x,
+      final int y) {
+    g.drawImage(this, x, y, c);
+  }
+
+  /**
+   * @return the width of this BufferedImageIcon, in pixels
+   */
+  @Override
+  public int getIconWidth() {
+    return this.getWidth();
+  }
+
+  /**
+   * @return the height of this BufferedImageIcon, in pixels
+   */
+  @Override
+  public int getIconHeight() {
+    return this.getHeight();
+  }
+}
