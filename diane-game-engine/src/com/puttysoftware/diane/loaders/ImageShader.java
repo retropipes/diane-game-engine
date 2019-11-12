@@ -14,8 +14,8 @@ public class ImageShader {
   static GameImage shadeUncached(final String name, final GameImage input,
       final ColorShader shade) {
     if (input != null) {
-      final int width = input.getWidth();
-      final int height = input.getHeight();
+      int width = input.getWidth();
+      int height = input.getHeight();
       final GameImage result = new GameImage(input);
       for (int x = 0; x < width; x++) {
         for (int y = 0; y < height; y++) {
@@ -45,15 +45,15 @@ public class ImageShader {
       if (!ImageCache.cacheCreated) {
         ImageCache.createCache();
       }
-      for (final ImageCacheEntry entry : ImageCache.cache) {
+      for (ImageCacheEntry entry : ImageCache.cache) {
         if (name.equals(entry.name())) {
           // Found
           return entry.image();
         }
       }
       // Not found: Add to cache
-      final GameImage newImage = ImageShader.shadeUncached(name, input, shade);
-      final ImageCacheEntry newEntry = new ImageCacheEntry(newImage, name);
+      GameImage newImage = ImageShader.shadeUncached(name, input, shade);
+      ImageCacheEntry newEntry = new ImageCacheEntry(newImage, name);
       ImageCache.cache.add(newEntry);
       return newImage;
     }
@@ -93,14 +93,14 @@ public class ImageShader {
     }
 
     @Override
-    public boolean equals(final Object obj) {
+    public boolean equals(Object obj) {
       if (this == obj) {
         return true;
       }
       if (!(obj instanceof ImageCacheEntry)) {
         return false;
       }
-      final ImageCacheEntry other = (ImageCacheEntry) obj;
+      ImageCacheEntry other = (ImageCacheEntry) obj;
       return Objects.equals(this.name, other.name);
     }
   }

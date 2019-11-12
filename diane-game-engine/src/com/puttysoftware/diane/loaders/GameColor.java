@@ -6,15 +6,15 @@ import java.awt.color.ColorSpace;
 public class GameColor {
   private final Color color;
 
-  public GameColor(final int inRgba) {
+  public GameColor(int inRgba) {
     this.color = new Color(inRgba, true);
   }
 
-  public GameColor(final int inR, final int inG, final int inB, final int inA) {
+  public GameColor(int inR, int inG, int inB, int inA) {
     this.color = new Color(inR, inG, inB, inA);
   }
 
-  GameColor(final ColorSpace space, final float[] entries, final float data) {
+  GameColor(final ColorSpace space, float[] entries, float data) {
     this.color = new Color(space, entries, data);
   }
 
@@ -38,7 +38,7 @@ public class GameColor {
     return this.color.getRGB();
   }
 
-  float[] getColorComponents(final ColorSpace space) {
+  float[] getColorComponents(ColorSpace space) {
     return this.color.getColorComponents(space, null);
   }
 }

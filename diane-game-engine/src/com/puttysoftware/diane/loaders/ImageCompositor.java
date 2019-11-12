@@ -15,10 +15,10 @@ public class ImageCompositor {
   private static GameImage compositeTwo(final GameImage input1,
       final GameImage input2) {
     if (input1 != null && input2 != null) {
-      final int width = input1.getWidth();
-      final int height = input1.getHeight();
-      final int width2 = input2.getWidth();
-      final int height2 = input2.getHeight();
+      int width = input1.getWidth();
+      int height = input1.getHeight();
+      int width2 = input2.getWidth();
+      int height2 = input2.getHeight();
       if (width == width2 && height == height2) {
         final GameImage result = new GameImage(input2);
         for (int x = 0; x < width; x++) {
@@ -46,10 +46,11 @@ public class ImageCompositor {
       final GameImage... inputs) {
     if (inputs != null) {
       if (inputs.length >= 2) {
-        GameImage result = ImageCompositor.compositeTwo(inputs[0], inputs[1]);
-        final int beyond2 = inputs.length;
+        GameImage result = ImageCompositor.compositeTwo(inputs[0],
+            inputs[1]);
+        int beyond2 = inputs.length;
         for (int i = 2; i < beyond2; i++) {
-          final GameImage tempResult = ImageCompositor.compositeTwo(result,
+          GameImage tempResult = ImageCompositor.compositeTwo(result,
               inputs[i]);
           if (tempResult != null) {
             result = tempResult;
@@ -79,16 +80,16 @@ public class ImageCompositor {
       if (!ImageCache.cacheCreated) {
         ImageCache.createCache();
       }
-      for (final ImageCacheEntry entry : ImageCache.cache) {
+      for (ImageCacheEntry entry : ImageCache.cache) {
         if (name.equals(entry.name())) {
           // Found
           return entry.image();
         }
       }
       // Not found: Add to cache
-      final GameImage newImage = ImageCompositor.compositeUncached(name,
+      GameImage newImage = ImageCompositor.compositeUncached(name,
           inputs);
-      final ImageCacheEntry newEntry = new ImageCacheEntry(newImage, name);
+      ImageCacheEntry newEntry = new ImageCacheEntry(newImage, name);
       ImageCache.cache.add(newEntry);
       return newImage;
     }
@@ -108,7 +109,8 @@ public class ImageCompositor {
     private final String name;
 
     // Constructors
-    public ImageCacheEntry(final GameImage newImage, final String newName) {
+    public ImageCacheEntry(final GameImage newImage,
+        final String newName) {
       this.image = newImage;
       this.name = newName;
     }
@@ -128,14 +130,14 @@ public class ImageCompositor {
     }
 
     @Override
-    public boolean equals(final Object obj) {
+    public boolean equals(Object obj) {
       if (this == obj) {
         return true;
       }
       if (!(obj instanceof ImageCacheEntry)) {
         return false;
       }
-      final ImageCacheEntry other = (ImageCacheEntry) obj;
+      ImageCacheEntry other = (ImageCacheEntry) obj;
       return Objects.equals(this.name, other.name);
     }
   }

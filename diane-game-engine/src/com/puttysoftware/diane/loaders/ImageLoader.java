@@ -46,16 +46,15 @@ public class ImageLoader {
       if (!ImageCache.cacheCreated) {
         ImageCache.createCache();
       }
-      for (final ImageCacheEntry entry : ImageCache.cache) {
+      for (ImageCacheEntry entry : ImageCache.cache) {
         if (name.equals(entry.name())) {
           // Found
           return entry.image();
         }
       }
       // Not found: Add to cache
-      final GameImage newImage = ImageLoader.loadUncached(name, url,
-          errorHandler);
-      final ImageCacheEntry newEntry = new ImageCacheEntry(newImage, name);
+      GameImage newImage = ImageLoader.loadUncached(name, url, errorHandler);
+      ImageCacheEntry newEntry = new ImageCacheEntry(newImage, name);
       ImageCache.cache.add(newEntry);
       return newImage;
     }
@@ -95,14 +94,14 @@ public class ImageLoader {
     }
 
     @Override
-    public boolean equals(final Object obj) {
+    public boolean equals(Object obj) {
       if (this == obj) {
         return true;
       }
       if (!(obj instanceof ImageCacheEntry)) {
         return false;
       }
-      final ImageCacheEntry other = (ImageCacheEntry) obj;
+      ImageCacheEntry other = (ImageCacheEntry) obj;
       return Objects.equals(this.name, other.name);
     }
   }

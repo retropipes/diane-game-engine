@@ -6,94 +6,94 @@ import java.util.Objects;
 import java.util.Optional;
 
 final class CustomCounters {
-  // Fields
-  private final ArrayList<Integer> counters;
+    // Fields
+    private ArrayList<Integer> counters;
 
-  // Constructor
-  public CustomCounters() {
-    this.counters = new ArrayList<>();
-  }
-
-  // Methods
-  public int length() {
-    return this.counters.size();
-  }
-
-  public boolean add(final int count) {
-    if (this.counters.size() <= count) {
-      return false;
+    // Constructor
+    public CustomCounters() {
+        this.counters = new ArrayList<>();
     }
-    this.counters.addAll(Collections.nCopies(count, 0));
-    return true;
-  }
 
-  public void addOne() {
-    if (this.counters.size() == 0) {
-      this.counters.add(0);
+    // Methods
+    public int length() {
+        return this.counters.size();
     }
-  }
 
-  public void append(final int count) {
-    this.counters.addAll(Collections.nCopies(count, 0));
-  }
-
-  public void appendOne() {
-    this.counters.add(0);
-  }
-
-  public Optional<Integer> get(final int index) {
-    if (this.counters.size() <= index) {
-      return Optional.empty();
+    public boolean add(final int count) {
+        if (this.counters.size() <= count) {
+            return false;
+        }
+        this.counters.addAll(Collections.nCopies(count, 0));
+        return true;
     }
-    return Optional.of(this.counters.get(index));
-  }
 
-  public boolean decrement(final int index) {
-    if (this.counters.size() <= index) {
-      return false;
+    public void addOne() {
+        if (this.counters.size() == 0) {
+            this.counters.add(0);
+        }
     }
-    this.counters.set(index, this.counters.get(index) - 1);
-    return true;
-  }
 
-  public boolean increment(final int index) {
-    if (this.counters.size() <= index) {
-      return false;
+    public void append(final int count) {
+        this.counters.addAll(Collections.nCopies(count, 0));
     }
-    this.counters.set(index, this.counters.get(index) + 1);
-    return true;
-  }
 
-  public boolean offset(final int index, final int value) {
-    if (this.counters.size() <= index) {
-      return false;
+    public void appendOne() {
+        this.counters.add(0);
     }
-    this.counters.set(index, this.counters.get(index) + value);
-    return true;
-  }
 
-  public boolean set(final int index, final int value) {
-    if (this.counters.size() <= index) {
-      return false;
+    public Optional<Integer> get(final int index) {
+        if (this.counters.size() <= index) {
+            return Optional.empty();
+        }
+        return Optional.of(this.counters.get(index));
     }
-    this.counters.set(index, value);
-    return true;
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(this.counters);
-  }
+    public boolean decrement(final int index) {
+        if (this.counters.size() <= index) {
+            return false;
+        }
+        this.counters.set(index, this.counters.get(index) - 1);
+        return true;
+    }
 
-  @Override
-  public boolean equals(final Object obj) {
-    if (this == obj) {
-      return true;
+    public boolean increment(final int index) {
+        if (this.counters.size() <= index) {
+            return false;
+        }
+        this.counters.set(index, this.counters.get(index) + 1);
+        return true;
     }
-    if (!(obj instanceof CustomCounters)) {
-      return false;
+
+    public boolean offset(final int index, final int value) {
+        if (this.counters.size() <= index) {
+            return false;
+        }
+        this.counters.set(index, this.counters.get(index) + value);
+        return true;
     }
-    final CustomCounters other = (CustomCounters) obj;
-    return Objects.equals(this.counters, other.counters);
-  }
+
+    public boolean set(final int index, final int value) {
+        if (this.counters.size() <= index) {
+            return false;
+        }
+        this.counters.set(index, value);
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.counters);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof CustomCounters)) {
+            return false;
+        }
+        CustomCounters other = (CustomCounters) obj;
+        return Objects.equals(this.counters, other.counters);
+    }
 }
