@@ -9,7 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-class ErrorWriter {
+class NonFatalLogger {
   // Fields
   private static final String MAC_PREFIX = "HOME"; //$NON-NLS-1$
   private static final String WIN_PREFIX = "USERPROFILE"; //$NON-NLS-1$
@@ -17,23 +17,25 @@ class ErrorWriter {
   private static final String MAC_DIR = "/Library/Logs/CrashReporter/"; //$NON-NLS-1$
   private static final String WIN_DIR = "\\Crash\\"; //$NON-NLS-1$
   private static final String UNIX_DIR = "/Crash/"; //$NON-NLS-1$
-  private static final String EXT = ".error.log"; //$NON-NLS-1$
+  private static final String MAC_EXT = ".nonfatal"; //$NON-NLS-1$
+  private static final String WIN_EXT = ".nonfatal"; //$NON-NLS-1$
+  private static final String UNIX_EXT = ".nonfatal"; //$NON-NLS-1$
   private final Throwable t;
   private final Calendar c;
   private final String p;
 
   // Constructors
-  ErrorWriter(final Throwable problem, final String programName) {
+  NonFatalLogger(final Throwable problem, final String programName) {
     this.t = problem;
     this.c = Calendar.getInstance();
     this.p = programName;
   }
 
   // Methods
-  void writeErrorInfo() {
+  void writeLogInfo() {
     try {
       // Make sure the needed directories exist first
-      final File df = this.getErrorFile();
+      final File df = this.getLogFile();
       final File parent = new File(df.getParent());
       if (!parent.exists()) {
         final boolean res = parent.mkdirs();
@@ -53,36 +55,46 @@ class ErrorWriter {
     }
   }
 
-  private static String getErrorDirPrefix() {
+  private static String getLogDirPrefix() {
     final String osName = System.getProperty("os.name"); //$NON-NLS-1$
     if (osName.indexOf("Mac OS X") != -1) { //$NON-NLS-1$
       // Mac OS X
-      return System.getenv(ErrorWriter.MAC_PREFIX);
+      return System.getenv(NonFatalLogger.MAC_PREFIX);
     } else if (osName.indexOf("Windows") != -1) { //$NON-NLS-1$
       // Windows
-      return System.getenv(ErrorWriter.WIN_PREFIX);
+      return System.getenv(NonFatalLogger.WIN_PREFIX);
     } else {
       // Other - assume UNIX-like
-      return System.getenv(ErrorWriter.UNIX_PREFIX);
+      return System.getenv(NonFatalLogger.UNIX_PREFIX);
     }
   }
 
-  private static String getErrorDirectory() {
+  private static String getLogDirectory() {
     final String osName = System.getProperty("os.name"); //$NON-NLS-1$
     if (osName.indexOf("Mac OS X") != -1) { //$NON-NLS-1$
       // Mac OS X
-      return ErrorWriter.MAC_DIR;
+      return NonFatalLogger.MAC_DIR;
     } else if (osName.indexOf("Windows") != -1) { //$NON-NLS-1$
       // Windows
-      return ErrorWriter.WIN_DIR;
+      return NonFatalLogger.WIN_DIR;
     } else {
       // Other - assume UNIX-like
-      return ErrorWriter.UNIX_DIR;
+      return NonFatalLogger.UNIX_DIR;
     }
   }
 
-  private static String getErrorFileExtension() {
-    return ErrorWriter.EXT;
+  private static String getLogFileExtension() {
+    final String osName = System.getProperty("os.name"); //$NON-NLS-1$
+    if (osName.indexOf("Mac OS X") != -1) { //$NON-NLS-1$
+      // Mac OS X
+      return NonFatalLogger.MAC_EXT;
+    } else if (osName.indexOf("Windows") != -1) { //$NON-NLS-1$
+      // Windows
+      return NonFatalLogger.WIN_EXT;
+    } else {
+      // Other - assume UNIX-like
+      return NonFatalLogger.UNIX_EXT;
+    }
   }
 
   private String getStampSuffix() {
@@ -92,17 +104,17 @@ class ErrorWriter {
     return sdf.format(time);
   }
 
-  private String getErrorFileName() {
+  private String getLogFileName() {
     return this.p;
   }
 
-  private File getErrorFile() {
+  private File getLogFile() {
     final StringBuilder b = new StringBuilder();
-    b.append(ErrorWriter.getErrorDirPrefix());
-    b.append(ErrorWriter.getErrorDirectory());
-    b.append(this.getErrorFileName());
+    b.append(NonFatalLogger.getLogDirPrefix());
+    b.append(NonFatalLogger.getLogDirectory());
+    b.append(this.getLogFileName());
     b.append(this.getStampSuffix());
-    b.append(ErrorWriter.getErrorFileExtension());
+    b.append(NonFatalLogger.getLogFileExtension());
     return new File(b.toString());
   }
 }
