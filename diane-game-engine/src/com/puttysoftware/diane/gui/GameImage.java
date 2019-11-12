@@ -8,7 +8,7 @@ import com.puttysoftware.diane.internal.BufferedImageIcon;
 
 public final class GameImage {
   // Fields
-  private BufferedImageIcon image;
+  private final BufferedImageIcon image;
 
   // Constructors
   /**

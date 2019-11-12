@@ -58,14 +58,14 @@ public abstract class GameObject implements ObjectModel {
   }
 
   @Override
-  public final boolean equals(Object obj) {
+  public final boolean equals(final Object obj) {
     if (this == obj) {
       return true;
     }
     if (!(obj instanceof GameObject)) {
       return false;
     }
-    GameObject other = (GameObject) obj;
+    final GameObject other = (GameObject) obj;
     return Objects.equals(this.mp, other.mp)
         && Objects.equals(this.oc, other.oc)
         && Objects.equals(this.op, other.op)

@@ -29,15 +29,17 @@ public class ColorShader {
     if (source.getAlpha() != 255) {
       return source;
     }
-    ColorSpace linear = ColorSpace.getInstance(ColorSpace.CS_LINEAR_RGB);
-    float[] inputColor = source.getColorComponents(linear);
-    float[] linearShade = this.shadeColor.getColorComponents(linear);
-    float[] outputColor = ColorShader.doColorMath(inputColor, linearShade);
+    final ColorSpace linear = ColorSpace.getInstance(ColorSpace.CS_LINEAR_RGB);
+    final float[] inputColor = source.getColorComponents(linear);
+    final float[] linearShade = this.shadeColor.getColorComponents(linear);
+    final float[] outputColor = ColorShader.doColorMath(inputColor,
+        linearShade);
     return ColorShader.convertFromLinearRGB(outputColor);
   }
 
-  private static float[] doColorMath(float[] inputColor, float[] linearShade) {
-    float[] outputColor = new float[3];
+  private static float[] doColorMath(final float[] inputColor,
+      final float[] linearShade) {
+    final float[] outputColor = new float[3];
     for (int c = 0; c < 3; c++) {
       outputColor[c] = inputColor[c] * (1 - linearShade[c]);
     }
@@ -45,10 +47,11 @@ public class ColorShader {
   }
 
   private static GameColor convertFromLinearRGB(final float[] colorvalue) {
-    ColorSpace sourceSpace = ColorSpace.getInstance(ColorSpace.CS_LINEAR_RGB);
-    float[] colorvalueCIEXYZ = sourceSpace.toCIEXYZ(colorvalue);
-    ColorSpace targetSpace = ColorSpace.getInstance(ColorSpace.CS_sRGB);
-    float[] colorvalueTarget = targetSpace.fromCIEXYZ(colorvalueCIEXYZ);
+    final ColorSpace sourceSpace = ColorSpace
+        .getInstance(ColorSpace.CS_LINEAR_RGB);
+    final float[] colorvalueCIEXYZ = sourceSpace.toCIEXYZ(colorvalue);
+    final ColorSpace targetSpace = ColorSpace.getInstance(ColorSpace.CS_sRGB);
+    final float[] colorvalueTarget = targetSpace.fromCIEXYZ(colorvalueCIEXYZ);
     return new GameColor(targetSpace, colorvalueTarget, (float) 1.0);
   }
 
@@ -58,14 +61,14 @@ public class ColorShader {
   }
 
   @Override
-  public boolean equals(Object obj) {
+  public boolean equals(final Object obj) {
     if (this == obj) {
       return true;
     }
     if (!(obj instanceof ColorShader)) {
       return false;
     }
-    ColorShader other = (ColorShader) obj;
+    final ColorShader other = (ColorShader) obj;
     return Objects.equals(this.shadeColor, other.shadeColor)
         && Objects.equals(this.shadeName, other.shadeName);
   }

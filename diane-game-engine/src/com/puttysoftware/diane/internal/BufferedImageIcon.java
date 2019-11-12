@@ -73,7 +73,7 @@ public class BufferedImageIcon extends BufferedImage implements Icon {
    * @param gi
    */
   public GameImage createGameImage() {
-    GameImage gi = new GameImage(this.getWidth(), this.getHeight());
+    final GameImage gi = new GameImage(this.getWidth(), this.getHeight());
     for (int x = 0; x < this.getWidth(); x++) {
       for (int y = 0; y < this.getHeight(); y++) {
         gi.setRGB(x, y, this.getRGB(x, y));

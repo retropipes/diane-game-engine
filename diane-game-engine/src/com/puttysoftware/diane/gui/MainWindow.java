@@ -10,7 +10,7 @@ import javax.swing.WindowConstants;
 
 public final class MainWindow {
   private static MainWindow SINGLETON;
-  private JFrame frame;
+  private final JFrame frame;
 
   private MainWindow() {
     super();
