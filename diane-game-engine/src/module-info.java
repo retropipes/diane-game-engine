@@ -1,5 +1,5 @@
 module com.puttysoftware.diane {
-  requires transitive java.desktop;
+  requires java.desktop;
 
   exports com.puttysoftware.commondialogs;
   exports com.puttysoftware.diane.assets;
