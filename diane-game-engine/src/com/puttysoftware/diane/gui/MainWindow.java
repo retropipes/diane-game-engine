@@ -9,22 +9,33 @@ import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 
 public final class MainWindow {
-  private static MainWindow SINGLETON;
+  private static MainWindow window;
   private JFrame frame;
+  private GameCanvas content;
 
   private MainWindow() {
     super();
     this.frame = new JFrame();
     this.frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
     this.frame.setResizable(false);
+    this.content = new GameCanvas();
+    this.frame.setContentPane(this.content.getCanvas());
     this.frame.setVisible(true);
   }
 
   public static MainWindow getOutputFrame() {
-    if (MainWindow.SINGLETON == null) {
-      MainWindow.SINGLETON = new MainWindow();
+    if (MainWindow.window == null) {
+      MainWindow.window = new MainWindow();
     }
-    return MainWindow.SINGLETON;
+    return MainWindow.window;
+  }
+
+  public void attachCanvas() {
+    this.frame.setContentPane(this.content.getCanvas());
+  }
+
+  public void attachCustomCanvas(final GameCanvas customCanvas) {
+    this.frame.setContentPane(customCanvas.getCanvas());
   }
 
   public void setTitle(final String title) {
