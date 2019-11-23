@@ -1,6 +1,6 @@
 package com.puttysoftware.page;
 
-import com.puttysoftware.commondialogs.CommonDialogs;
+import com.puttysoftware.diane.gui.CommonDialogs;
 
 public final class PageEditor {
     // Fields

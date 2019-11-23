@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-import com.puttysoftware.commondialogs.CommonDialogs;
+import com.puttysoftware.diane.gui.CommonDialogs;
 
 public class BrowserLauncher {
     private static final String errMsg = "Error attempting to launch web browser!"; //$NON-NLS-1$

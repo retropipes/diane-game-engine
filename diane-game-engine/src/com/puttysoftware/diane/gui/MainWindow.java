@@ -25,6 +25,10 @@ public final class MainWindow {
     this.frame.setVisible(true);
   }
 
+  static JFrame owner() {
+    return MainWindow.getOutputFrame().frame;
+  }
+
   public static MainWindow getOutputFrame() {
     if (MainWindow.window == null) {
       MainWindow.window = new MainWindow();

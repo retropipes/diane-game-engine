@@ -5,7 +5,7 @@
  */
 package com.puttysoftware.scoremanager;
 
-import com.puttysoftware.commondialogs.CommonDialogs;
+import com.puttysoftware.diane.gui.CommonDialogs;
 
 public class ScoreManager {
     // Fields and Constants
