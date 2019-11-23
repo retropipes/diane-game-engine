@@ -1,25 +1,27 @@
 package com.puttysoftware.diane.gui;
 
-import java.awt.Container;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
 public final class MainWindow {
   private static MainWindow window;
   private JFrame frame;
-  private GameCanvas content;
+  private JPanel content;
+  private JPanel savedContent;
 
   private MainWindow() {
     super();
     this.frame = new JFrame();
     this.frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
     this.frame.setResizable(false);
-    this.content = new GameCanvas();
-    this.frame.setContentPane(this.content.getCanvas());
+    this.content = new JPanel();
+    this.savedContent = this.content;
+    this.frame.setContentPane(this.content);
     this.frame.setVisible(true);
   }
 
@@ -30,12 +32,20 @@ public final class MainWindow {
     return MainWindow.window;
   }
 
-  public void attachCanvas() {
-    this.frame.setContentPane(this.content.getCanvas());
+  public void attachContent(final JPanel customContent) {
+    this.content = customContent;
+    this.frame.setContentPane(this.content);
   }
 
-  public void attachCustomCanvas(final GameCanvas customCanvas) {
-    this.frame.setContentPane(customCanvas.getCanvas());
+  public void attachAndSave(final JPanel customContent) {
+    this.savedContent = this.content;
+    this.content = customContent;
+    this.frame.setContentPane(this.content);
+  }
+
+  public void restoreSaved() {
+    this.content = this.savedContent;
+    this.frame.setContentPane(this.content);
   }
 
   public void setTitle(final String title) {
@@ -60,10 +70,6 @@ public final class MainWindow {
 
   public void removeKeyListener(final KeyListener l) {
     this.frame.removeKeyListener(l);
-  }
-
-  public void setContentPane(final Container contentPane) {
-    this.frame.setContentPane(contentPane);
   }
 
   public void setDefaultButton(final JButton defaultButton) {
