@@ -2,8 +2,6 @@ package com.puttysoftware.password;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
@@ -28,7 +26,7 @@ public class PasswordProtector {
   private XDataReader passwordRead;
   private int mode;
   private boolean success = false;
-  private boolean waitingForInput = false;
+  private final boolean waitingForInput = false;
   protected static final int MODE_SET = 1;
   protected static final int MODE_GET = 2;
   protected static final int MODE_GET_RAW = 3;
@@ -39,7 +37,7 @@ public class PasswordProtector {
   }
 
   // Methods
-  public void setPassword(XDataWriter passwordFile) {
+  public void setPassword(final XDataWriter passwordFile) {
     this.passwordDialog.setTitle("Set Password"); //$NON-NLS-1$
     this.passwordLabel.setText(
         "Type the new password below (it will be hidden as you type):"); //$NON-NLS-1$
@@ -50,7 +48,7 @@ public class PasswordProtector {
     this.passwordDialog.setVisible(true);
   }
 
-  public void promptForPassword(XDataReader passwordFile) {
+  public void promptForPassword(final XDataReader passwordFile) {
     this.passwordDialog.setTitle("Enter Password"); //$NON-NLS-1$
     this.passwordLabel
         .setText("Type the password below (it will be hidden as you type):"); //$NON-NLS-1$
@@ -99,11 +97,11 @@ public class PasswordProtector {
   }
 
   protected void savePassword() {
-    String hashedPW = this.hashPassword();
+    final String hashedPW = this.hashPassword();
     try {
       this.passwordWrite.writeString(hashedPW);
       this.success = true;
-    } catch (IOException ioe) {
+    } catch (final IOException ioe) {
       this.success = false;
     }
   }
@@ -113,11 +111,11 @@ public class PasswordProtector {
   }
 
   protected void checkPassword() {
-    String hashedInput = this.hashPassword();
+    final String hashedInput = this.hashPassword();
     String check;
     try {
       check = this.passwordRead.readString();
-    } catch (IOException ioe) {
+    } catch (final IOException ioe) {
       check = ""; //$NON-NLS-1$
     }
     this.success = hashedInput.equals(check);
@@ -125,9 +123,9 @@ public class PasswordProtector {
 
   private String hashPassword() {
     try {
-      char[] pw = this.passwordField.getPassword();
-      byte[] bytes = Arrays.toString(pw).getBytes("UTF-8"); //$NON-NLS-1$
-      byte[] hashed = Hash.hash(bytes);
+      final char[] pw = this.passwordField.getPassword();
+      final byte[] bytes = Arrays.toString(pw).getBytes("UTF-8"); //$NON-NLS-1$
+      final byte[] hashed = Hash.hash(bytes);
       for (int x = 0; x < pw.length; x++) {
         pw[x] = '\0';
       }
@@ -135,7 +133,7 @@ public class PasswordProtector {
         bytes[x] = 0;
       }
       return HexBytes.hexBytes(hashed);
-    } catch (UnsupportedEncodingException uee) {
+    } catch (final UnsupportedEncodingException uee) {
       return ""; //$NON-NLS-1$
     }
   }
@@ -148,29 +146,23 @@ public class PasswordProtector {
     this.buttonPanel = new JPanel();
     this.okButton = new JButton("OK"); //$NON-NLS-1$
     this.okButton.setDefaultCapable(true);
-    this.okButton.addActionListener(new ActionListener() {
-      @Override
-      public void actionPerformed(ActionEvent e) {
-        PasswordProtector pp = PasswordProtector.this;
-        if (pp.getMode() == PasswordProtector.MODE_GET) {
-          pp.checkPassword();
-        } else if (pp.getMode() == PasswordProtector.MODE_SET) {
-          pp.savePassword();
-        } else {
-          pp.success();
-        }
-        pp.hideForm();
+    this.okButton.addActionListener(e -> {
+      final PasswordProtector pp = PasswordProtector.this;
+      if (pp.getMode() == PasswordProtector.MODE_GET) {
+        pp.checkPassword();
+      } else if (pp.getMode() == PasswordProtector.MODE_SET) {
+        pp.savePassword();
+      } else {
+        pp.success();
       }
+      pp.hideForm();
     });
     this.cancelButton = new JButton("Cancel"); //$NON-NLS-1$
     this.cancelButton.setDefaultCapable(false);
-    this.cancelButton.addActionListener(new ActionListener() {
-      @Override
-      public void actionPerformed(ActionEvent e) {
-        PasswordProtector pp = PasswordProtector.this;
-        pp.failure();
-        pp.hideForm();
-      }
+    this.cancelButton.addActionListener(e -> {
+      final PasswordProtector pp = PasswordProtector.this;
+      pp.failure();
+      pp.hideForm();
     });
     this.passwordDialog.getRootPane().setDefaultButton(this.okButton);
     this.buttonPanel.setLayout(new FlowLayout());

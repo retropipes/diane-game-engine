@@ -24,8 +24,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 
 public class ListWithDescDialog extends JDialog implements ActionListener {
   private static final long serialVersionUID = 1L;
@@ -46,17 +44,18 @@ public class ListWithDescDialog extends JDialog implements ActionListener {
       final String labelText, final String title, final String[] possibleValues,
       final String initialValue, final String descValue,
       final String... possibleDescriptions) {
-    value = null;
+    ListWithDescDialog.value = null;
     final Frame frame = JOptionPane.getFrameForComponent(MainWindow.owner());
-    dialog = new ListWithDescDialog(frame, locationComp, labelText, title,
-        possibleValues, initialValue, descValue, possibleDescriptions);
-    dialog.setVisible(true);
-    return value;
+    ListWithDescDialog.dialog = new ListWithDescDialog(frame, locationComp,
+        labelText, title, possibleValues, initialValue, descValue,
+        possibleDescriptions);
+    ListWithDescDialog.dialog.setVisible(true);
+    return ListWithDescDialog.value;
   }
 
   private static void setValue(final String newValue) {
-    value = newValue;
-    list.setSelectedValue(value, true);
+    ListWithDescDialog.value = newValue;
+    ListWithDescDialog.list.setSelectedValue(ListWithDescDialog.value, true);
   }
 
   private ListWithDescDialog(final Frame frame, final Component locationComp,
@@ -95,18 +94,11 @@ public class ListWithDescDialog extends JDialog implements ActionListener {
         }
       }
     });
-    ListWithDescDialog.list
-        .addListSelectionListener(new ListSelectionListener() {
-          @Override
-          public void valueChanged(final ListSelectionEvent e) {
-            // Update description text
-            descArea.setText(ListWithDescDialog.descs[ListWithDescDialog.list
-                .getSelectedIndex()]);
-          }
-        });
+    ListWithDescDialog.list.addListSelectionListener(e -> descArea.setText(
+        ListWithDescDialog.descs[ListWithDescDialog.list.getSelectedIndex()]));
     final JScrollPane listScroller = new JScrollPane(ListWithDescDialog.list);
     listScroller.setPreferredSize(new Dimension(250, 80));
-    listScroller.setAlignmentX(LEFT_ALIGNMENT);
+    listScroller.setAlignmentX(Component.LEFT_ALIGNMENT);
     // Create a container so that we can add a title around
     // the scroll pane. Can't add a title directly to the
     // scroll pane because its background would be white.
@@ -133,7 +125,7 @@ public class ListWithDescDialog extends JDialog implements ActionListener {
     contentPane.add(descPane, BorderLayout.CENTER);
     contentPane.add(buttonPane, BorderLayout.PAGE_END);
     // Initialize values.
-    setValue(initialValue);
+    ListWithDescDialog.setValue(initialValue);
     this.setContentPane(contentPane);
     this.pack();
     this.setLocationRelativeTo(locationComp);
@@ -169,7 +161,7 @@ public class ListWithDescDialog extends JDialog implements ActionListener {
       if (orientation == SwingConstants.VERTICAL && direction < 0
           && (row = this.getFirstVisibleIndex()) != -1) {
         final Rectangle r = this.getCellBounds(row, row);
-        if ((r.y == visibleRect.y) && (row != 0)) {
+        if (r.y == visibleRect.y && row != 0) {
           final Point loc = r.getLocation();
           loc.y--;
           final int prevIndex = this.locationToIndex(loc);

@@ -34,7 +34,7 @@ public class ImageListWithDescDialog extends JDialog implements ActionListener {
   public static final int CANCEL = -1;
   static String[] descs;
   private static ImageListWithDescDialog dialog;
-  private static int value = CANCEL;
+  private static int value = ImageListWithDescDialog.CANCEL;
   static JList<BufferedImageIcon> list;
 
   /**
@@ -49,17 +49,19 @@ public class ImageListWithDescDialog extends JDialog implements ActionListener {
       final String labelText, final String title,
       final BufferedImageIcon[] possibleValues, final int initialValue,
       final String descValue, final String... possibleDescriptions) {
-    value = CANCEL;
+    ImageListWithDescDialog.value = ImageListWithDescDialog.CANCEL;
     final Frame frame = JOptionPane.getFrameForComponent(MainWindow.owner());
-    dialog = new ImageListWithDescDialog(frame, locationComp, labelText, title,
-        possibleValues, initialValue, descValue, possibleDescriptions);
-    dialog.setVisible(true);
-    return value;
+    ImageListWithDescDialog.dialog = new ImageListWithDescDialog(frame,
+        locationComp, labelText, title, possibleValues, initialValue, descValue,
+        possibleDescriptions);
+    ImageListWithDescDialog.dialog.setVisible(true);
+    return ImageListWithDescDialog.value;
   }
 
   private static void setValue(final int newValue) {
-    value = newValue;
-    list.setSelectedValue(value, true);
+    ImageListWithDescDialog.value = newValue;
+    ImageListWithDescDialog.list.setSelectedValue(ImageListWithDescDialog.value,
+        true);
   }
 
   private ImageListWithDescDialog(final Frame frame,
@@ -111,7 +113,7 @@ public class ImageListWithDescDialog extends JDialog implements ActionListener {
     final JScrollPane listScroller = new JScrollPane(
         ImageListWithDescDialog.list);
     listScroller.setPreferredSize(new Dimension(250, 80));
-    listScroller.setAlignmentX(LEFT_ALIGNMENT);
+    listScroller.setAlignmentX(Component.LEFT_ALIGNMENT);
     // Create a container so that we can add a title around
     // the scroll pane. Can't add a title directly to the
     // scroll pane because its background would be white.
@@ -138,7 +140,7 @@ public class ImageListWithDescDialog extends JDialog implements ActionListener {
     contentPane.add(descPane, BorderLayout.CENTER);
     contentPane.add(buttonPane, BorderLayout.PAGE_END);
     // Initialize values.
-    setValue(initialValue);
+    ImageListWithDescDialog.setValue(initialValue);
     this.setContentPane(contentPane);
     this.pack();
     this.setLocationRelativeTo(locationComp);
@@ -151,7 +153,7 @@ public class ImageListWithDescDialog extends JDialog implements ActionListener {
       ImageListWithDescDialog
           .setValue(ImageListWithDescDialog.list.getSelectedIndex());
     } else if ("Cancel".equals(e.getActionCommand())) {
-      ImageListWithDescDialog.setValue(CANCEL);
+      ImageListWithDescDialog.setValue(ImageListWithDescDialog.CANCEL);
     }
     ImageListWithDescDialog.dialog.setVisible(false);
   }
@@ -175,7 +177,7 @@ public class ImageListWithDescDialog extends JDialog implements ActionListener {
       if (orientation == SwingConstants.VERTICAL && direction < 0
           && (row = this.getFirstVisibleIndex()) != -1) {
         final Rectangle r = this.getCellBounds(row, row);
-        if ((r.y == visibleRect.y) && (row != 0)) {
+        if (r.y == visibleRect.y && row != 0) {
           final Point loc = r.getLocation();
           loc.y--;
           final int prevIndex = this.locationToIndex(loc);

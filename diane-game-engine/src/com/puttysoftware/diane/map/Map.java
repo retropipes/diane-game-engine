@@ -10,7 +10,7 @@ import com.puttysoftware.storage.ObjectStorage;
 
 public class Map {
   // Properties
-  private ObjectStorage data;
+  private final ObjectStorage data;
 
   // Constructors
   public Map(final int... dimensions) {
@@ -18,10 +18,10 @@ public class Map {
   }
 
   public ObjectModel getCell(final int... location) {
-    return (ObjectModel)this.data.getCell(location);
+    return (ObjectModel) this.data.getCell(location);
   }
 
-  public int getSize(int dimension) {
+  public int getSize(final int dimension) {
     return this.data.getShape()[dimension];
   }
 

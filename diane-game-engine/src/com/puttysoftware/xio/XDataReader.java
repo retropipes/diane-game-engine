@@ -124,7 +124,7 @@ public class XDataReader implements AutoCloseable {
     final int loc2 = line.indexOf('<', loc0);
     if (loc0 == -1 || loc2 == -1) {
       throw new UnexpectedTagException("Unexpected string found: " //$NON-NLS-1$
-          + line + "!"); //$NON-NLS-1$ //$NON-NLS-2$
+          + line + "!"); //$NON-NLS-1$
     }
     split[0] = line.substring(0, loc0);
     split[1] = line.substring(loc0, loc2);
