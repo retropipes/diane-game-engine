@@ -27,7 +27,7 @@ import javax.swing.SwingConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-class ListWithDescDialog extends JDialog implements ActionListener {
+public class ListWithDescDialog extends JDialog implements ActionListener {
   private static final long serialVersionUID = 1L;
   static String[] descs;
   private static ListWithDescDialog dialog;
