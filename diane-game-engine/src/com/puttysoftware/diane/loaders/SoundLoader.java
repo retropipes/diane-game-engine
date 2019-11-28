@@ -16,7 +16,7 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.SourceDataLine;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
-import com.puttysoftware.errorlogger.ErrorLogger;
+import com.puttysoftware.diane.Diane;
 
 public class SoundLoader {
   private SoundLoader() {
@@ -25,7 +25,7 @@ public class SoundLoader {
 
   private static final int BUFFER_SIZE = 4096; // 4Kb
 
-  public static void play(final URL soundURL, final ErrorLogger errorHandler) {
+  public static void play(final URL soundURL) {
     new Thread() {
       @Override
       public void run() {
@@ -48,17 +48,17 @@ public class SoundLoader {
                 }
               }
             } catch (final IOException e) {
-              errorHandler.logError(e);
+              Diane.handleError(e);
             } finally {
               auline.drain();
             }
           } catch (final LineUnavailableException e) {
-            errorHandler.logError(e);
+            Diane.handleError(e);
           }
         } catch (final UnsupportedAudioFileException e) {
-          errorHandler.logError(e);
+          Diane.handleError(e);
         } catch (final IOException e) {
-          errorHandler.logError(e);
+          Diane.handleError(e);
         }
       }
     }.start();

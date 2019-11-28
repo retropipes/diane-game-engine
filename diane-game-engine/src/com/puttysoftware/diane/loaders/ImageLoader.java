@@ -13,25 +13,23 @@ import java.util.Objects;
 
 import javax.imageio.ImageIO;
 
-import com.puttysoftware.errorlogger.ErrorLogger;
+import com.puttysoftware.diane.Diane;
 import com.puttysoftware.images.BufferedImageIcon;
 
 public class ImageLoader {
-  static BufferedImageIcon loadUncached(final String name, final URL url,
-      final ErrorLogger errorHandler) {
+  static BufferedImageIcon loadUncached(final String name, final URL url) {
     try {
       final BufferedImage image = ImageIO.read(url);
       final BufferedImageIcon icon = new BufferedImageIcon(image);
       return icon;
     } catch (final IOException ie) {
-      errorHandler.logError(ie);
+      Diane.handleError(ie);
       return null;
     }
   }
 
-  public static BufferedImageIcon load(final String name, final URL url,
-      final ErrorLogger errorHandler) {
-    return ImageCache.getCachedImage(name, url, errorHandler);
+  public static BufferedImageIcon load(final String name, final URL url) {
+    return ImageCache.getCachedImage(name, url);
   }
 
   private static class ImageCache {
@@ -41,7 +39,7 @@ public class ImageLoader {
 
     // Methods
     public static BufferedImageIcon getCachedImage(final String name,
-        final URL url, final ErrorLogger errorHandler) {
+        final URL url) {
       if (!ImageCache.cacheCreated) {
         ImageCache.createCache();
       }
@@ -52,8 +50,7 @@ public class ImageLoader {
         }
       }
       // Not found: Add to cache
-      final BufferedImageIcon newImage = ImageLoader.loadUncached(name, url,
-          errorHandler);
+      final BufferedImageIcon newImage = ImageLoader.loadUncached(name, url);
       final ImageCacheEntry newEntry = new ImageCacheEntry(newImage, name);
       ImageCache.cache.add(newEntry);
       return newImage;

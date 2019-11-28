@@ -1,6 +1,7 @@
 module com.puttysoftware.diane {
   requires transitive java.desktop;
 
+  exports com.puttysoftware.diane;
   exports com.puttysoftware.diane.assets;
   exports com.puttysoftware.diane.gui;
   exports com.puttysoftware.diane.loaders;
