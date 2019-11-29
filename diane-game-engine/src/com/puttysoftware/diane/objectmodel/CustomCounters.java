@@ -3,7 +3,6 @@ package com.puttysoftware.diane.objectmodel;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Objects;
-import java.util.Optional;
 
 final class CustomCounters {
   // Fields
@@ -41,11 +40,8 @@ final class CustomCounters {
     this.counters.add(0);
   }
 
-  public Optional<Integer> get(final int index) {
-    if (this.counters.size() <= index) {
-      return Optional.empty();
-    }
-    return Optional.of(this.counters.get(index));
+  public int get(final int index) {
+    return this.counters.get(index);
   }
 
   public boolean decrement(final int index) {

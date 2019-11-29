@@ -3,7 +3,6 @@ package com.puttysoftware.diane.objectmodel;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Objects;
-import java.util.Optional;
 
 final class CustomTexts {
   // Fields
@@ -41,11 +40,8 @@ final class CustomTexts {
     this.texts.add("");
   }
 
-  public Optional<String> get(final int index) {
-    if (this.texts.size() <= index) {
-      return Optional.empty();
-    }
-    return Optional.of(this.texts.get(index));
+  public String get(final int index) {
+    return this.texts.get(index);
   }
 
   public boolean set(final int index, final String value) {

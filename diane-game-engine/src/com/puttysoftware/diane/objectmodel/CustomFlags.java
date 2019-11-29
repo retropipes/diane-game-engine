@@ -3,7 +3,6 @@ package com.puttysoftware.diane.objectmodel;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Objects;
-import java.util.Optional;
 
 final class CustomFlags {
   // Fields
@@ -41,11 +40,8 @@ final class CustomFlags {
     this.flags.add(false);
   }
 
-  public Optional<Boolean> get(final int index) {
-    if (this.flags.size() <= index) {
-      return Optional.empty();
-    }
-    return Optional.of(this.flags.get(index));
+  public boolean get(final int index) {
+    return this.flags.get(index);
   }
 
   public boolean toggle(final int index) {

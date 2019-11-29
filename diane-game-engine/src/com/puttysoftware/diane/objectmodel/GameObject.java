@@ -6,7 +6,6 @@
 package com.puttysoftware.diane.objectmodel;
 
 import java.util.Objects;
-import java.util.Optional;
 
 import com.puttysoftware.images.BufferedImageIcon;
 
@@ -166,7 +165,7 @@ public abstract class GameObject implements ObjectModel {
     this.cc.appendOne();
   }
 
-  protected final Optional<Integer> getCustomCounter(final int index) {
+  protected final int getCustomCounter(final int index) {
     return this.cc.get(index);
   }
 
@@ -207,7 +206,7 @@ public abstract class GameObject implements ObjectModel {
     this.cf.appendOne();
   }
 
-  protected final Optional<Boolean> getCustomFlag(final int index) {
+  protected final boolean getCustomFlag(final int index) {
     return this.cf.get(index);
   }
 
@@ -239,7 +238,7 @@ public abstract class GameObject implements ObjectModel {
     this.ct.appendOne();
   }
 
-  protected final Optional<String> getCustomText(final int index) {
+  protected final String getCustomText(final int index) {
     return this.ct.get(index);
   }
 
