@@ -9,23 +9,23 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-class NonFatalLogger {
+class WarningLogWriter {
   // Fields
   private static final String MAC_PREFIX = "HOME"; //$NON-NLS-1$
-  private static final String WIN_PREFIX = "USERPROFILE"; //$NON-NLS-1$
+  private static final String WIN_PREFIX = "LOCALAPPDATA"; //$NON-NLS-1$
   private static final String UNIX_PREFIX = "HOME"; //$NON-NLS-1$
   private static final String MAC_DIR = "/Library/Logs/CrashReporter/"; //$NON-NLS-1$
-  private static final String WIN_DIR = "\\Crash\\"; //$NON-NLS-1$
-  private static final String UNIX_DIR = "/Crash/"; //$NON-NLS-1$
-  private static final String MAC_EXT = ".nonfatal"; //$NON-NLS-1$
-  private static final String WIN_EXT = ".nonfatal"; //$NON-NLS-1$
-  private static final String UNIX_EXT = ".nonfatal"; //$NON-NLS-1$
+  private static final String WIN_DIR = "\\PuttySoftware\\Logs\\"; //$NON-NLS-1$
+  private static final String UNIX_DIR = "/.config/puttysoftware/logs/"; //$NON-NLS-1$
+  private static final String MAC_EXT = ".warning.log"; //$NON-NLS-1$
+  private static final String WIN_EXT = ".warning.log"; //$NON-NLS-1$
+  private static final String UNIX_EXT = ".warning.log"; //$NON-NLS-1$
   private final Throwable t;
   private final Calendar c;
   private final String p;
 
   // Constructors
-  NonFatalLogger(final Throwable problem, final String programName) {
+  WarningLogWriter(final Throwable problem, final String programName) {
     this.t = problem;
     this.c = Calendar.getInstance();
     this.p = programName;
@@ -59,13 +59,13 @@ class NonFatalLogger {
     final String osName = System.getProperty("os.name"); //$NON-NLS-1$
     if (osName.indexOf("Mac OS X") != -1) { //$NON-NLS-1$
       // Mac OS X
-      return System.getenv(NonFatalLogger.MAC_PREFIX);
+      return System.getenv(WarningLogWriter.MAC_PREFIX);
     } else if (osName.indexOf("Windows") != -1) { //$NON-NLS-1$
       // Windows
-      return System.getenv(NonFatalLogger.WIN_PREFIX);
+      return System.getenv(WarningLogWriter.WIN_PREFIX);
     } else {
       // Other - assume UNIX-like
-      return System.getenv(NonFatalLogger.UNIX_PREFIX);
+      return System.getenv(WarningLogWriter.UNIX_PREFIX);
     }
   }
 
@@ -73,13 +73,13 @@ class NonFatalLogger {
     final String osName = System.getProperty("os.name"); //$NON-NLS-1$
     if (osName.indexOf("Mac OS X") != -1) { //$NON-NLS-1$
       // Mac OS X
-      return NonFatalLogger.MAC_DIR;
+      return WarningLogWriter.MAC_DIR;
     } else if (osName.indexOf("Windows") != -1) { //$NON-NLS-1$
       // Windows
-      return NonFatalLogger.WIN_DIR;
+      return WarningLogWriter.WIN_DIR;
     } else {
       // Other - assume UNIX-like
-      return NonFatalLogger.UNIX_DIR;
+      return WarningLogWriter.UNIX_DIR;
     }
   }
 
@@ -87,13 +87,13 @@ class NonFatalLogger {
     final String osName = System.getProperty("os.name"); //$NON-NLS-1$
     if (osName.indexOf("Mac OS X") != -1) { //$NON-NLS-1$
       // Mac OS X
-      return NonFatalLogger.MAC_EXT;
+      return WarningLogWriter.MAC_EXT;
     } else if (osName.indexOf("Windows") != -1) { //$NON-NLS-1$
       // Windows
-      return NonFatalLogger.WIN_EXT;
+      return WarningLogWriter.WIN_EXT;
     } else {
       // Other - assume UNIX-like
-      return NonFatalLogger.UNIX_EXT;
+      return WarningLogWriter.UNIX_EXT;
     }
   }
 
@@ -110,11 +110,11 @@ class NonFatalLogger {
 
   private File getLogFile() {
     final StringBuilder b = new StringBuilder();
-    b.append(NonFatalLogger.getLogDirPrefix());
-    b.append(NonFatalLogger.getLogDirectory());
+    b.append(WarningLogWriter.getLogDirPrefix());
+    b.append(WarningLogWriter.getLogDirectory());
     b.append(this.getLogFileName());
     b.append(this.getStampSuffix());
-    b.append(NonFatalLogger.getLogFileExtension());
+    b.append(WarningLogWriter.getLogFileExtension());
     return new File(b.toString());
   }
 }

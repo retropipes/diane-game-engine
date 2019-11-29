@@ -9,23 +9,23 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-class LogWriter {
+class ErrorLogWriter {
   // Fields
   private static final String MAC_PREFIX = "HOME"; //$NON-NLS-1$
-  private static final String WIN_PREFIX = "USERPROFILE"; //$NON-NLS-1$
+  private static final String WIN_PREFIX = "LOCALAPPDATA"; //$NON-NLS-1$
   private static final String UNIX_PREFIX = "HOME"; //$NON-NLS-1$
   private static final String MAC_DIR = "/Library/Logs/CrashReporter/"; //$NON-NLS-1$
-  private static final String WIN_DIR = "\\Crash\\"; //$NON-NLS-1$
-  private static final String UNIX_DIR = "/Crash/"; //$NON-NLS-1$
-  private static final String MAC_EXT = ".crash"; //$NON-NLS-1$
-  private static final String WIN_EXT = ".log"; //$NON-NLS-1$
-  private static final String UNIX_EXT = ".log"; //$NON-NLS-1$
+  private static final String WIN_DIR = "\\PuttySoftware\\Logs\\"; //$NON-NLS-1$
+  private static final String UNIX_DIR = "/.config/puttysoftware/logs/"; //$NON-NLS-1$
+  private static final String MAC_EXT = ".error.log"; //$NON-NLS-1$
+  private static final String WIN_EXT = ".error.log"; //$NON-NLS-1$
+  private static final String UNIX_EXT = ".error.log"; //$NON-NLS-1$
   private final Throwable t;
   private final Calendar c;
   private final String p;
 
   // Constructors
-  LogWriter(final Throwable problem, final String programName) {
+  ErrorLogWriter(final Throwable problem, final String programName) {
     this.t = problem;
     this.c = Calendar.getInstance();
     this.p = programName;
@@ -59,13 +59,13 @@ class LogWriter {
     final String osName = System.getProperty("os.name"); //$NON-NLS-1$
     if (osName.indexOf("Mac OS X") != -1) { //$NON-NLS-1$
       // Mac OS X
-      return System.getenv(LogWriter.MAC_PREFIX);
+      return System.getenv(ErrorLogWriter.MAC_PREFIX);
     } else if (osName.indexOf("Windows") != -1) { //$NON-NLS-1$
       // Windows
-      return System.getenv(LogWriter.WIN_PREFIX);
+      return System.getenv(ErrorLogWriter.WIN_PREFIX);
     } else {
       // Other - assume UNIX-like
-      return System.getenv(LogWriter.UNIX_PREFIX);
+      return System.getenv(ErrorLogWriter.UNIX_PREFIX);
     }
   }
 
@@ -73,13 +73,13 @@ class LogWriter {
     final String osName = System.getProperty("os.name"); //$NON-NLS-1$
     if (osName.indexOf("Mac OS X") != -1) { //$NON-NLS-1$
       // Mac OS X
-      return LogWriter.MAC_DIR;
+      return ErrorLogWriter.MAC_DIR;
     } else if (osName.indexOf("Windows") != -1) { //$NON-NLS-1$
       // Windows
-      return LogWriter.WIN_DIR;
+      return ErrorLogWriter.WIN_DIR;
     } else {
       // Other - assume UNIX-like
-      return LogWriter.UNIX_DIR;
+      return ErrorLogWriter.UNIX_DIR;
     }
   }
 
@@ -87,13 +87,13 @@ class LogWriter {
     final String osName = System.getProperty("os.name"); //$NON-NLS-1$
     if (osName.indexOf("Mac OS X") != -1) { //$NON-NLS-1$
       // Mac OS X
-      return LogWriter.MAC_EXT;
+      return ErrorLogWriter.MAC_EXT;
     } else if (osName.indexOf("Windows") != -1) { //$NON-NLS-1$
       // Windows
-      return LogWriter.WIN_EXT;
+      return ErrorLogWriter.WIN_EXT;
     } else {
       // Other - assume UNIX-like
-      return LogWriter.UNIX_EXT;
+      return ErrorLogWriter.UNIX_EXT;
     }
   }
 
@@ -110,11 +110,11 @@ class LogWriter {
 
   private File getErrorFile() {
     final StringBuilder b = new StringBuilder();
-    b.append(LogWriter.getErrorDirPrefix());
-    b.append(LogWriter.getErrorDirectory());
+    b.append(ErrorLogWriter.getErrorDirPrefix());
+    b.append(ErrorLogWriter.getErrorDirectory());
     b.append(this.getErrorFileName());
     b.append(this.getStampSuffix());
-    b.append(LogWriter.getErrorFileExtension());
+    b.append(ErrorLogWriter.getErrorFileExtension());
     return new File(b.toString());
   }
 }

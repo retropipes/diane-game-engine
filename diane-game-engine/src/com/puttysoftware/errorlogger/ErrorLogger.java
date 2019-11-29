@@ -11,13 +11,13 @@ public final class ErrorLogger {
 
   // Methods
   public void logError(final Throwable t) {
-    final LogWriter lw = new LogWriter(t, this.name);
-    lw.writeErrorInfo();
+    final ErrorLogWriter elw = new ErrorLogWriter(t, this.name);
+    elw.writeErrorInfo();
     System.exit(1);
   }
 
-  public void logNonFatalError(final Throwable t) {
-    final NonFatalLogger nfl = new NonFatalLogger(t, this.name);
-    nfl.writeLogInfo();
+  public void logWarning(final Throwable t) {
+    final WarningLogWriter wlw = new WarningLogWriter(t, this.name);
+    wlw.writeLogInfo();
   }
 }
