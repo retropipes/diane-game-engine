@@ -19,7 +19,7 @@ final class CustomFlags {
   }
 
   public boolean add(final int count) {
-    if (this.flags.size() <= count) {
+    if (this.flags.size() != 0) {
       return false;
     }
     this.flags.addAll(Collections.nCopies(count, false));
