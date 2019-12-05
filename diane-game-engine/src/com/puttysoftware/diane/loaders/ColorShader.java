@@ -6,7 +6,6 @@ Any questions should be directed to the author via email at: products@puttysoftw
 package com.puttysoftware.diane.loaders;
 
 import java.awt.Color;
-import java.awt.color.ColorSpace;
 import java.util.Objects;
 
 public class ColorShader {
@@ -16,8 +15,7 @@ public class ColorShader {
 
   // Constructor
   public ColorShader(final String name, final Color shade) {
-    this.shadeColor = new Color(ColorSpace.getInstance(ColorSpace.CS_sRGB),
-        shade.getColorComponents(null), (float) 1.0);
+    this.shadeColor = shade;
     this.shadeName = name;
   }
 
@@ -30,31 +28,22 @@ public class ColorShader {
     if (source.getAlpha() != 255) {
       return source;
     }
-    final ColorSpace linear = ColorSpace.getInstance(ColorSpace.CS_LINEAR_RGB);
-    final float[] inputColor = source.getColorComponents(linear, null);
-    final float[] linearShade = this.shadeColor.getColorComponents(linear,
-        null);
-    final float[] outputColor = ColorShader.doColorMath(inputColor,
-        linearShade);
-    return ColorShader.convertFromLinearRGB(outputColor);
+    float[] sourceComp = new float[4];
+    sourceComp = source.getColorComponents(sourceComp);
+    float[] shadeComp = new float[4];
+    shadeComp = this.shadeColor.getColorComponents(shadeComp);
+    float[] result = ColorShader.doColorMath(sourceComp, shadeComp);
+    return new Color(result[0], result[1], result[2], result[3]);
   }
 
   private static float[] doColorMath(final float[] inputColor,
-      final float[] linearShade) {
-    final float[] outputColor = new float[3];
+      final float[] inputShade) {
+    final float[] outputColor = new float[4];
     for (int c = 0; c < 3; c++) {
-      outputColor[c] = inputColor[c] * (1 - linearShade[c]);
+      outputColor[c] = inputColor[c] * inputShade[c];
     }
+    outputColor[3] = 1.0F;
     return outputColor;
-  }
-
-  private static Color convertFromLinearRGB(final float[] colorvalue) {
-    final ColorSpace sourceSpace = ColorSpace
-        .getInstance(ColorSpace.CS_LINEAR_RGB);
-    final float[] colorvalueCIEXYZ = sourceSpace.toCIEXYZ(colorvalue);
-    final ColorSpace targetSpace = ColorSpace.getInstance(ColorSpace.CS_sRGB);
-    final float[] colorvalueTarget = targetSpace.fromCIEXYZ(colorvalueCIEXYZ);
-    return new Color(targetSpace, colorvalueTarget, (float) 1.0);
   }
 
   @Override
