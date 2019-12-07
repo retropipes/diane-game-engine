@@ -117,7 +117,7 @@ public class ProductData {
    *
    * @return true if an update is available; false otherwise
    */
-  public boolean checkForUpdates() throws IOException {
+  public UpdateCheckResults checkForUpdates() throws IOException {
     int newMajor = this.majorVersion;
     int newMinor = this.minorVersion;
     int newBugfix = this.bugfixVersion;
@@ -131,18 +131,20 @@ public class ProductData {
       newBugfix = Integer.parseInt(br.readLine());
       newPrerelease = Integer.parseInt(br.readLine());
     }
+    UpdateCheckResults hasUpdate = new UpdateCheckResults(newMajor, newMinor,
+        newBugfix, newPrerelease);
     if (newMajor > this.majorVersion) {
-      return true;
+      return hasUpdate;
     } else if (newMajor == this.majorVersion && newMinor > this.minorVersion) {
-      return true;
+      return hasUpdate;
     } else if (newMajor == this.majorVersion && newMinor == this.minorVersion
         && newBugfix > this.bugfixVersion) {
-      return true;
+      return hasUpdate;
     } else if (newMajor == this.majorVersion && newMinor == this.minorVersion
         && newBugfix == this.bugfixVersion
         && newPrerelease > this.prereleaseVersion) {
-      return true;
+      return hasUpdate;
     }
-    return false;
+    return new UpdateCheckResults();
   }
 }
