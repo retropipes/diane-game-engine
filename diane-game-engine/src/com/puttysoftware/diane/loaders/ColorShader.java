@@ -23,6 +23,10 @@ public class ColorShader {
   public String getName() {
     return this.shadeName;
   }
+  
+  protected Color getShadeColor() {
+    return this.shadeColor;
+  }
 
   public Color applyShade(final Color source) {
     if (source.getAlpha() != 255) {
