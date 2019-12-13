@@ -6,26 +6,24 @@ Any questions should be directed to the author via email at: support@puttysoftwa
 package com.puttysoftware.diane.loaders;
 
 import java.awt.Color;
-import java.util.Hashtable;
+import java.util.ArrayList;
 import java.util.Objects;
 
 import com.puttysoftware.images.BufferedImageIcon;
 
 public final class ColorReplaceRules {
   // Fields
-  private final Hashtable<String, ColorReplaceRule> rules;
-  private final String cacheName;
+  private final ArrayList<ColorReplaceRule> rules;
 
   // Constructor
-  public ColorReplaceRules(final String name) {
-    this.rules = new Hashtable<>();
-    this.cacheName = name;
+  public ColorReplaceRules() {
+    this.rules = new ArrayList<>();
   }
 
   // Methods
-  public void add(final String name, final Color find, final Color replace) {
+  public void add(final Color find, final Color replace) {
     final ColorReplaceRule value = new ColorReplaceRule(find, replace);
-    this.rules.put(name, value);
+    this.rules.add(value);
   }
 
   public BufferedImageIcon applyAll(final BufferedImageIcon input) {
@@ -33,7 +31,7 @@ public final class ColorReplaceRules {
       throw new IllegalArgumentException("input == NULL!");
     }
     BufferedImageIcon result = input;
-    for (ColorReplaceRule rule : this.rules.values()) {
+    for (ColorReplaceRule rule : this.rules) {
       result = rule.apply(result);
     }
     return result;
@@ -43,13 +41,9 @@ public final class ColorReplaceRules {
     this.rules.clear();
   }
 
-  public String getName() {
-    return this.cacheName;
-  }
-
   @Override
   public int hashCode() {
-    return Objects.hash(this.cacheName, this.rules);
+    return Objects.hash(this.rules);
   }
 
   @Override
@@ -61,7 +55,6 @@ public final class ColorReplaceRules {
       return false;
     }
     ColorReplaceRules other = (ColorReplaceRules) obj;
-    return Objects.equals(this.cacheName, other.cacheName)
-        && Objects.equals(this.rules, other.rules);
+    return Objects.equals(this.rules, other.rules);
   }
 }
