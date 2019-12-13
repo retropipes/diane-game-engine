@@ -1,67 +1,48 @@
 /*  Diane Game Engine
 Copyleft (C) 2019 Eric Ahnell
 
-Any questions should be directed to the author via email at: products@puttysoftware.com
+Any questions should be directed to the author via email at: support@puttysoftware.com
  */
 package com.puttysoftware.diane.loaders;
 
 import java.awt.Color;
-import java.awt.color.ColorSpace;
 import java.util.Objects;
 
-public final class ColorReplaceRule extends ColorShader {
+import com.puttysoftware.images.BufferedImageIcon;
+
+final class ColorReplaceRule {
   // Fields
   private final Color findColor;
+  private final Color replaceColor;
 
   // Constructor
-  public ColorReplaceRule(final String name, final Color find,
-      final Color replace) {
-    super(name, new Color(ColorSpace.getInstance(ColorSpace.CS_sRGB),
-        replace.getColorComponents(null), (float) 1.0));
-    this.findColor = new Color(ColorSpace.getInstance(ColorSpace.CS_sRGB),
-        find.getColorComponents(null), (float) 1.0);
+  public ColorReplaceRule(final Color find, final Color replace) {
+    this.findColor = find;
+    this.replaceColor = replace;
   }
 
   // Methods
-  @Override
-  public Color applyShade(final Color source) {
-    if (!source.equals(this.findColor) || source.getAlpha() != 255) {
-      return source;
+  public BufferedImageIcon apply(final BufferedImageIcon input) {
+    if (input == null) {
+      throw new IllegalArgumentException("input == NULL!");
     }
-    final ColorSpace linear = ColorSpace.getInstance(ColorSpace.CS_LINEAR_RGB);
-    final float[] inputColor = source.getColorComponents(linear, null);
-    final float[] linearShade = this.getShadeColor().getColorComponents(linear,
-        null);
-    final float[] outputColor = ColorReplaceRule.doColorMath(inputColor,
-        linearShade);
-    return ColorReplaceRule.convertFromLinearRGB(outputColor);
-  }
-
-  private static float[] doColorMath(final float[] inputColor,
-      final float[] inputShade) {
-    final float[] outputColor = new float[4];
-    for (int c = 0; c < 3; c++) {
-      outputColor[c] = inputColor[c] * inputShade[c];
+    final int width = input.getWidth();
+    final int height = input.getHeight();
+    final BufferedImageIcon result = new BufferedImageIcon(input);
+    for (int x = 0; x < width; x++) {
+      for (int y = 0; y < height; y++) {
+        final Color c = new Color(input.getRGB(x, y), true);
+        if (c.equals(this.findColor)) {
+          result.setRGB(x, y, this.replaceColor.getRGB());
+        }
+      }
     }
-    outputColor[3] = 1.0F;
-    return outputColor;
-  }
-
-  private static Color convertFromLinearRGB(final float[] colorvalue) {
-    final ColorSpace sourceSpace = ColorSpace
-        .getInstance(ColorSpace.CS_LINEAR_RGB);
-    final float[] colorvalueCIEXYZ = sourceSpace.toCIEXYZ(colorvalue);
-    final ColorSpace targetSpace = ColorSpace.getInstance(ColorSpace.CS_sRGB);
-    final float[] colorvalueTarget = targetSpace.fromCIEXYZ(colorvalueCIEXYZ);
-    return new Color(targetSpace, colorvalueTarget, (float) 1.0);
+    return result;
   }
 
   @Override
   public int hashCode() {
-    final int prime = 31;
-    int result = super.hashCode();
-    result = prime * result + Objects.hash(this.findColor);
-    return result;
+    return Objects.hash(this.findColor, this.replaceColor);
   }
 
   @Override
@@ -69,13 +50,11 @@ public final class ColorReplaceRule extends ColorShader {
     if (this == obj) {
       return true;
     }
-    if (!super.equals(obj)) {
-      return false;
-    }
     if (!(obj instanceof ColorReplaceRule)) {
       return false;
     }
     ColorReplaceRule other = (ColorReplaceRule) obj;
-    return Objects.equals(this.findColor, other.findColor);
+    return Objects.equals(this.findColor, other.findColor)
+        && Objects.equals(this.replaceColor, other.replaceColor);
   }
 }
