@@ -1,3 +1,8 @@
+/*  Diane Game Engine
+Copyleft (C) 2019 Eric Ahnell
+
+Any questions should be directed to the author via email at: support@puttysoftware.com
+ */
 package com.puttysoftware.randomrange;
 
 /**
@@ -13,10 +18,8 @@ public class RandomLongRange {
   /**
    * Instantiates a new random long range.
    *
-   * @param min
-   *          the min
-   * @param max
-   *          the max
+   * @param min the min
+   * @param max the max
    */
   // Constructor
   public RandomLongRange(final long min, final long max) {
@@ -27,8 +30,7 @@ public class RandomLongRange {
   /**
    * Sets the minimum.
    *
-   * @param newMin
-   *          the new minimum
+   * @param newMin the new minimum
    */
   // Methods
   public void setMinimum(final long newMin) {
@@ -38,8 +40,7 @@ public class RandomLongRange {
   /**
    * Sets the maximum.
    *
-   * @param newMax
-   *          the new maximum
+   * @param newMax the new maximum
    */
   public void setMaximum(final long newMax) {
     this.maximum = newMax;
@@ -57,6 +58,19 @@ public class RandomLongRange {
     return Math
         .abs(RandomnessSource.nextLong() % (this.maximum - this.minimum + 1))
         + this.minimum;
+  }
+
+  /**
+   * Generate without creating an instance.
+   *
+   * @return the long
+   */
+  public static long generate(final int minimum, final int maximum) {
+    if (maximum - minimum + 1 == 0) {
+      return Math.abs(RandomnessSource.nextLong()) + minimum;
+    }
+    return Math.abs(RandomnessSource.nextLong() % (maximum - minimum + 1))
+        + minimum;
   }
 
   /**

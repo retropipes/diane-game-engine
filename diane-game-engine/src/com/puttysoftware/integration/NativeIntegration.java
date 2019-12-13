@@ -1,7 +1,7 @@
-/* Native Integration for Java Programs Library
-Licensed under Apache 2.0. See the LICENSE file for details.
+/*  Diane Game Engine
+Copyleft (C) 2019 Eric Ahnell
 
-All support is handled via the GitHub repository: https://github.com/wrldwzrd89/lib-java-native-integration
+Any questions should be directed to the author via email at: support@puttysoftware.com
  */
 package com.puttysoftware.integration;
 
