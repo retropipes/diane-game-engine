@@ -46,8 +46,7 @@ public class PasswordProtector {
   // Methods
   public void setPassword(final XDataWriter passwordFile) {
     this.passwordDialog.setTitle("Set Password"); //$NON-NLS-1$
-    this.passwordLabel.setText(
-        "Type the new password below (it will be hidden as you type):"); //$NON-NLS-1$
+    this.passwordLabel.setText("Type the new password below (it will be hidden as you type):"); //$NON-NLS-1$
     this.passwordField.setText(null);
     this.passwordDialog.pack();
     this.passwordWrite = passwordFile;
@@ -57,8 +56,7 @@ public class PasswordProtector {
 
   public void promptForPassword(final XDataReader passwordFile) {
     this.passwordDialog.setTitle("Enter Password"); //$NON-NLS-1$
-    this.passwordLabel
-        .setText("Type the password below (it will be hidden as you type):"); //$NON-NLS-1$
+    this.passwordLabel.setText("Type the password below (it will be hidden as you type):"); //$NON-NLS-1$
     this.passwordField.setText(null);
     this.passwordDialog.pack();
     this.passwordRead = passwordFile;
@@ -68,8 +66,7 @@ public class PasswordProtector {
 
   public void promptForPassword() {
     this.passwordDialog.setTitle("Enter Password"); //$NON-NLS-1$
-    this.passwordLabel
-        .setText("Type the password below (it will be hidden as you type):"); //$NON-NLS-1$
+    this.passwordLabel.setText("Type the password below (it will be hidden as you type):"); //$NON-NLS-1$
     this.passwordField.setText(null);
     this.passwordDialog.pack();
     this.mode = PasswordProtector.MODE_GET_RAW;
@@ -175,12 +172,9 @@ public class PasswordProtector {
     this.buttonPanel.setLayout(new FlowLayout());
     this.buttonPanel.add(this.cancelButton);
     this.buttonPanel.add(this.okButton);
-    this.passwordDialog.getContentPane().add(this.passwordLabel,
-        BorderLayout.NORTH);
-    this.passwordDialog.getContentPane().add(this.passwordField,
-        BorderLayout.CENTER);
-    this.passwordDialog.getContentPane().add(this.buttonPanel,
-        BorderLayout.SOUTH);
+    this.passwordDialog.getContentPane().add(this.passwordLabel, BorderLayout.NORTH);
+    this.passwordDialog.getContentPane().add(this.passwordField, BorderLayout.CENTER);
+    this.passwordDialog.getContentPane().add(this.buttonPanel, BorderLayout.SOUTH);
     this.passwordDialog.pack();
   }
 }

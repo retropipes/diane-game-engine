@@ -13,8 +13,7 @@ public class HexBytes {
    * readable!
    *
    * @return result String buffer in String format
-   * @param in
-   *          byte[] buffer to convert to string format
+   * @param in byte[] buffer to convert to string format
    */
   public static String hexBytes(final byte[] in) {
     byte ch = 0x00;

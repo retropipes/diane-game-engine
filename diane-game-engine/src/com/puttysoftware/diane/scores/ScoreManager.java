@@ -26,11 +26,9 @@ public class ScoreManager {
     this.viewerTitle = ScoreManager.DIALOG_TITLE;
   }
 
-  public ScoreManager(final int mv, final int length, final boolean sortOrder,
-      final long startingScore, final String customTitle,
-      final String[] customUnit) {
-    this.table = new SortedScoreTable(mv, length, sortOrder, startingScore,
-        customUnit);
+  public ScoreManager(final int mv, final int length, final boolean sortOrder, final long startingScore,
+      final String customTitle, final String[] customUnit) {
+    this.table = new SortedScoreTable(mv, length, sortOrder, startingScore, customUnit);
     this.name = ""; //$NON-NLS-1$
     if (customTitle == null || customTitle.equals("")) { //$NON-NLS-1$
       this.title = ScoreManager.DIALOG_TITLE;
@@ -44,8 +42,7 @@ public class ScoreManager {
   public boolean addScore(final long newScore) {
     boolean success = true;
     this.name = null;
-    this.name = CommonDialogs.showTextInputDialog(ScoreManager.NAME_PROMPT,
-        this.title);
+    this.name = CommonDialogs.showTextInputDialog(ScoreManager.NAME_PROMPT, this.title);
     if (this.name != null) {
       this.table.addScore(newScore, this.name);
     } else {
@@ -57,8 +54,7 @@ public class ScoreManager {
   public boolean addScore(final long[] newScore) {
     boolean success = true;
     this.name = null;
-    this.name = CommonDialogs.showTextInputDialog(ScoreManager.NAME_PROMPT,
-        this.title);
+    this.name = CommonDialogs.showTextInputDialog(ScoreManager.NAME_PROMPT, this.title);
     if (this.name != null) {
       this.table.addScore(newScore, this.name);
     } else {

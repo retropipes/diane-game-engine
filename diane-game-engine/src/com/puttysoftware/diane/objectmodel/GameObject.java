@@ -52,8 +52,7 @@ public abstract class GameObject implements ObjectModel {
   // Methods
   @Override
   public final int hashCode() {
-    return Objects.hash(this.mp, this.oc, this.op, this.sp, this.cc, this.cf,
-        this.ct, this.uniqueID);
+    return Objects.hash(this.mp, this.oc, this.op, this.sp, this.cc, this.cf, this.ct, this.uniqueID);
   }
 
   @Override
@@ -65,12 +64,8 @@ public abstract class GameObject implements ObjectModel {
       return false;
     }
     final GameObject other = (GameObject) obj;
-    return Objects.equals(this.mp, other.mp)
-        && Objects.equals(this.oc, other.oc)
-        && Objects.equals(this.op, other.op)
-        && Objects.equals(this.sp, other.sp)
-        && Objects.equals(this.cc, other.cc)
-        && Objects.equals(this.cf, other.cf)
+    return Objects.equals(this.mp, other.mp) && Objects.equals(this.oc, other.oc) && Objects.equals(this.op, other.op)
+        && Objects.equals(this.sp, other.sp) && Objects.equals(this.cc, other.cc) && Objects.equals(this.cf, other.cf)
         && Objects.equals(this.ct, other.ct) && this.uniqueID == other.uniqueID;
   }
 
@@ -177,8 +172,7 @@ public abstract class GameObject implements ObjectModel {
     return this.cc.increment(index);
   }
 
-  protected final boolean offsetCustomCounter(final int index,
-      final int value) {
+  protected final boolean offsetCustomCounter(final int index, final int value) {
     return this.cc.offset(index, value);
   }
 
@@ -257,8 +251,7 @@ public abstract class GameObject implements ObjectModel {
   }
 
   @Override
-  public final boolean isInternallyDirectionallySolid(final int dirX,
-      final int dirY) {
+  public final boolean isInternallyDirectionallySolid(final int dirX, final int dirY) {
     return this.sp.isInternallyDirectionallySolid(dirX, dirY);
   }
 
@@ -266,13 +259,11 @@ public abstract class GameObject implements ObjectModel {
     this.sp.setSolid(value);
   }
 
-  protected final void setDirectionallySolid(final int dir,
-      final boolean value) {
+  protected final void setDirectionallySolid(final int dir, final boolean value) {
     this.sp.setDirectionallySolid(dir, value);
   }
 
-  protected final void setInternallyDirectionallySolid(final int dir,
-      final boolean value) {
+  protected final void setInternallyDirectionallySolid(final int dir, final boolean value) {
     this.sp.setInternallyDirectionallySolid(dir, value);
   }
 
@@ -282,14 +273,12 @@ public abstract class GameObject implements ObjectModel {
   }
 
   @Override
-  public final boolean isDirectionallySightBlocking(final int dirX,
-      final int dirY) {
+  public final boolean isDirectionallySightBlocking(final int dirX, final int dirY) {
     return this.vp.isDirectionallySightBlocking(dirX, dirY);
   }
 
   @Override
-  public final boolean isInternallyDirectionallySightBlocking(final int dirX,
-      final int dirY) {
+  public final boolean isInternallyDirectionallySightBlocking(final int dirX, final int dirY) {
     return this.vp.isInternallyDirectionallySightBlocking(dirX, dirY);
   }
 
@@ -297,13 +286,11 @@ public abstract class GameObject implements ObjectModel {
     this.vp.setSightBlocking(value);
   }
 
-  protected final void setDirectionallySightBlocking(final int dir,
-      final boolean value) {
+  protected final void setDirectionallySightBlocking(final int dir, final boolean value) {
     this.vp.setDirectionallySightBlocking(dir, value);
   }
 
-  protected final void setInternallyDirectionallySightBlocking(final int dir,
-      final boolean value) {
+  protected final void setInternallyDirectionallySightBlocking(final int dir, final boolean value) {
     this.vp.setInternallyDirectionallySightBlocking(dir, value);
   }
 
@@ -338,14 +325,12 @@ public abstract class GameObject implements ObjectModel {
   }
 
   @Override
-  public final boolean isDirectionallyPushableInto(final int dirX,
-      final int dirY) {
+  public final boolean isDirectionallyPushableInto(final int dirX, final int dirY) {
     return this.mp.isDirectionallyPushableInto(dirX, dirY);
   }
 
   @Override
-  public final boolean isDirectionallyPullableInto(final int dirX,
-      final int dirY) {
+  public final boolean isDirectionallyPullableInto(final int dirX, final int dirY) {
     return this.mp.isDirectionallyPullableInto(dirX, dirY);
   }
 
@@ -360,14 +345,12 @@ public abstract class GameObject implements ObjectModel {
   }
 
   @Override
-  public final boolean isDirectionallyPushableOut(final int dirX,
-      final int dirY) {
+  public final boolean isDirectionallyPushableOut(final int dirX, final int dirY) {
     return this.mp.isDirectionallyPushableOut(dirX, dirY);
   }
 
   @Override
-  public final boolean isDirectionallyPullableOut(final int dirX,
-      final int dirY) {
+  public final boolean isDirectionallyPullableOut(final int dirX, final int dirY) {
     return this.mp.isDirectionallyPullableOut(dirX, dirY);
   }
 
@@ -375,8 +358,7 @@ public abstract class GameObject implements ObjectModel {
     this.mp.setPushable(value);
   }
 
-  protected final void setDirectionallyPushable(final int dir,
-      final boolean value) {
+  protected final void setDirectionallyPushable(final int dir, final boolean value) {
     this.mp.setDirectionallyPushable(dir, value);
   }
 
@@ -384,8 +366,7 @@ public abstract class GameObject implements ObjectModel {
     this.mp.setPullable(value);
   }
 
-  protected final void setDirectionallyPullable(final int dir,
-      final boolean value) {
+  protected final void setDirectionallyPullable(final int dir, final boolean value) {
     this.mp.setDirectionallyPullable(dir, value);
   }
 
@@ -393,8 +374,7 @@ public abstract class GameObject implements ObjectModel {
     this.mp.setPushableInto(value);
   }
 
-  protected final void setDirectionallyPushableInto(final int dir,
-      final boolean value) {
+  protected final void setDirectionallyPushableInto(final int dir, final boolean value) {
     this.mp.setDirectionallyPushableInto(dir, value);
   }
 
@@ -402,8 +382,7 @@ public abstract class GameObject implements ObjectModel {
     this.mp.setPullableInto(value);
   }
 
-  protected final void setDirectionallyPullableInto(final int dir,
-      final boolean value) {
+  protected final void setDirectionallyPullableInto(final int dir, final boolean value) {
     this.mp.setDirectionallyPullableInto(dir, value);
   }
 
@@ -411,8 +390,7 @@ public abstract class GameObject implements ObjectModel {
     this.mp.setPushableOut(value);
   }
 
-  protected final void setDirectionallyPushableOut(final int dir,
-      final boolean value) {
+  protected final void setDirectionallyPushableOut(final int dir, final boolean value) {
     this.mp.setDirectionallyPushableOut(dir, value);
   }
 
@@ -420,8 +398,7 @@ public abstract class GameObject implements ObjectModel {
     this.mp.setPullableOut(value);
   }
 
-  protected final void setDirectionallyPullableOut(final int dir,
-      final boolean value) {
+  protected final void setDirectionallyPullableOut(final int dir, final boolean value) {
     this.mp.setDirectionallyPullableOut(dir, value);
   }
 

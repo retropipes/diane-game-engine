@@ -22,14 +22,12 @@ public class SortedScoreTable extends ScoreTable {
     this.sortOrder = true;
   }
 
-  private SortedScoreTable(final int mv, final int length,
-      final boolean ascending, final String[] customUnit) {
+  private SortedScoreTable(final int mv, final int length, final boolean ascending, final String[] customUnit) {
     super(mv, length, customUnit);
     this.sortOrder = ascending;
   }
 
-  public SortedScoreTable(final int mv, final int length,
-      final boolean ascending, final long startingScore,
+  public SortedScoreTable(final int mv, final int length, final boolean ascending, final long startingScore,
       final String[] customUnit) {
     super(mv, length, customUnit);
     this.sortOrder = ascending;
@@ -100,8 +98,7 @@ public class SortedScoreTable extends ScoreTable {
       // Sort the score table
       Collections.sort(temp, new Score.ScoreComparatorDesc());
       // Determine if lowest score would be removed
-      return !Collections.min(temp, new Score.ScoreComparatorDesc())
-          .equals(newEntry);
+      return !Collections.min(temp, new Score.ScoreComparatorDesc()).equals(newEntry);
     }
     // Copy the current table to the temporary table
     Collections.copy(temp, this.table);
@@ -110,12 +107,10 @@ public class SortedScoreTable extends ScoreTable {
     // Sort the score table
     Collections.sort(temp, new Score.ScoreComparatorAsc());
     // Determine if highest score would be removed
-    return !Collections.max(temp, new Score.ScoreComparatorAsc())
-        .equals(newEntry);
+    return !Collections.max(temp, new Score.ScoreComparatorAsc()).equals(newEntry);
   }
 
-  public static SortedScoreTable readSortedScoreTable(final XDataReader xdr)
-      throws IOException {
+  public static SortedScoreTable readSortedScoreTable(final XDataReader xdr) throws IOException {
     final boolean order = xdr.readBoolean();
     final int len = xdr.readInt();
     final int unitLen = xdr.readInt();
@@ -123,8 +118,7 @@ public class SortedScoreTable extends ScoreTable {
     for (int z = 0; z < unitLen; z++) {
       unitArr[z] = xdr.readString();
     }
-    final SortedScoreTable sst = new SortedScoreTable(unitLen, len, order,
-        unitArr);
+    final SortedScoreTable sst = new SortedScoreTable(unitLen, len, order, unitArr);
     for (int x = 0; x < len; x++) {
       sst.table.set(x, Score.readScore(xdr));
     }

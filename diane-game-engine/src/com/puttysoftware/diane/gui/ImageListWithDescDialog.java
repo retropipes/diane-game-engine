@@ -50,29 +50,25 @@ public class ImageListWithDescDialog extends JDialog implements ActionListener {
    * otherwise, it should be the component on top of which the dialog should
    * appear.
    */
-  public static int showDialog(final Component locationComp,
-      final String labelText, final String title,
-      final BufferedImageIcon[] possibleValues, final int initialValue,
-      final String descValue, final String... possibleDescriptions) {
+  public static int showDialog(final Component locationComp, final String labelText, final String title,
+      final BufferedImageIcon[] possibleValues, final int initialValue, final String descValue,
+      final String... possibleDescriptions) {
     ImageListWithDescDialog.value = ImageListWithDescDialog.CANCEL;
     final Frame frame = JOptionPane.getFrameForComponent(MainWindow.owner());
-    ImageListWithDescDialog.dialog = new ImageListWithDescDialog(frame,
-        locationComp, labelText, title, possibleValues, initialValue, descValue,
-        possibleDescriptions);
+    ImageListWithDescDialog.dialog = new ImageListWithDescDialog(frame, locationComp, labelText, title, possibleValues,
+        initialValue, descValue, possibleDescriptions);
     ImageListWithDescDialog.dialog.setVisible(true);
     return ImageListWithDescDialog.value;
   }
 
   private static void setValue(final int newValue) {
     ImageListWithDescDialog.value = newValue;
-    ImageListWithDescDialog.list.setSelectedValue(ImageListWithDescDialog.value,
-        true);
+    ImageListWithDescDialog.list.setSelectedValue(ImageListWithDescDialog.value, true);
   }
 
-  private ImageListWithDescDialog(final Frame frame,
-      final Component locationComp, final String labelText, final String title,
-      final BufferedImageIcon[] data, final int initialValue,
-      final String descValue, final String... possibleDescriptions) {
+  private ImageListWithDescDialog(final Frame frame, final Component locationComp, final String labelText,
+      final String title, final BufferedImageIcon[] data, final int initialValue, final String descValue,
+      final String... possibleDescriptions) {
     super(frame, title, true);
     // Initialize the descriptions
     ImageListWithDescDialog.descs = possibleDescriptions;
@@ -93,8 +89,7 @@ public class ImageListWithDescDialog extends JDialog implements ActionListener {
     descPane.add(descArea);
     // main part of the dialog
     ImageListWithDescDialog.list = new SubJList<>(data);
-    ImageListWithDescDialog.list
-        .setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+    ImageListWithDescDialog.list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     ImageListWithDescDialog.list.setLayoutOrientation(JList.HORIZONTAL_WRAP);
     ImageListWithDescDialog.list.setVisibleRowCount(-1);
     ImageListWithDescDialog.list.addMouseListener(new MouseAdapter() {
@@ -105,18 +100,14 @@ public class ImageListWithDescDialog extends JDialog implements ActionListener {
         }
       }
     });
-    ImageListWithDescDialog.list
-        .addListSelectionListener(new ListSelectionListener() {
-          @Override
-          public void valueChanged(final ListSelectionEvent e) {
-            // Update description text
-            descArea.setText(
-                ImageListWithDescDialog.descs[ImageListWithDescDialog.list
-                    .getSelectedIndex()]);
-          }
-        });
-    final JScrollPane listScroller = new JScrollPane(
-        ImageListWithDescDialog.list);
+    ImageListWithDescDialog.list.addListSelectionListener(new ListSelectionListener() {
+      @Override
+      public void valueChanged(final ListSelectionEvent e) {
+        // Update description text
+        descArea.setText(ImageListWithDescDialog.descs[ImageListWithDescDialog.list.getSelectedIndex()]);
+      }
+    });
+    final JScrollPane listScroller = new JScrollPane(ImageListWithDescDialog.list);
     listScroller.setPreferredSize(new Dimension(250, 80));
     listScroller.setAlignmentX(Component.LEFT_ALIGNMENT);
     // Create a container so that we can add a title around
@@ -155,8 +146,7 @@ public class ImageListWithDescDialog extends JDialog implements ActionListener {
   @Override
   public void actionPerformed(final ActionEvent e) {
     if ("OK".equals(e.getActionCommand())) {
-      ImageListWithDescDialog
-          .setValue(ImageListWithDescDialog.list.getSelectedIndex());
+      ImageListWithDescDialog.setValue(ImageListWithDescDialog.list.getSelectedIndex());
     } else if ("Cancel".equals(e.getActionCommand())) {
       ImageListWithDescDialog.setValue(ImageListWithDescDialog.CANCEL);
     }
@@ -176,11 +166,9 @@ public class ImageListWithDescDialog extends JDialog implements ActionListener {
     }
 
     @Override
-    public int getScrollableUnitIncrement(final Rectangle visibleRect,
-        final int orientation, final int direction) {
+    public int getScrollableUnitIncrement(final Rectangle visibleRect, final int orientation, final int direction) {
       int row;
-      if (orientation == SwingConstants.VERTICAL && direction < 0
-          && (row = this.getFirstVisibleIndex()) != -1) {
+      if (orientation == SwingConstants.VERTICAL && direction < 0 && (row = this.getFirstVisibleIndex()) != -1) {
         final Rectangle r = this.getCellBounds(row, row);
         if (r.y == visibleRect.y && row != 0) {
           final Point loc = r.getLocation();
@@ -193,8 +181,7 @@ public class ImageListWithDescDialog extends JDialog implements ActionListener {
           return prevR.height;
         }
       }
-      return super.getScrollableUnitIncrement(visibleRect, orientation,
-          direction);
+      return super.getScrollableUnitIncrement(visibleRect, orientation, direction);
     }
   }
 }

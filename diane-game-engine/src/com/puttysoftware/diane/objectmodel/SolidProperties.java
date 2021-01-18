@@ -29,8 +29,7 @@ class SolidProperties {
 
   // Constructors
   public SolidProperties() {
-    this.solidData = new FlagStorage(SolidProperties.SOLID_DATA_TYPES,
-        Directions.COUNT);
+    this.solidData = new FlagStorage(SolidProperties.SOLID_DATA_TYPES, Directions.COUNT);
   }
 
   // Methods
@@ -59,8 +58,7 @@ class SolidProperties {
   public boolean isSolid() {
     boolean result = false;
     for (int dir = 0; dir < Directions.COUNT; dir++) {
-      result = result
-          || this.solidData.getCell(SolidDataTypes.EXTERNAL.index, dir);
+      result = result || this.solidData.getCell(SolidDataTypes.EXTERNAL.index, dir);
     }
     return result;
   }
@@ -68,8 +66,7 @@ class SolidProperties {
   public boolean isInternallySolid() {
     boolean result = false;
     for (int dir = 0; dir < Directions.COUNT; dir++) {
-      result = result
-          || this.solidData.getCell(SolidDataTypes.INTERNAL.index, dir);
+      result = result || this.solidData.getCell(SolidDataTypes.INTERNAL.index, dir);
     }
     return result;
   }
@@ -79,8 +76,7 @@ class SolidProperties {
     return this.solidData.getCell(SolidDataTypes.EXTERNAL.index, dir);
   }
 
-  public boolean isInternallyDirectionallySolid(final int dirX,
-      final int dirY) {
+  public boolean isInternallyDirectionallySolid(final int dirX, final int dirY) {
     final int dir = DirectionResolver.resolve(dirX, dirY);
     return this.solidData.getCell(SolidDataTypes.INTERNAL.index, dir);
   }
@@ -101,8 +97,7 @@ class SolidProperties {
     this.solidData.setCell(value, SolidDataTypes.EXTERNAL.index, dir);
   }
 
-  public void setInternallyDirectionallySolid(final int dir,
-      final boolean value) {
+  public void setInternallyDirectionallySolid(final int dir, final boolean value) {
     this.solidData.setCell(value, SolidDataTypes.INTERNAL.index, dir);
   }
 }

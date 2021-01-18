@@ -54,7 +54,6 @@ final class ColorReplaceRule {
       return false;
     }
     ColorReplaceRule other = (ColorReplaceRule) obj;
-    return Objects.equals(this.findColor, other.findColor)
-        && Objects.equals(this.replaceColor, other.replaceColor);
+    return Objects.equals(this.findColor, other.findColor) && Objects.equals(this.replaceColor, other.replaceColor);
   }
 }

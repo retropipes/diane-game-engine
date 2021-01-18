@@ -29,8 +29,7 @@ class VisionProperties {
 
   // Constructors
   public VisionProperties() {
-    this.visionData = new FlagStorage(VisionProperties.VISION_DATA_TYPES,
-        Directions.COUNT);
+    this.visionData = new FlagStorage(VisionProperties.VISION_DATA_TYPES, Directions.COUNT);
   }
 
   // Methods
@@ -59,8 +58,7 @@ class VisionProperties {
   public boolean isSightBlocking() {
     boolean result = false;
     for (int dir = 0; dir < Directions.COUNT; dir++) {
-      result = result
-          || this.visionData.getCell(VisionDataTypes.EXTERNAL.index, dir);
+      result = result || this.visionData.getCell(VisionDataTypes.EXTERNAL.index, dir);
     }
     return result;
   }
@@ -68,8 +66,7 @@ class VisionProperties {
   public boolean isInternallySightBlocking() {
     boolean result = false;
     for (int dir = 0; dir < Directions.COUNT; dir++) {
-      result = result
-          || this.visionData.getCell(VisionDataTypes.INTERNAL.index, dir);
+      result = result || this.visionData.getCell(VisionDataTypes.INTERNAL.index, dir);
     }
     return result;
   }
@@ -79,8 +76,7 @@ class VisionProperties {
     return this.visionData.getCell(VisionDataTypes.EXTERNAL.index, dir);
   }
 
-  public boolean isInternallyDirectionallySightBlocking(final int dirX,
-      final int dirY) {
+  public boolean isInternallyDirectionallySightBlocking(final int dirX, final int dirY) {
     final int dir = DirectionResolver.resolve(dirX, dirY);
     return this.visionData.getCell(VisionDataTypes.INTERNAL.index, dir);
   }
@@ -97,13 +93,11 @@ class VisionProperties {
     }
   }
 
-  public void setDirectionallySightBlocking(final int dir,
-      final boolean value) {
+  public void setDirectionallySightBlocking(final int dir, final boolean value) {
     this.visionData.setCell(value, VisionDataTypes.EXTERNAL.index, dir);
   }
 
-  public void setInternallyDirectionallySightBlocking(final int dir,
-      final boolean value) {
+  public void setInternallyDirectionallySightBlocking(final int dir, final boolean value) {
     this.visionData.setCell(value, VisionDataTypes.INTERNAL.index, dir);
   }
 }

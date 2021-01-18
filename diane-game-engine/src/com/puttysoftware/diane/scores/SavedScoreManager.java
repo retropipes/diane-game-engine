@@ -15,17 +15,13 @@ public class SavedScoreManager extends ScoreManager {
   private final String scoresFilename;
 
   // Constructors
-  public SavedScoreManager(final int length,
-      final boolean sortOrder, final long startingScore,
-      final String customTitle, final String customUnit,
-      final String scoresFile) {
-    this(1, length, sortOrder, startingScore, customTitle, new String[] {customUnit}, scoresFile);
+  public SavedScoreManager(final int length, final boolean sortOrder, final long startingScore,
+      final String customTitle, final String customUnit, final String scoresFile) {
+    this(1, length, sortOrder, startingScore, customTitle, new String[] { customUnit }, scoresFile);
   }
-  
-  public SavedScoreManager(final int mv, final int length,
-      final boolean sortOrder, final long startingScore,
-      final String customTitle, final String[] customUnit,
-      final String scoresFile) {
+
+  public SavedScoreManager(final int mv, final int length, final boolean sortOrder, final long startingScore,
+      final String customTitle, final String[] customUnit, final String scoresFile) {
     super(mv, length, sortOrder, startingScore, customTitle, customUnit);
     this.scoresFilename = scoresFile;
     try {

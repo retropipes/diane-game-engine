@@ -23,16 +23,14 @@ public abstract class Appearance {
     this.replacements = null;
   }
 
-  public Appearance(final String name, final ImageIndex imageIndex,
-      final ColorShader shader) {
+  public Appearance(final String name, final ImageIndex imageIndex, final ColorShader shader) {
     this.cacheName = name;
     this.whichImage = imageIndex;
     this.shading = shader;
     this.replacements = null;
   }
 
-  public Appearance(final String name, final ImageIndex imageIndex,
-      final ColorReplaceRules replaceRules) {
+  public Appearance(final String name, final ImageIndex imageIndex, final ColorReplaceRules replaceRules) {
     this.cacheName = name;
     this.whichImage = imageIndex;
     this.shading = null;

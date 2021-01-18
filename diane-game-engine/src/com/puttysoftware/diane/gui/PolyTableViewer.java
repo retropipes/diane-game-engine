@@ -35,8 +35,7 @@ public final class PolyTableViewer {
       PolyTableViewer.mpValueView(page, viewerString);
     } else {
       boolean viewAsArray = true;
-      final int returnCode = CommonDialogs.showConfirmDialog(
-          "View as a list, or as single values?", viewerString); //$NON-NLS-1$
+      final int returnCode = CommonDialogs.showConfirmDialog("View as a list, or as single values?", viewerString); //$NON-NLS-1$
       if (returnCode == CommonDialogs.YES_OPTION) {
         viewAsArray = true;
       } else {
@@ -82,10 +81,8 @@ public final class PolyTableViewer {
           suffix = PolyTableViewer.SUFFIX_N;
         }
         while (!valid) {
-          rawInput = CommonDialogs.showTextInputDialog(
-              PolyTableViewer.ENTRY_PROMPT_PART_1 + (x + 1) + suffix + " " //$NON-NLS-1$
-                  + PolyTableViewer.ENTRY_PROMPT_PART_2,
-              viewerString);
+          rawInput = CommonDialogs.showTextInputDialog(PolyTableViewer.ENTRY_PROMPT_PART_1 + (x + 1) + suffix + " " //$NON-NLS-1$
+              + PolyTableViewer.ENTRY_PROMPT_PART_2, viewerString);
           try {
             input = Integer.parseInt(rawInput);
             if (input < 0) {
@@ -99,8 +96,7 @@ public final class PolyTableViewer {
             // Ignore exception
           }
           if (!valid) {
-            CommonDialogs.showErrorDialog(
-                "The input provided was invalid - please try again.", //$NON-NLS-1$
+            CommonDialogs.showErrorDialog("The input provided was invalid - please try again.", //$NON-NLS-1$
                 viewerString);
           }
         }
@@ -109,8 +105,7 @@ public final class PolyTableViewer {
       final long value = page.evaluate(paramValues);
       CommonDialogs.showTitledDialog("Value for the given parameters: " //$NON-NLS-1$
           + Long.valueOf(value).toString(), viewerString);
-      final int returnCode = CommonDialogs.showConfirmDialog(
-          "View more values?", //$NON-NLS-1$
+      final int returnCode = CommonDialogs.showConfirmDialog("View more values?", //$NON-NLS-1$
           viewerString);
       if (returnCode == CommonDialogs.YES_OPTION) {
         viewMore = true;
@@ -129,8 +124,7 @@ public final class PolyTableViewer {
       int input = 0;
       while (!valid) {
         rawInput = CommonDialogs.showTextInputDialog(
-            PolyTableViewer.ENTRY_PROMPT_PART_1 + PolyTableViewer.ENTRY_PROMPT_PART_2,
-            viewerString);
+            PolyTableViewer.ENTRY_PROMPT_PART_1 + PolyTableViewer.ENTRY_PROMPT_PART_2, viewerString);
         try {
           input = Integer.parseInt(rawInput);
           if (input < 0) {
@@ -144,8 +138,7 @@ public final class PolyTableViewer {
           // Ignore exception
         }
         if (!valid) {
-          CommonDialogs.showErrorDialog(
-              "The input provided was invalid - please try again.", //$NON-NLS-1$
+          CommonDialogs.showErrorDialog("The input provided was invalid - please try again.", //$NON-NLS-1$
               viewerString);
         }
       }
@@ -153,8 +146,7 @@ public final class PolyTableViewer {
       final long value = page.evaluate(paramValue);
       CommonDialogs.showTitledDialog("Value: " + Long.valueOf(value).toString(), //$NON-NLS-1$
           viewerString);
-      final int returnCode = CommonDialogs.showConfirmDialog(
-          "View more values?", //$NON-NLS-1$
+      final int returnCode = CommonDialogs.showConfirmDialog("View more values?", //$NON-NLS-1$
           viewerString);
       if (returnCode == CommonDialogs.YES_OPTION) {
         viewMore = true;

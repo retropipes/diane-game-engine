@@ -35,17 +35,14 @@ final class Tile {
   }
 
   public BufferedImageIcon getGameImage() {
-    return this.gameAppearance != null ? this.gameAppearance.getImage()
-        : this.getImage();
+    return this.gameAppearance != null ? this.gameAppearance.getImage() : this.getImage();
   }
 
   public BufferedImageIcon getEditorImage() {
-    return this.editorAppearance != null ? this.editorAppearance.getImage()
-        : this.getGameImage();
+    return this.editorAppearance != null ? this.editorAppearance.getImage() : this.getGameImage();
   }
 
   public BufferedImageIcon getBattleImage() {
-    return this.battleAppearance != null ? this.battleAppearance.getImage()
-        : this.getGameImage();
+    return this.battleAppearance != null ? this.battleAppearance.getImage() : this.getGameImage();
   }
 }

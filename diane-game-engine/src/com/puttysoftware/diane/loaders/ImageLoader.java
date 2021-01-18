@@ -38,8 +38,7 @@ public class ImageLoader {
     private static boolean cacheCreated = false;
 
     // Methods
-    public static BufferedImageIcon getCachedImage(final String name,
-        final URL url) {
+    public static BufferedImageIcon getCachedImage(final String name, final URL url) {
       if (!ImageCache.cacheCreated) {
         ImageCache.createCache();
       }
@@ -71,8 +70,7 @@ public class ImageLoader {
     private final String name;
 
     // Constructors
-    public ImageCacheEntry(final BufferedImageIcon newImage,
-        final String newName) {
+    public ImageCacheEntry(final BufferedImageIcon newImage, final String newName) {
       this.image = newImage;
       this.name = newName;
     }

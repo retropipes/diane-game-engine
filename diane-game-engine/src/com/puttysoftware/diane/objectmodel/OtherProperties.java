@@ -12,8 +12,7 @@ import com.puttysoftware.storage.FlagStorage;
 class OtherProperties {
   // Private enumeration
   private enum OtherDataTypes {
-    FRICTION(0), USABLE(1), DESTROYABLE(2), CHAINS_HORIZONTAL(3),
-    CHAINS_VERTICAL(4), CARRYABLE(5), TIMER_TICKING(6);
+    FRICTION(0), USABLE(1), DESTROYABLE(2), CHAINS_HORIZONTAL(3), CHAINS_VERTICAL(4), CARRYABLE(5), TIMER_TICKING(6);
 
     private int index;
 
@@ -81,8 +80,7 @@ class OtherProperties {
   }
 
   public boolean isChainReacting() {
-    return this.isChainReactingHorizontally()
-        && this.isChainReactingVertically();
+    return this.isChainReactingHorizontally() && this.isChainReactingVertically();
   }
 
   public boolean isChainReactingHorizontally() {

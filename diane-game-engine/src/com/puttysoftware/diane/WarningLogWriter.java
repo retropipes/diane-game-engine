@@ -49,8 +49,7 @@ class WarningLogWriter {
         }
       }
       // Print to the file
-      try (PrintStream s = new PrintStream(
-          new BufferedOutputStream(new FileOutputStream(df)))) {
+      try (PrintStream s = new PrintStream(new BufferedOutputStream(new FileOutputStream(df)))) {
         this.t.printStackTrace(s);
         s.close();
       }
@@ -104,8 +103,7 @@ class WarningLogWriter {
 
   private String getStampSuffix() {
     final Date time = this.c.getTime();
-    final SimpleDateFormat sdf = new SimpleDateFormat(
-        "'_'yyyyMMdd'_'HHmmssSSS"); //$NON-NLS-1$
+    final SimpleDateFormat sdf = new SimpleDateFormat("'_'yyyyMMdd'_'HHmmssSSS"); //$NON-NLS-1$
     return sdf.format(time);
   }
 

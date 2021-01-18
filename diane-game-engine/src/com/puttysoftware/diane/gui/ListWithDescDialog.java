@@ -45,15 +45,13 @@ public class ListWithDescDialog extends JDialog implements ActionListener {
    * otherwise, it should be the component on top of which the dialog should
    * appear.
    */
-  public static String showDialog(final Component locationComp,
-      final String labelText, final String title, final String[] possibleValues,
-      final String initialValue, final String descValue,
+  public static String showDialog(final Component locationComp, final String labelText, final String title,
+      final String[] possibleValues, final String initialValue, final String descValue,
       final String... possibleDescriptions) {
     ListWithDescDialog.value = null;
     final Frame frame = JOptionPane.getFrameForComponent(MainWindow.owner());
-    ListWithDescDialog.dialog = new ListWithDescDialog(frame, locationComp,
-        labelText, title, possibleValues, initialValue, descValue,
-        possibleDescriptions);
+    ListWithDescDialog.dialog = new ListWithDescDialog(frame, locationComp, labelText, title, possibleValues,
+        initialValue, descValue, possibleDescriptions);
     ListWithDescDialog.dialog.setVisible(true);
     return ListWithDescDialog.value;
   }
@@ -63,9 +61,8 @@ public class ListWithDescDialog extends JDialog implements ActionListener {
     ListWithDescDialog.list.setSelectedValue(ListWithDescDialog.value, true);
   }
 
-  private ListWithDescDialog(final Frame frame, final Component locationComp,
-      final String labelText, final String title, final String[] data,
-      final String initialValue, final String descValue,
+  private ListWithDescDialog(final Frame frame, final Component locationComp, final String labelText,
+      final String title, final String[] data, final String initialValue, final String descValue,
       final String... possibleDescriptions) {
     super(frame, title, true);
     // Initialize the descriptions
@@ -87,8 +84,7 @@ public class ListWithDescDialog extends JDialog implements ActionListener {
     descPane.add(descArea);
     // main part of the dialog
     ListWithDescDialog.list = new SubJList<>(data);
-    ListWithDescDialog.list
-        .setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+    ListWithDescDialog.list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     ListWithDescDialog.list.setLayoutOrientation(JList.HORIZONTAL_WRAP);
     ListWithDescDialog.list.setVisibleRowCount(-1);
     ListWithDescDialog.list.addMouseListener(new MouseAdapter() {
@@ -99,8 +95,8 @@ public class ListWithDescDialog extends JDialog implements ActionListener {
         }
       }
     });
-    ListWithDescDialog.list.addListSelectionListener(e -> descArea.setText(
-        ListWithDescDialog.descs[ListWithDescDialog.list.getSelectedIndex()]));
+    ListWithDescDialog.list.addListSelectionListener(
+        e -> descArea.setText(ListWithDescDialog.descs[ListWithDescDialog.list.getSelectedIndex()]));
     final JScrollPane listScroller = new JScrollPane(ListWithDescDialog.list);
     listScroller.setPreferredSize(new Dimension(250, 80));
     listScroller.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -160,11 +156,9 @@ public class ListWithDescDialog extends JDialog implements ActionListener {
     }
 
     @Override
-    public int getScrollableUnitIncrement(final Rectangle visibleRect,
-        final int orientation, final int direction) {
+    public int getScrollableUnitIncrement(final Rectangle visibleRect, final int orientation, final int direction) {
       int row;
-      if (orientation == SwingConstants.VERTICAL && direction < 0
-          && (row = this.getFirstVisibleIndex()) != -1) {
+      if (orientation == SwingConstants.VERTICAL && direction < 0 && (row = this.getFirstVisibleIndex()) != -1) {
         final Rectangle r = this.getCellBounds(row, row);
         if (r.y == visibleRect.y && row != 0) {
           final Point loc = r.getLocation();
@@ -177,8 +171,7 @@ public class ListWithDescDialog extends JDialog implements ActionListener {
           return prevR.height;
         }
       }
-      return super.getScrollableUnitIncrement(visibleRect, orientation,
-          direction);
+      return super.getScrollableUnitIncrement(visibleRect, orientation, direction);
     }
   }
 }

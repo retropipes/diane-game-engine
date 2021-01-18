@@ -12,8 +12,7 @@ import java.util.Objects;
 import com.puttysoftware.images.BufferedImageIcon;
 
 public class ImageCompositor {
-  private static BufferedImageIcon compositeTwo(final BufferedImageIcon input1,
-      final BufferedImageIcon input2) {
+  private static BufferedImageIcon compositeTwo(final BufferedImageIcon input1, final BufferedImageIcon input2) {
     if (input1 != null && input2 != null) {
       final int width = input1.getWidth();
       final int height = input1.getHeight();
@@ -42,16 +41,13 @@ public class ImageCompositor {
     }
   }
 
-  static BufferedImageIcon compositeUncached(final String name,
-      final BufferedImageIcon... inputs) {
+  static BufferedImageIcon compositeUncached(final String name, final BufferedImageIcon... inputs) {
     if (inputs != null) {
       if (inputs.length >= 2) {
-        BufferedImageIcon result = ImageCompositor.compositeTwo(inputs[0],
-            inputs[1]);
+        BufferedImageIcon result = ImageCompositor.compositeTwo(inputs[0], inputs[1]);
         final int beyond2 = inputs.length;
         for (int i = 2; i < beyond2; i++) {
-          final BufferedImageIcon tempResult = ImageCompositor
-              .compositeTwo(result, inputs[i]);
+          final BufferedImageIcon tempResult = ImageCompositor.compositeTwo(result, inputs[i]);
           if (tempResult != null) {
             result = tempResult;
           }
@@ -64,8 +60,7 @@ public class ImageCompositor {
     return null;
   }
 
-  public static BufferedImageIcon composite(final String name,
-      final BufferedImageIcon... inputs) {
+  public static BufferedImageIcon composite(final String name, final BufferedImageIcon... inputs) {
     return ImageCache.getCachedImage(name, inputs);
   }
 
@@ -75,8 +70,7 @@ public class ImageCompositor {
     private static boolean cacheCreated = false;
 
     // Methods
-    public static BufferedImageIcon getCachedImage(final String name,
-        final BufferedImageIcon... inputs) {
+    public static BufferedImageIcon getCachedImage(final String name, final BufferedImageIcon... inputs) {
       if (!ImageCache.cacheCreated) {
         ImageCache.createCache();
       }
@@ -87,8 +81,7 @@ public class ImageCompositor {
         }
       }
       // Not found: Add to cache
-      final BufferedImageIcon newImage = ImageCompositor.compositeUncached(name,
-          inputs);
+      final BufferedImageIcon newImage = ImageCompositor.compositeUncached(name, inputs);
       final ImageCacheEntry newEntry = new ImageCacheEntry(newImage, name);
       ImageCache.cache.add(newEntry);
       return newImage;
@@ -109,8 +102,7 @@ public class ImageCompositor {
     private final String name;
 
     // Constructors
-    public ImageCacheEntry(final BufferedImageIcon newImage,
-        final String newName) {
+    public ImageCacheEntry(final BufferedImageIcon newImage, final String newName) {
       this.image = newImage;
       this.name = newName;
     }

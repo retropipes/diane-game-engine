@@ -12,8 +12,7 @@ import java.util.Objects;
 import com.puttysoftware.images.BufferedImageIcon;
 
 public class ImageShader {
-  static BufferedImageIcon shadeUncached(final String name,
-      final BufferedImageIcon input, final ColorShader shade) {
+  static BufferedImageIcon shadeUncached(final String name, final BufferedImageIcon input, final ColorShader shade) {
     if (input != null) {
       final int width = input.getWidth();
       final int height = input.getHeight();
@@ -30,8 +29,7 @@ public class ImageShader {
     }
   }
 
-  public static BufferedImageIcon shade(final String name,
-      final BufferedImageIcon input, final ColorShader shade) {
+  public static BufferedImageIcon shade(final String name, final BufferedImageIcon input, final ColorShader shade) {
     return ImageCache.getCachedImage(name, input, shade);
   }
 
@@ -41,8 +39,8 @@ public class ImageShader {
     private static boolean cacheCreated = false;
 
     // Methods
-    public static BufferedImageIcon getCachedImage(final String name,
-        final BufferedImageIcon input, final ColorShader shade) {
+    public static BufferedImageIcon getCachedImage(final String name, final BufferedImageIcon input,
+        final ColorShader shade) {
       if (!ImageCache.cacheCreated) {
         ImageCache.createCache();
       }
@@ -53,8 +51,7 @@ public class ImageShader {
         }
       }
       // Not found: Add to cache
-      final BufferedImageIcon newImage = ImageShader.shadeUncached(name, input,
-          shade);
+      final BufferedImageIcon newImage = ImageShader.shadeUncached(name, input, shade);
       final ImageCacheEntry newEntry = new ImageCacheEntry(newImage, name);
       ImageCache.cache.add(newEntry);
       return newImage;
@@ -75,8 +72,7 @@ public class ImageShader {
     private final String name;
 
     // Constructors
-    public ImageCacheEntry(final BufferedImageIcon newImage,
-        final String newName) {
+    public ImageCacheEntry(final BufferedImageIcon newImage, final String newName) {
       this.image = newImage;
       this.name = newName;
     }

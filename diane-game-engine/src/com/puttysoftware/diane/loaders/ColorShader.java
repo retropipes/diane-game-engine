@@ -36,8 +36,7 @@ public class ColorShader {
     return new Color(result[0], result[1], result[2], result[3]);
   }
 
-  private static float[] doColorMath(final float[] inputColor,
-      final float[] inputShade) {
+  private static float[] doColorMath(final float[] inputColor, final float[] inputShade) {
     final float[] outputColor = new float[4];
     for (int c = 0; c < 3; c++) {
       outputColor[c] = inputColor[c] * inputShade[c];
@@ -60,7 +59,6 @@ public class ColorShader {
       return false;
     }
     final ColorShader other = (ColorShader) obj;
-    return Objects.equals(this.shadeColor, other.shadeColor)
-        && Objects.equals(this.shadeName, other.shadeName);
+    return Objects.equals(this.shadeColor, other.shadeColor) && Objects.equals(this.shadeName, other.shadeName);
   }
 }

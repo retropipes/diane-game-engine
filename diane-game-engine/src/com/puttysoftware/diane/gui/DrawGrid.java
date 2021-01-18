@@ -17,8 +17,7 @@ public class DrawGrid extends ObjectStorage {
     return (BufferedImageIcon) this.getCell(row, col);
   }
 
-  public void setImageCell(final BufferedImageIcon bii, final int row,
-      final int col) {
+  public void setImageCell(final BufferedImageIcon bii, final int row, final int col) {
     this.setCell(bii, row, col);
   }
 }

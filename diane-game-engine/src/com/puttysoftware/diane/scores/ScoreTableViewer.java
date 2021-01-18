@@ -18,8 +18,7 @@ public final class ScoreTableViewer {
   }
 
   // Methods
-  public static void view(final ScoreTable table, final String customTitle,
-      final String[] unit) {
+  public static void view(final ScoreTable table, final String customTitle, final String[] unit) {
     final StringBuilder msgBuilder = new StringBuilder();
     String msg = null;
     String title = null;

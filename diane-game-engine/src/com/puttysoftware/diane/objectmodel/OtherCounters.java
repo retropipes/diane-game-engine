@@ -86,7 +86,6 @@ class OtherCounters {
   }
 
   public void resetTimer() {
-    this.otherData.setCell(this.getTimerReset(),
-        OtherDataTypes.TIMER_TICKS.index);
+    this.otherData.setCell(this.getTimerReset(), OtherDataTypes.TIMER_TICKS.index);
   }
 }

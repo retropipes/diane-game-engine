@@ -26,12 +26,11 @@ public final class PolyTableEditor {
 
   // Constructors
   public PolyTableEditor() {
-    this.page = new PolyTable(PolyTableEditor.DEFAULT_MAX_POWER,
-        PolyTableEditor.DEFAULT_PARAMS, PolyTableEditor.DEFAULT_MAX_RANGE, false);
+    this.page = new PolyTable(PolyTableEditor.DEFAULT_MAX_POWER, PolyTableEditor.DEFAULT_PARAMS,
+        PolyTableEditor.DEFAULT_MAX_RANGE, false);
   }
 
-  public PolyTableEditor(final int maxPower, final int params, final int range,
-      final boolean experience) {
+  public PolyTableEditor(final int maxPower, final int params, final int range, final boolean experience) {
     this.page = new PolyTable(maxPower, params, range, experience);
   }
 
@@ -80,10 +79,8 @@ public final class PolyTableEditor {
           inputValid = false;
           while (!inputValid) {
             rawInput = CommonDialogs.showTextInputDialogWithDefault(
-                x + xSuffix + PolyTableEditor.ENTRY_PROMPT_PART_1 + y + ySuffix
-                    + PolyTableEditor.ENTRY_PROMPT_PART_2,
-                editorString,
-                Double.valueOf(this.page.getCoefficient(x, y)).toString());
+                x + xSuffix + PolyTableEditor.ENTRY_PROMPT_PART_1 + y + ySuffix + PolyTableEditor.ENTRY_PROMPT_PART_2,
+                editorString, Double.valueOf(this.page.getCoefficient(x, y)).toString());
             try {
               input = Double.parseDouble(rawInput);
               if (input < 0.0) {
@@ -97,8 +94,7 @@ public final class PolyTableEditor {
               return null;
             }
             if (!inputValid) {
-              CommonDialogs.showErrorDialog(
-                  "The input provided was invalid - please try again.", //$NON-NLS-1$
+              CommonDialogs.showErrorDialog("The input provided was invalid - please try again.", //$NON-NLS-1$
                   editorString);
             }
           }
@@ -106,8 +102,7 @@ public final class PolyTableEditor {
         }
       }
       PolyTableViewer.view(this.page);
-      result = CommonDialogs.showConfirmDialog(PolyTableEditor.DIALOG_PROMPT,
-          PolyTableEditor.DIALOG_TITLE);
+      result = CommonDialogs.showConfirmDialog(PolyTableEditor.DIALOG_PROMPT, PolyTableEditor.DIALOG_TITLE);
       if (result == CommonDialogs.YES_OPTION) {
         bad = false;
       }
