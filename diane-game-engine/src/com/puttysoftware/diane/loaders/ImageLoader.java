@@ -50,7 +50,7 @@ public class ImageLoader {
         }
       }
       // Not found: Add to cache
-      final BufferedImageIcon newImage = ImageLoader.loadUncached(name, url);
+      final BufferedImageIcon newImage = ImageScaler.getScaledImage(ImageLoader.loadUncached(name, url));
       final ImageCacheEntry newEntry = new ImageCacheEntry(newImage, name);
       ImageCache.cache.add(newEntry);
       return newImage;

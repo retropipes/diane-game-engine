@@ -14,14 +14,14 @@ import java.lang.reflect.Field;
 
 import com.puttysoftware.images.BufferedImageIcon;
 
-public class ImageScaleManager {
+class ImageScaler {
   // Fields
   private static boolean SCALE_COMPUTED = false;
   private static int NORMAL_DPI = 96;
 
   // Methods
   private static void computeImageScale() {
-    if (!ImageScaleManager.SCALE_COMPUTED) {
+    if (!ImageScaler.SCALE_COMPUTED) {
       if (System.getProperty("os.name").startsWith("Mac OS X")) {
         try {
           final GraphicsDevice graphicsDevice = GraphicsEnvironment.getLocalGraphicsEnvironment()
@@ -40,17 +40,17 @@ public class ImageScaleManager {
       } else {
         computeImageScaleFallback();
       }
-      ImageScaleManager.SCALE_COMPUTED = true;
+      ImageScaler.SCALE_COMPUTED = true;
     }
   }
 
   private static void computeImageScaleFallback() {
     final int dpi = Toolkit.getDefaultToolkit().getScreenResolution();
-    BufferedImageIcon.setScale(dpi * BufferedImageIcon.getScaleMult() / ImageScaleManager.NORMAL_DPI);
+    BufferedImageIcon.setScale(dpi * BufferedImageIcon.getScaleMult() / ImageScaler.NORMAL_DPI);
   }
 
   static BufferedImageIcon getScaledImage(final BufferedImageIcon src) {
-    ImageScaleManager.computeImageScale();
+    ImageScaler.computeImageScale();
     final double scale = BufferedImageIcon.getNormalizedScale();
     if (scale > 1.0) {
       final int owidth = src.getWidth(null);
