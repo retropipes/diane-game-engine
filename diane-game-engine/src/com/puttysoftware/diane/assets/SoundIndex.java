@@ -5,6 +5,8 @@ Any questions should be directed to the author via email at: support@puttysoftwa
  */
 package com.puttysoftware.diane.assets;
 
-public interface ImageIndex {
-  String getName();
+import java.net.URL;
+
+public interface SoundIndex {
+  URL getSoundURL();
 }

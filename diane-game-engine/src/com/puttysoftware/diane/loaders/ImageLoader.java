@@ -14,6 +14,7 @@ import java.util.Objects;
 import javax.imageio.ImageIO;
 
 import com.puttysoftware.diane.Diane;
+import com.puttysoftware.diane.assets.ImageIndex;
 import com.puttysoftware.images.BufferedImageIcon;
 
 public class ImageLoader {
@@ -28,8 +29,8 @@ public class ImageLoader {
     }
   }
 
-  public static BufferedImageIcon load(final String name, final URL url) {
-    return ImageCache.getCachedImage(name, url);
+  public static BufferedImageIcon load(final ImageIndex image, final URL url) {
+    return ImageCache.getCachedImage(image.getName(), url);
   }
 
   private static class ImageCache {

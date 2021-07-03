@@ -6,7 +6,6 @@ Any questions should be directed to the author via email at: support@puttysoftwa
 package com.puttysoftware.diane.loaders;
 
 import java.io.IOException;
-import java.net.URL;
 
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
@@ -18,6 +17,7 @@ import javax.sound.sampled.SourceDataLine;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 import com.puttysoftware.diane.Diane;
+import com.puttysoftware.diane.assets.SoundIndex;
 
 public class SoundLoader {
   private SoundLoader() {
@@ -26,11 +26,11 @@ public class SoundLoader {
 
   private static final int BUFFER_SIZE = 4096; // 4Kb
 
-  public static void play(final URL soundURL) {
+  public static void play(final SoundIndex sound) {
     new Thread() {
       @Override
       public void run() {
-        try (AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundURL)) {
+        try (AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(sound.getSoundURL())) {
           final AudioFormat format = audioInputStream.getFormat();
           final DataLine.Info info = new DataLine.Info(SourceDataLine.class, format);
           try (Line line = AudioSystem.getLine(info); SourceDataLine auline = (SourceDataLine) line) {
