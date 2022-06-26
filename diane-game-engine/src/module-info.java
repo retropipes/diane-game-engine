@@ -5,18 +5,19 @@
  * support@puttysoftware.com
  */
 module com.puttysoftware.diane {
-  requires transitive java.desktop;
-  requires transitive com.puttysoftware.images;
-  requires transitive com.puttysoftware.polytable;
-  requires transitive com.puttysoftware.storage;
-  requires transitive com.puttysoftware.xio;
+    requires transitive java.desktop;
 
-  exports com.puttysoftware.diane;
-  exports com.puttysoftware.diane.assets;
-  exports com.puttysoftware.diane.gui;
-  exports com.puttysoftware.diane.loaders;
-  exports com.puttysoftware.diane.map;
-  exports com.puttysoftware.diane.objectmodel;
-  exports com.puttysoftware.diane.scores;
-  exports com.puttysoftware.diane.utilties;
+    exports com.puttysoftware.diane;
+    exports com.puttysoftware.diane.asset;
+    exports com.puttysoftware.diane.edge;
+    exports com.puttysoftware.diane.fileio;
+    exports com.puttysoftware.diane.gui;
+    exports com.puttysoftware.diane.gui.dialog;
+    exports com.puttysoftware.diane.loaders;
+    exports com.puttysoftware.diane.map;
+    exports com.puttysoftware.diane.objectmodel;
+    exports com.puttysoftware.diane.polytable;
+    exports com.puttysoftware.diane.scores;
+    exports com.puttysoftware.diane.storage;
+    exports com.puttysoftware.diane.utilties;
 }

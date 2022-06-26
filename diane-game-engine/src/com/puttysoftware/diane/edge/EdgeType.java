@@ -3,8 +3,9 @@ Copyleft (C) 2019 Eric Ahnell
 
 Any questions should be directed to the author via email at: support@puttysoftware.com
  */
-package com.puttysoftware.diane.assets;
+package com.puttysoftware.diane.edge;
 
-public interface ImageIndex {
-  String getName();
+public enum EdgeType {
+    LINE,
+    CORNER;
 }
