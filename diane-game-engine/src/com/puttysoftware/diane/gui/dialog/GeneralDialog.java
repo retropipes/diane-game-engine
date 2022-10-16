@@ -14,8 +14,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import com.puttysoftware.diane.asset.BufferedImageIcon;
-import com.puttysoftware.diane.locale.Strings;
-import com.puttysoftware.diane.locale.Translations;
+import com.puttysoftware.diane.locale.ErrorString;
+import com.puttysoftware.diane.strings.DianeStrings;
 
 class GeneralDialog {
     private static MainWindow dialogFrame;
@@ -28,38 +28,38 @@ class GeneralDialog {
     public static Future<Void> showDialog(final String text, final String title, final BufferedImageIcon icon) {
 	Executors.newSingleThreadExecutor().submit(() -> {
 	    // Create and initialize the dialog.
-	    dialogFrame = MainWindow.getMainWindow();
-	    dialogPane = dialogFrame.createContent();
+	    GeneralDialog.dialogFrame = MainWindow.getMainWindow();
+	    GeneralDialog.dialogPane = GeneralDialog.dialogFrame.createContent();
 	    // Create and initialize the buttons.
-	    final JButton setButton = new JButton(Translations.load(Strings.OK_BUTTON));
-	    setButton.setActionCommand(Translations.load(Strings.OK_BUTTON));
+	    final var setButton = new JButton(DianeStrings.error(ErrorString.OK_BUTTON));
+	    setButton.setActionCommand(DianeStrings.error(ErrorString.OK_BUTTON));
 	    setButton.addActionListener(h -> {
-		completer.complete(null);
-		dialogFrame.restoreSaved();
+		GeneralDialog.completer.complete(null);
+		GeneralDialog.dialogFrame.restoreSaved();
 	    });
 	    // main part of the dialog
-	    final JPanel iconPane = new JPanel();
-	    final JLabel iconLabel = new JLabel(icon);
+	    final var iconPane = new JPanel();
+	    final var iconLabel = new JLabel(icon);
 	    iconPane.setLayout(new BoxLayout(iconPane, BoxLayout.PAGE_AXIS));
 	    iconPane.add(iconLabel);
-	    final JPanel mainPane = new JPanel();
+	    final var mainPane = new JPanel();
 	    mainPane.setLayout(new BoxLayout(mainPane, BoxLayout.PAGE_AXIS));
-	    final JLabel textLabel = new JLabel(text);
+	    final var textLabel = new JLabel(text);
 	    mainPane.add(textLabel);
 	    mainPane.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 	    // Lay out the buttons from left to right.
-	    final JPanel buttonPane = new JPanel();
+	    final var buttonPane = new JPanel();
 	    buttonPane.setLayout(new BoxLayout(buttonPane, BoxLayout.LINE_AXIS));
 	    buttonPane.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
 	    buttonPane.add(Box.createHorizontalGlue());
 	    buttonPane.add(Box.createRigidArea(new Dimension(10, 0)));
 	    buttonPane.add(setButton);
 	    // Put everything together, using the content pane's BorderLayout.
-	    dialogPane.add(iconPane, BorderLayout.WEST);
-	    dialogPane.add(mainPane, BorderLayout.CENTER);
-	    dialogPane.add(buttonPane, BorderLayout.SOUTH);
-	    dialogFrame.attachAndSave(dialogPane);
+	    GeneralDialog.dialogPane.add(iconPane, BorderLayout.WEST);
+	    GeneralDialog.dialogPane.add(mainPane, BorderLayout.CENTER);
+	    GeneralDialog.dialogPane.add(buttonPane, BorderLayout.SOUTH);
+	    GeneralDialog.dialogFrame.attachAndSave(GeneralDialog.dialogPane);
 	});
-	return completer;
+	return GeneralDialog.completer;
     }
 }

@@ -9,8 +9,6 @@ import com.puttysoftware.diane.gui.dialog.CommonDialogs;
 import com.puttysoftware.diane.polytable.PolyTable;
 
 public final class PolyTableEditor {
-    // Fields
-    private final PolyTable page;
     public static final int DEFAULT_MAX_POWER = 6;
     public static final int DEFAULT_PARAMS = 1;
     public static final int DEFAULT_MAX_RANGE = 99;
@@ -24,6 +22,8 @@ public final class PolyTableEditor {
     private static final String EXPERIENCE_EDITOR_STRING = "Experience PolyTable Editor"; //$NON-NLS-1$
     private static final String DIALOG_PROMPT = "Do you want to save this page?"; //$NON-NLS-1$
     private static final String DIALOG_TITLE = "Save?"; //$NON-NLS-1$
+    // Fields
+    private final PolyTable page;
 
     // Constructors
     public PolyTableEditor() {
@@ -47,10 +47,10 @@ public final class PolyTableEditor {
 	} else {
 	    editorString = PolyTableEditor.EDITOR_STRING;
 	}
-	boolean bad = true;
+	var bad = true;
 	boolean inputValid;
 	int result, x, y;
-	double input = 0.0;
+	var input = 0.0;
 	String xSuffix, ySuffix, rawInput;
 	while (bad) {
 	    for (x = this.page.getMaxPower(); x >= 0; x--) {
@@ -82,7 +82,7 @@ public final class PolyTableEditor {
 			rawInput = CommonDialogs.showTextInputDialogWithDefault(
 				x + xSuffix + PolyTableEditor.ENTRY_PROMPT_PART_1 + y + ySuffix
 					+ PolyTableEditor.ENTRY_PROMPT_PART_2,
-				editorString, Double.valueOf(this.page.getCoefficient(x, y)).toString());
+				editorString, Double.toString(this.page.getCoefficient(x, y)));
 			try {
 			    input = Double.parseDouble(rawInput);
 			    if (input < 0.0) {

@@ -5,7 +5,6 @@ Any questions should be directed to the author via email at: support@puttysoftwa
  */
 package com.puttysoftware.diane.loaders;
 
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -15,32 +14,21 @@ import javax.imageio.ImageIO;
 
 import com.puttysoftware.diane.Diane;
 import com.puttysoftware.diane.asset.BufferedImageIcon;
-import com.puttysoftware.diane.asset.ImageIndex;
+import com.puttysoftware.diane.asset.DianeImageIndex;
 
 public class ImageLoader {
-    static BufferedImageIcon loadUncached(final String name, final URL url) {
-	try {
-	    final BufferedImage image = ImageIO.read(url);
-	    final BufferedImageIcon icon = new BufferedImageIcon(image);
-	    return icon;
-	} catch (final IOException ie) {
-	    Diane.handleError(ie);
-	    return null;
-	}
-    }
-
-    public static BufferedImageIcon load(final ImageIndex image, final URL url) {
-	return ImageCache.getCachedImage(image.getName(), url);
-    }
-
-    public static BufferedImageIcon load(final String name, final URL url) {
-	return ImageCache.getCachedImage(name, url);
-    }
-
     private static class ImageCache {
 	// Fields
 	private static ArrayList<ImageCacheEntry> cache;
 	private static boolean cacheCreated = false;
+
+	private static void createCache() {
+	    if (!ImageCache.cacheCreated) {
+		// Create the cache
+		ImageCache.cache = new ArrayList<>();
+		ImageCache.cacheCreated = true;
+	    }
+	}
 
 	// Methods
 	public static BufferedImageIcon getCachedImage(final String name, final URL url) {
@@ -54,18 +42,10 @@ public class ImageLoader {
 		}
 	    }
 	    // Not found: Add to cache
-	    final BufferedImageIcon newImage = ImageScaler.getScaledImage(ImageLoader.loadUncached(name, url));
-	    final ImageCacheEntry newEntry = new ImageCacheEntry(newImage, name);
+	    final var newImage = ImageScaler.getScaledImage(ImageLoader.loadUncached(name, url));
+	    final var newEntry = new ImageCacheEntry(newImage, name);
 	    ImageCache.cache.add(newEntry);
 	    return newImage;
-	}
-
-	private static void createCache() {
-	    if (!ImageCache.cacheCreated) {
-		// Create the cache
-		ImageCache.cache = new ArrayList<>();
-		ImageCache.cacheCreated = true;
-	    }
 	}
     }
 
@@ -80,6 +60,22 @@ public class ImageLoader {
 	    this.name = newName;
 	}
 
+	@Override
+	public boolean equals(final Object obj) {
+	    if (this == obj) {
+		return true;
+	    }
+	    if (!(obj instanceof final ImageCacheEntry other)) {
+		return false;
+	    }
+	    return Objects.equals(this.name, other.name);
+	}
+
+	@Override
+	public int hashCode() {
+	    return Objects.hash(this.name);
+	}
+
 	// Methods
 	public BufferedImageIcon image() {
 	    return this.image;
@@ -88,22 +84,23 @@ public class ImageLoader {
 	public String name() {
 	    return this.name;
 	}
+    }
 
-	@Override
-	public int hashCode() {
-	    return Objects.hash(this.name);
-	}
+    public static BufferedImageIcon load(final DianeImageIndex image, final URL url) {
+	return ImageCache.getCachedImage(image.getName(), url);
+    }
 
-	@Override
-	public boolean equals(final Object obj) {
-	    if (this == obj) {
-		return true;
-	    }
-	    if (!(obj instanceof ImageCacheEntry)) {
-		return false;
-	    }
-	    final ImageCacheEntry other = (ImageCacheEntry) obj;
-	    return Objects.equals(this.name, other.name);
+    public static BufferedImageIcon load(final String name, final URL url) {
+	return ImageCache.getCachedImage(name, url);
+    }
+
+    static BufferedImageIcon loadUncached(final String name, final URL url) {
+	try {
+	    final var image = ImageIO.read(url);
+	    return new BufferedImageIcon(image);
+	} catch (final IOException ie) {
+	    Diane.handleError(ie);
+	    return null;
 	}
     }
 }

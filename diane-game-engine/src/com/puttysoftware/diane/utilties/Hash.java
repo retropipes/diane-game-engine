@@ -9,10 +9,6 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class Hash {
-    private Hash() {
-	// Do nothing
-    }
-
     public static byte[] hash(final byte[] input) {
 	MessageDigest md = null;
 	try {
@@ -31,5 +27,9 @@ public class Hash {
 	    return null;
 	}
 	return md.digest(input);
+    }
+
+    private Hash() {
+	// Do nothing
     }
 }

@@ -9,8 +9,18 @@ import java.io.InputStreamReader;
 
 public class TextDataReader implements DataIOReader {
     // Fields
-    private BufferedReader fileIO;
+    private final BufferedReader fileIO;
     private final File file;
+
+    public TextDataReader(final File filename) throws IOException {
+	this.fileIO = new BufferedReader(new FileReader(filename));
+	this.file = filename;
+    }
+
+    public TextDataReader(final InputStream stream) {
+	this.fileIO = new BufferedReader(new InputStreamReader(stream));
+	this.file = null;
+    }
 
     // Constructors
     public TextDataReader(final String filename) throws IOException {
@@ -18,14 +28,24 @@ public class TextDataReader implements DataIOReader {
 	this.file = new File(filename);
     }
 
-    public TextDataReader(final File filename) throws IOException {
-	this.fileIO = new BufferedReader(new FileReader(filename));
-	this.file = filename;
+    @Override
+    public boolean atEOF() throws DataIOException {
+	var line = "";
+	try {
+	    line = this.fileIO.readLine();
+	} catch (final IOException e) {
+	    throw new DataIOException(e);
+	}
+	return line == null;
     }
 
-    public TextDataReader(final InputStream stream) throws IOException {
-	this.fileIO = new BufferedReader(new InputStreamReader(stream));
-	this.file = null;
+    @Override
+    public void close() throws DataIOException {
+	try {
+	    this.fileIO.close();
+	} catch (final IOException e) {
+	    throw new DataIOException(e);
+	}
     }
 
     // Methods
@@ -40,37 +60,10 @@ public class TextDataReader implements DataIOReader {
     }
 
     @Override
-    public void close() throws DataIOException {
+    public boolean readBoolean() throws DataIOException {
 	try {
-	    this.fileIO.close();
-	} catch (IOException e) {
-	    throw new DataIOException(e);
-	}
-    }
-
-    @Override
-    public int readInt() throws DataIOException {
-	try {
-	    return Integer.parseInt(this.fileIO.readLine());
-	} catch (IOException e) {
-	    throw new DataIOException(e);
-	}
-    }
-
-    @Override
-    public double readDouble() throws DataIOException {
-	try {
-	    return Double.parseDouble(this.fileIO.readLine());
-	} catch (IOException e) {
-	    throw new DataIOException(e);
-	}
-    }
-
-    @Override
-    public long readLong() throws DataIOException {
-	try {
-	    return Long.parseLong(this.fileIO.readLine());
-	} catch (IOException e) {
+	    return Boolean.parseBoolean(this.fileIO.readLine());
+	} catch (final IOException e) {
 	    throw new DataIOException(e);
 	}
     }
@@ -79,16 +72,47 @@ public class TextDataReader implements DataIOReader {
     public byte readByte() throws DataIOException {
 	try {
 	    return Byte.parseByte(this.fileIO.readLine());
-	} catch (IOException e) {
+	} catch (final IOException e) {
 	    throw new DataIOException(e);
 	}
     }
 
     @Override
-    public boolean readBoolean() throws DataIOException {
+    public byte[] readBytes(final int len) throws DataIOException {
 	try {
-	    return Boolean.parseBoolean(this.fileIO.readLine());
-	} catch (IOException e) {
+	    final var buf = new byte[len];
+	    for (var b = 0; b < len; b++) {
+		buf[b] = this.readByte();
+	    }
+	    return buf;
+	} catch (final IOException e) {
+	    throw new DataIOException(e);
+	}
+    }
+
+    @Override
+    public double readDouble() throws DataIOException {
+	try {
+	    return Double.parseDouble(this.fileIO.readLine());
+	} catch (final IOException e) {
+	    throw new DataIOException(e);
+	}
+    }
+
+    @Override
+    public int readInt() throws DataIOException {
+	try {
+	    return Integer.parseInt(this.fileIO.readLine());
+	} catch (final IOException e) {
+	    throw new DataIOException(e);
+	}
+    }
+
+    @Override
+    public long readLong() throws DataIOException {
+	try {
+	    return Long.parseLong(this.fileIO.readLine());
+	} catch (final IOException e) {
 	    throw new DataIOException(e);
 	}
     }
@@ -97,38 +121,25 @@ public class TextDataReader implements DataIOReader {
     public String readString() throws DataIOException {
 	try {
 	    return this.fileIO.readLine();
-	} catch (IOException e) {
-	    throw new DataIOException(e);
-	}
-    }
-
-    @Override
-    public byte[] readBytes(final int len) throws DataIOException {
-	try {
-	    final byte[] buf = new byte[len];
-	    for (int b = 0; b < len; b++) {
-		buf[b] = readByte();
-	    }
-	    return buf;
-	} catch (IOException e) {
+	} catch (final IOException e) {
 	    throw new DataIOException(e);
 	}
     }
 
     @Override
     public int readUnsignedByte() throws DataIOException {
-	return readInt();
+	return this.readInt();
     }
 
     @Override
     public int readUnsignedShortByteArrayAsInt() throws DataIOException {
 	try {
-	    final byte[] buf = new byte[Short.BYTES];
-	    for (int b = 0; b < Short.BYTES; b++) {
-		buf[b] = readByte();
+	    final var buf = new byte[Short.BYTES];
+	    for (var b = 0; b < Short.BYTES; b++) {
+		buf[b] = this.readByte();
 	    }
 	    return DataIOUtilities.unsignedShortByteArrayToInt(buf);
-	} catch (IOException e) {
+	} catch (final IOException e) {
 	    throw new DataIOException(e);
 	}
     }
@@ -136,24 +147,13 @@ public class TextDataReader implements DataIOReader {
     @Override
     public String readWindowsString(final byte[] buflen) throws DataIOException {
 	try {
-	    final byte[] buf = new byte[buflen.length];
-	    for (int b = 0; b < buflen.length; b++) {
-		buf[b] = readByte();
+	    final var buf = new byte[buflen.length];
+	    for (var b = 0; b < buflen.length; b++) {
+		buf[b] = this.readByte();
 	    }
 	    return DataIOUtilities.decodeWindowsStringData(buf);
-	} catch (IOException e) {
+	} catch (final IOException e) {
 	    throw new DataIOException(e);
 	}
-    }
-
-    @Override
-    public boolean atEOF() throws DataIOException {
-	String line = "";
-	try {
-	    line = this.fileIO.readLine();
-	} catch (IOException e) {
-	    throw new DataIOException(e);
-	}
-	return line == null;
     }
 }

@@ -19,57 +19,25 @@ public final class PolyTableViewer {
     private static final String VIEWER_STRING = "PolyTable Viewer"; //$NON-NLS-1$
     private static final String EXPERIENCE_VIEWER_STRING = "Experience PolyTable Viewer"; //$NON-NLS-1$
 
-    // Private constructor
-    private PolyTableViewer() {
-	// Do nothing
-    }
-
-    // Methods
-    public static void view(final PolyTable page) {
-	String viewerString;
-	if (page.isExperience()) {
-	    viewerString = PolyTableViewer.EXPERIENCE_VIEWER_STRING;
-	} else {
-	    viewerString = PolyTableViewer.VIEWER_STRING;
-	}
-	if (page.getParamCount() > 1) {
-	    PolyTableViewer.mpValueView(page, viewerString);
-	} else {
-	    boolean viewAsArray = true;
-	    final int returnCode = CommonDialogs.showConfirmDialog("View as a list, or as single values?", //$NON-NLS-1$
-		    viewerString);
-	    if (returnCode == CommonDialogs.YES_OPTION) {
-		viewAsArray = true;
-	    } else {
-		viewAsArray = false;
-	    }
-	    if (viewAsArray) {
-		PolyTableViewer.listView(page, viewerString);
-	    } else {
-		PolyTableViewer.spValueView(page, viewerString);
-	    }
-	}
-    }
-
     private static void listView(final PolyTable page, final String viewerString) {
-	final long[] lData = page.evaluateToArray();
-	final String[] sData = new String[lData.length];
-	for (int x = 0; x < lData.length; x++) {
-	    sData[x] = Integer.valueOf(x + 1).toString() + ": " //$NON-NLS-1$
-		    + Long.valueOf(lData[x]).toString();
+	final var lData = page.evaluateToArray();
+	final var sData = new String[lData.length];
+	for (var x = 0; x < lData.length; x++) {
+	    sData[x] = Integer.toString(x + 1) + ": " //$NON-NLS-1$
+		    + Long.toString(lData[x]);
 	}
 	CommonDialogs.showInputDialog("List of values:", viewerString, sData, //$NON-NLS-1$
 		sData[0]);
     }
 
     private static void mpValueView(final PolyTable page, final String viewerString) {
-	boolean viewMore = true;
+	var viewMore = true;
 	while (viewMore) {
-	    final int[] paramValues = new int[page.getParamCount()];
-	    for (int x = 0; x < paramValues.length; x++) {
-		boolean valid = false;
+	    final var paramValues = new int[page.getParamCount()];
+	    for (var x = 0; x < paramValues.length; x++) {
+		var valid = false;
 		String rawInput;
-		int input = 0;
+		var input = 0;
 		String suffix;
 		if ((x + 1) % 100 >= 10 && (x + 1) % 100 <= 19) {
 		    suffix = PolyTableViewer.SUFFIX_N;
@@ -93,9 +61,7 @@ public final class PolyTableViewer {
 			    throw new NumberFormatException();
 			}
 			valid = true;
-		    } catch (final NumberFormatException nf) {
-			// Ignore exception
-		    } catch (final NullPointerException np) {
+		    } catch (final NumberFormatException | NullPointerException np) {
 			// Ignore exception
 		    }
 		    if (!valid) {
@@ -105,10 +71,10 @@ public final class PolyTableViewer {
 		}
 		paramValues[x] = input;
 	    }
-	    final long value = page.evaluate(paramValues);
+	    final var value = page.evaluate(paramValues);
 	    CommonDialogs.showTitledDialog("Value for the given parameters: " //$NON-NLS-1$
-		    + Long.valueOf(value).toString(), viewerString);
-	    final int returnCode = CommonDialogs.showConfirmDialog("View more values?", //$NON-NLS-1$
+		    + Long.toString(value), viewerString);
+	    final var returnCode = CommonDialogs.showConfirmDialog("View more values?", //$NON-NLS-1$
 		    viewerString);
 	    if (returnCode == CommonDialogs.YES_OPTION) {
 		viewMore = true;
@@ -119,12 +85,12 @@ public final class PolyTableViewer {
     }
 
     private static void spValueView(final PolyTable page, final String viewerString) {
-	boolean viewMore = true;
+	var viewMore = true;
 	while (viewMore) {
-	    int paramValue = 0;
-	    boolean valid = false;
+	    var paramValue = 0;
+	    var valid = false;
 	    String rawInput;
-	    int input = 0;
+	    var input = 0;
 	    while (!valid) {
 		rawInput = CommonDialogs.showTextInputDialog(
 			PolyTableViewer.ENTRY_PROMPT_PART_1 + PolyTableViewer.ENTRY_PROMPT_PART_2, viewerString);
@@ -135,9 +101,7 @@ public final class PolyTableViewer {
 			throw new NumberFormatException();
 		    }
 		    valid = true;
-		} catch (final NumberFormatException nf) {
-		    // Ignore exception
-		} catch (final NullPointerException np) {
+		} catch (final NumberFormatException | NullPointerException np) {
 		    // Ignore exception
 		}
 		if (!valid) {
@@ -146,10 +110,10 @@ public final class PolyTableViewer {
 		}
 	    }
 	    paramValue = input;
-	    final long value = page.evaluate(paramValue);
-	    CommonDialogs.showTitledDialog("Value: " + Long.valueOf(value).toString(), //$NON-NLS-1$
+	    final var value = page.evaluate(paramValue);
+	    CommonDialogs.showTitledDialog("Value: " + Long.toString(value), //$NON-NLS-1$
 		    viewerString);
-	    final int returnCode = CommonDialogs.showConfirmDialog("View more values?", //$NON-NLS-1$
+	    final var returnCode = CommonDialogs.showConfirmDialog("View more values?", //$NON-NLS-1$
 		    viewerString);
 	    if (returnCode == CommonDialogs.YES_OPTION) {
 		viewMore = true;
@@ -157,5 +121,37 @@ public final class PolyTableViewer {
 		viewMore = false;
 	    }
 	}
+    }
+
+    // Methods
+    public static void view(final PolyTable page) {
+	String viewerString;
+	if (page.isExperience()) {
+	    viewerString = PolyTableViewer.EXPERIENCE_VIEWER_STRING;
+	} else {
+	    viewerString = PolyTableViewer.VIEWER_STRING;
+	}
+	if (page.getParamCount() > 1) {
+	    PolyTableViewer.mpValueView(page, viewerString);
+	} else {
+	    var viewAsArray = true;
+	    final var returnCode = CommonDialogs.showConfirmDialog("View as a list, or as single values?", //$NON-NLS-1$
+		    viewerString);
+	    if (returnCode == CommonDialogs.YES_OPTION) {
+		viewAsArray = true;
+	    } else {
+		viewAsArray = false;
+	    }
+	    if (viewAsArray) {
+		PolyTableViewer.listView(page, viewerString);
+	    } else {
+		PolyTableViewer.spValueView(page, viewerString);
+	    }
+	}
+    }
+
+    // Private constructor
+    private PolyTableViewer() {
+	// Do nothing
     }
 }

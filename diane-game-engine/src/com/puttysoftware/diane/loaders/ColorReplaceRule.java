@@ -26,12 +26,12 @@ final class ColorReplaceRule {
 	if (input == null) {
 	    throw new IllegalArgumentException("input == NULL!");
 	}
-	final int width = input.getWidth();
-	final int height = input.getHeight();
-	final BufferedImageIcon result = new BufferedImageIcon(input);
-	for (int x = 0; x < width; x++) {
-	    for (int y = 0; y < height; y++) {
-		final Color c = new Color(input.getRGB(x, y), true);
+	final var width = input.getWidth();
+	final var height = input.getHeight();
+	final var result = new BufferedImageIcon(input);
+	for (var x = 0; x < width; x++) {
+	    for (var y = 0; y < height; y++) {
+		final var c = new Color(input.getRGB(x, y), true);
 		if (c.equals(this.findColor)) {
 		    result.setRGB(x, y, this.replaceColor.getRGB());
 		}
@@ -41,19 +41,18 @@ final class ColorReplaceRule {
     }
 
     @Override
-    public int hashCode() {
-	return Objects.hash(this.findColor, this.replaceColor);
-    }
-
-    @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
 	if (this == obj) {
 	    return true;
 	}
-	if (!(obj instanceof ColorReplaceRule)) {
+	if (!(obj instanceof final ColorReplaceRule other)) {
 	    return false;
 	}
-	ColorReplaceRule other = (ColorReplaceRule) obj;
 	return Objects.equals(this.findColor, other.findColor) && Objects.equals(this.replaceColor, other.replaceColor);
+    }
+
+    @Override
+    public int hashCode() {
+	return Objects.hash(this.findColor, this.replaceColor);
     }
 }

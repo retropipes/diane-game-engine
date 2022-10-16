@@ -12,31 +12,18 @@ import java.util.Objects;
 import com.puttysoftware.diane.asset.BufferedImageIcon;
 
 public class ImageShader {
-    static BufferedImageIcon shadeUncached(final String name, final BufferedImageIcon input, final ColorShader shade) {
-	if (input != null) {
-	    final int width = input.getWidth();
-	    final int height = input.getHeight();
-	    final BufferedImageIcon result = new BufferedImageIcon(input);
-	    for (int x = 0; x < width; x++) {
-		for (int y = 0; y < height; y++) {
-		    final Color c = new Color(input.getRGB(x, y), true);
-		    result.setRGB(x, y, shade.applyShade(c).getRGB());
-		}
-	    }
-	    return result;
-	} else {
-	    return null;
-	}
-    }
-
-    public static BufferedImageIcon shade(final String name, final BufferedImageIcon input, final ColorShader shade) {
-	return ImageCache.getCachedImage(name, input, shade);
-    }
-
     private static class ImageCache {
 	// Fields
 	private static ArrayList<ImageCacheEntry> cache;
 	private static boolean cacheCreated = false;
+
+	private static void createCache() {
+	    if (!ImageCache.cacheCreated) {
+		// Create the cache
+		ImageCache.cache = new ArrayList<>();
+		ImageCache.cacheCreated = true;
+	    }
+	}
 
 	// Methods
 	public static BufferedImageIcon getCachedImage(final String name, final BufferedImageIcon input,
@@ -51,18 +38,10 @@ public class ImageShader {
 		}
 	    }
 	    // Not found: Add to cache
-	    final BufferedImageIcon newImage = ImageShader.shadeUncached(name, input, shade);
-	    final ImageCacheEntry newEntry = new ImageCacheEntry(newImage, name);
+	    final var newImage = ImageShader.shadeUncached(name, input, shade);
+	    final var newEntry = new ImageCacheEntry(newImage, name);
 	    ImageCache.cache.add(newEntry);
 	    return newImage;
-	}
-
-	private static void createCache() {
-	    if (!ImageCache.cacheCreated) {
-		// Create the cache
-		ImageCache.cache = new ArrayList<>();
-		ImageCache.cacheCreated = true;
-	    }
 	}
     }
 
@@ -77,6 +56,22 @@ public class ImageShader {
 	    this.name = newName;
 	}
 
+	@Override
+	public boolean equals(final Object obj) {
+	    if (this == obj) {
+		return true;
+	    }
+	    if (!(obj instanceof final ImageCacheEntry other)) {
+		return false;
+	    }
+	    return Objects.equals(this.name, other.name);
+	}
+
+	@Override
+	public int hashCode() {
+	    return Objects.hash(this.name);
+	}
+
 	// Methods
 	public BufferedImageIcon image() {
 	    return this.image;
@@ -85,22 +80,26 @@ public class ImageShader {
 	public String name() {
 	    return this.name;
 	}
+    }
 
-	@Override
-	public int hashCode() {
-	    return Objects.hash(this.name);
-	}
+    public static BufferedImageIcon shade(final String name, final BufferedImageIcon input, final ColorShader shade) {
+	return ImageCache.getCachedImage(name, input, shade);
+    }
 
-	@Override
-	public boolean equals(final Object obj) {
-	    if (this == obj) {
-		return true;
+    static BufferedImageIcon shadeUncached(final String name, final BufferedImageIcon input, final ColorShader shade) {
+	if (input != null) {
+	    final var width = input.getWidth();
+	    final var height = input.getHeight();
+	    final var result = new BufferedImageIcon(input);
+	    for (var x = 0; x < width; x++) {
+		for (var y = 0; y < height; y++) {
+		    final var c = new Color(input.getRGB(x, y), true);
+		    result.setRGB(x, y, shade.applyShade(c).getRGB());
+		}
 	    }
-	    if (!(obj instanceof ImageCacheEntry)) {
-		return false;
-	    }
-	    final ImageCacheEntry other = (ImageCacheEntry) obj;
-	    return Objects.equals(this.name, other.name);
+	    return result;
+	} else {
+	    return null;
 	}
     }
 }

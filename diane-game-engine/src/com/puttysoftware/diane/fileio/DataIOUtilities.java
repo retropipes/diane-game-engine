@@ -12,28 +12,27 @@ import com.puttysoftware.diane.asset.BufferedImageIcon;
 public class DataIOUtilities {
     public static class ByteOrder {
 	public static void reverse(final byte[] bytesToConvert) {
-	    final int numberOfBytes = bytesToConvert.length;
-	    final int numberOfBytesHalf = numberOfBytes / 2;
-	    for (int b = 0; b < numberOfBytesHalf; b++) {
-		final byte byteFromStart = bytesToConvert[b];
+	    final var numberOfBytes = bytesToConvert.length;
+	    final var numberOfBytesHalf = numberOfBytes / 2;
+	    for (var b = 0; b < numberOfBytesHalf; b++) {
+		final var byteFromStart = bytesToConvert[b];
 		bytesToConvert[b] = bytesToConvert[numberOfBytes - 1 - b];
 		bytesToConvert[numberOfBytes - 1 - b] = byteFromStart;
 	    }
 	}
 
 	public static int reverse(final int intToReverse) {
-	    final byte[] intAsBytes = new byte[] { (byte) (intToReverse & 0xFF), (byte) (intToReverse >> 8 & 0xFF),
+	    final byte[] intAsBytes = { (byte) (intToReverse & 0xFF), (byte) (intToReverse >> 8 & 0xFF),
 		    (byte) (intToReverse >> 16 & 0xFF), (byte) (intToReverse >> 24 & 0xFF), };
 	    return (intAsBytes[3] & 0xFF) + ((intAsBytes[2] & 0xFF) << 8) + ((intAsBytes[1] & 0xFF) << 16)
 		    + ((intAsBytes[0] & 0xFF) << 24);
 	}
 
 	public static long reverse(final long valueToReverse) {
-	    final byte[] valueAsBytes = new byte[] { (byte) (valueToReverse & 0xFF),
-		    (byte) (valueToReverse >> 8 & 0xFF), (byte) (valueToReverse >> 16 & 0xFF),
-		    (byte) (valueToReverse >> 24 & 0xFF), (byte) (valueToReverse >> 32 & 0xFF),
-		    (byte) (valueToReverse >> 40 & 0xFF), (byte) (valueToReverse >> 48 & 0xFF),
-		    (byte) (valueToReverse >> 56 & 0xFF), };
+	    final byte[] valueAsBytes = { (byte) (valueToReverse & 0xFF), (byte) (valueToReverse >> 8 & 0xFF),
+		    (byte) (valueToReverse >> 16 & 0xFF), (byte) (valueToReverse >> 24 & 0xFF),
+		    (byte) (valueToReverse >> 32 & 0xFF), (byte) (valueToReverse >> 40 & 0xFF),
+		    (byte) (valueToReverse >> 48 & 0xFF), (byte) (valueToReverse >> 56 & 0xFF), };
 	    long returnValue = valueAsBytes[7] & 0xFF;
 	    returnValue += (valueAsBytes[6] & 0xFF) << 8;
 	    returnValue += (valueAsBytes[5] & 0xFF) << 16;
@@ -46,8 +45,7 @@ public class DataIOUtilities {
 	}
 
 	public static short reverse(final short valueToReverse) {
-	    final byte[] valueAsBytes = new byte[] { (byte) (valueToReverse & 0xFF),
-		    (byte) (valueToReverse >> 8 & 0xFF), };
+	    final byte[] valueAsBytes = { (byte) (valueToReverse & 0xFF), (byte) (valueToReverse >> 8 & 0xFF), };
 	    return (short) ((valueAsBytes[1] & 0xFF) + ((valueAsBytes[0] & 0xFF) << 8));
 	}
     }
@@ -91,7 +89,7 @@ public class DataIOUtilities {
 	}
 
 	public String readString(final int numberOfCharacters) throws IOException {
-	    final byte[] bytesRead = new byte[numberOfCharacters];
+	    final var bytesRead = new byte[numberOfCharacters];
 	    this.systemStream.read(bytesRead);
 	    return new String(bytesRead);
 	}
@@ -106,7 +104,7 @@ public class DataIOUtilities {
 	    public static DIBHeader buildFromStream(final DataInputStreamLittleEndian reader) {
 		DIBHeader returnValue = null;
 		try {
-		    final int dibHeaderSizeInBytes = reader.readInt();
+		    final var dibHeaderSizeInBytes = reader.readInt();
 		    // hack
 		    if (dibHeaderSizeInBytes == 40) {
 			returnValue = new DIBHeaderBitmapInfo().readFromStream(reader);
@@ -206,14 +204,13 @@ public class DataIOUtilities {
 
 	    @Override
 	    public String toString() {
-		final String returnValue = "<DIBHeader " + "size='" + this.sizeInBytes + "' " + "imageSizeInPixels='"
+		return "<DIBHeader " + "size='" + this.sizeInBytes + "' " + "imageSizeInPixels='"
 			+ this.imageSizeInPixels.x + "," + this.imageSizeInPixels.y + "' " + "planes='" + this.planes
 			+ "' " + "bitsPerPixel='" + this.bitsPerPixel + "' " + "compression='" + this.compression + "' "
 			+ "imageSizeInBytes='" + this.imageSizeInBytes + "' " + "pixelsPerMeter='"
 			+ this.pixelsPerMeter.x + "," + this.pixelsPerMeter.y + "' " + "numberOfColorsInPalette='"
 			+ this.numberOfColorsInPalette + "' " + "numberOfColorsUsed='" + this.numberOfColorsUsed + "' "
 			+ "/>";
-		return returnValue;
 	    }
 	}
 
@@ -252,21 +249,19 @@ public class DataIOUtilities {
 
 	    @Override
 	    public String toString() {
-		final String returnValue = "<FileHeader " + "signature='" + this.signature + "' " + "fileSize='"
-			+ this.fileSize + "' " + "fileOffsetToPixelArray ='" + this.fileOffsetToPixelArray + "' "
-			+ "/>";
-		return returnValue;
+		return "<FileHeader " + "signature='" + this.signature + "' " + "fileSize='" + this.fileSize + "' "
+			+ "fileOffsetToPixelArray ='" + this.fileOffsetToPixelArray + "' " + "/>";
 	    }
 	}
 
 	public static ImageBMP readFromStream(final InputStream is) throws IOException {
 	    ImageBMP returnValue = null;
-	    try (DataInputStreamLittleEndian reader = new DataInputStreamLittleEndian(new DataInputStream(is))) {
-		final FileHeader fileHeader = FileHeader.readFromStream(reader);
-		final DIBHeader dibHeader = DIBHeader.buildFromStream(reader);
-		final int[] colorTable = new int[] {};
-		final int numberOfBytesInPixelData = dibHeader.imageSizeInBytes();
-		final byte[] pixelData = new byte[numberOfBytesInPixelData];
+	    try (var reader = new DataInputStreamLittleEndian(new DataInputStream(is))) {
+		final var fileHeader = FileHeader.readFromStream(reader);
+		final var dibHeader = DIBHeader.buildFromStream(reader);
+		final int[] colorTable = {};
+		final var numberOfBytesInPixelData = dibHeader.imageSizeInBytes();
+		final var pixelData = new byte[numberOfBytesInPixelData];
 		reader.read(pixelData);
 		returnValue = new ImageBMP(fileHeader, dibHeader, colorTable, pixelData);
 	    }
@@ -290,21 +285,21 @@ public class DataIOUtilities {
 	    // hack
 	    // We're assuming things about the color model in this method
 	    // that may not necessarily be true in all .BMP files.
-	    final Coords imageSizeInPixels = this.dibHeader.imageSizeInPixels();
+	    final var imageSizeInPixels = this.dibHeader.imageSizeInPixels();
 	    java.awt.image.BufferedImage returnValue;
 	    returnValue = new java.awt.image.BufferedImage(imageSizeInPixels.x, imageSizeInPixels.y,
 		    java.awt.image.BufferedImage.TYPE_INT_ARGB);
-	    final int bitsPerPixel = this.dibHeader.bitsPerPixel();
-	    final int bytesPerPixel = bitsPerPixel / 8;
-	    final int colorOpaqueBlackAsArgb = 0xFF << bytesPerPixel * 8;
-	    for (int y = 0; y < imageSizeInPixels.y; y++) {
-		for (int x = 0; x < imageSizeInPixels.x; x++) {
-		    final int bitOffsetForPixel = ((imageSizeInPixels.y - y - 1) // invert
+	    final var bitsPerPixel = this.dibHeader.bitsPerPixel();
+	    final var bytesPerPixel = bitsPerPixel / 8;
+	    final var colorOpaqueBlackAsArgb = 0xFF << bytesPerPixel * 8;
+	    for (var y = 0; y < imageSizeInPixels.y; y++) {
+		for (var x = 0; x < imageSizeInPixels.x; x++) {
+		    final var bitOffsetForPixel = ((imageSizeInPixels.y - y - 1) // invert
 										 // y
 			    * imageSizeInPixels.x + x) * bitsPerPixel;
-		    final int byteOffsetForPixel = bitOffsetForPixel / 8;
-		    int pixelColorArgb = colorOpaqueBlackAsArgb;
-		    for (int b = 0; b < bytesPerPixel; b++) {
+		    final var byteOffsetForPixel = bitOffsetForPixel / 8;
+		    var pixelColorArgb = colorOpaqueBlackAsArgb;
+		    for (var b = 0; b < bytesPerPixel; b++) {
 			pixelColorArgb += (this.pixelData[byteOffsetForPixel + b] & 0xFF) << 8 * b;
 		    }
 		    returnValue.setRGB(x, y, pixelColorArgb);

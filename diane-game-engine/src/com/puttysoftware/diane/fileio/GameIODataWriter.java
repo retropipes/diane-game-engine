@@ -15,6 +15,15 @@ public class GameIODataWriter implements DataIOWriter {
 	this.file = new File(filename);
     }
 
+    @Override
+    public void close() throws DataIOException {
+	try {
+	    this.raf.close();
+	} catch (final IOException e) {
+	    throw new DataIOException(e);
+	}
+    }
+
     // Methods
     @Override
     public DataMode getDataIOMode() {
@@ -27,19 +36,10 @@ public class GameIODataWriter implements DataIOWriter {
     }
 
     @Override
-    public void close() throws DataIOException {
-	try {
-	    this.raf.close();
-	} catch (IOException e) {
-	    throw new DataIOException(e);
-	}
-    }
-
-    @Override
     public void writeBoolean(final boolean value) throws DataIOException {
 	try {
 	    this.raf.writeBoolean(value);
-	} catch (IOException e) {
+	} catch (final IOException e) {
 	    throw new DataIOException(e);
 	}
     }
@@ -48,7 +48,7 @@ public class GameIODataWriter implements DataIOWriter {
     public void writeByte(final byte value) throws DataIOException {
 	try {
 	    this.raf.writeByte(value);
-	} catch (IOException e) {
+	} catch (final IOException e) {
 	    throw new DataIOException(e);
 	}
     }
@@ -57,7 +57,7 @@ public class GameIODataWriter implements DataIOWriter {
     public void writeDouble(final double value) throws DataIOException {
 	try {
 	    this.raf.writeDouble(value);
-	} catch (IOException e) {
+	} catch (final IOException e) {
 	    throw new DataIOException(e);
 	}
     }
@@ -66,7 +66,7 @@ public class GameIODataWriter implements DataIOWriter {
     public void writeInt(final int value) throws DataIOException {
 	try {
 	    this.raf.writeInt(value);
-	} catch (IOException e) {
+	} catch (final IOException e) {
 	    throw new DataIOException(e);
 	}
     }
@@ -75,7 +75,7 @@ public class GameIODataWriter implements DataIOWriter {
     public void writeLong(final long value) throws DataIOException {
 	try {
 	    this.raf.writeLong(value);
-	} catch (IOException e) {
+	} catch (final IOException e) {
 	    throw new DataIOException(e);
 	}
     }
@@ -84,7 +84,7 @@ public class GameIODataWriter implements DataIOWriter {
     public void writeString(final String value) throws DataIOException {
 	try {
 	    this.raf.writeUTF(value);
-	} catch (IOException e) {
+	} catch (final IOException e) {
 	    throw new DataIOException(e);
 	}
     }

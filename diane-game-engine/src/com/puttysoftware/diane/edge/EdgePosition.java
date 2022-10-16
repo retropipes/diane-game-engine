@@ -6,10 +6,10 @@ Any questions should be directed to the author via email at: support@puttysoftwa
 package com.puttysoftware.diane.edge;
 
 public class EdgePosition {
-    // Fields
-    private final double offset;
     // Constants
     public static final EdgePosition MIDDLE = new EdgePosition(0.5);
+    // Fields
+    private final double offset;
 
     // Constructor
     private EdgePosition(final double newOffset) {

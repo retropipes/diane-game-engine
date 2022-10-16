@@ -8,10 +8,20 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 
 public class TextDataWriter implements DataIOWriter {
-    // Fields
-    private BufferedWriter fileIO;
-    private final File file;
     private static final String END_OF_LINE = "\n";
+    // Fields
+    private final BufferedWriter fileIO;
+    private final File file;
+
+    public TextDataWriter(final File filename) throws IOException {
+	this.fileIO = new BufferedWriter(new FileWriter(filename));
+	this.file = filename;
+    }
+
+    public TextDataWriter(final OutputStream stream) {
+	this.fileIO = new BufferedWriter(new OutputStreamWriter(stream));
+	this.file = null;
+    }
 
     // Constructors
     public TextDataWriter(final String filename) throws IOException {
@@ -19,14 +29,13 @@ public class TextDataWriter implements DataIOWriter {
 	this.file = new File(filename);
     }
 
-    public TextDataWriter(final File filename) throws IOException {
-	this.fileIO = new BufferedWriter(new FileWriter(filename));
-	this.file = filename;
-    }
-
-    public TextDataWriter(final OutputStream stream) throws IOException {
-	this.fileIO = new BufferedWriter(new OutputStreamWriter(stream));
-	this.file = null;
+    @Override
+    public void close() throws DataIOException {
+	try {
+	    this.fileIO.close();
+	} catch (final IOException e) {
+	    throw new DataIOException(e);
+	}
     }
 
     // Methods
@@ -41,37 +50,10 @@ public class TextDataWriter implements DataIOWriter {
     }
 
     @Override
-    public void close() throws DataIOException {
+    public void writeBoolean(final boolean b) throws DataIOException {
 	try {
-	    this.fileIO.close();
-	} catch (IOException e) {
-	    throw new DataIOException(e);
-	}
-    }
-
-    @Override
-    public void writeInt(final int i) throws DataIOException {
-	try {
-	    this.fileIO.write(Integer.toString(i) + TextDataWriter.END_OF_LINE);
-	} catch (IOException e) {
-	    throw new DataIOException(e);
-	}
-    }
-
-    @Override
-    public void writeDouble(final double d) throws DataIOException {
-	try {
-	    this.fileIO.write(Double.toString(d) + TextDataWriter.END_OF_LINE);
-	} catch (IOException e) {
-	    throw new DataIOException(e);
-	}
-    }
-
-    @Override
-    public void writeLong(final long l) throws DataIOException {
-	try {
-	    this.fileIO.write(Long.toString(l) + TextDataWriter.END_OF_LINE);
-	} catch (IOException e) {
+	    this.fileIO.write(Boolean.toString(b) + TextDataWriter.END_OF_LINE);
+	} catch (final IOException e) {
 	    throw new DataIOException(e);
 	}
     }
@@ -80,16 +62,34 @@ public class TextDataWriter implements DataIOWriter {
     public void writeByte(final byte b) throws DataIOException {
 	try {
 	    this.fileIO.write(Byte.toString(b) + TextDataWriter.END_OF_LINE);
-	} catch (IOException e) {
+	} catch (final IOException e) {
 	    throw new DataIOException(e);
 	}
     }
 
     @Override
-    public void writeBoolean(final boolean b) throws DataIOException {
+    public void writeDouble(final double d) throws DataIOException {
 	try {
-	    this.fileIO.write(Boolean.toString(b) + TextDataWriter.END_OF_LINE);
-	} catch (IOException e) {
+	    this.fileIO.write(Double.toString(d) + TextDataWriter.END_OF_LINE);
+	} catch (final IOException e) {
+	    throw new DataIOException(e);
+	}
+    }
+
+    @Override
+    public void writeInt(final int i) throws DataIOException {
+	try {
+	    this.fileIO.write(Integer.toString(i) + TextDataWriter.END_OF_LINE);
+	} catch (final IOException e) {
+	    throw new DataIOException(e);
+	}
+    }
+
+    @Override
+    public void writeLong(final long l) throws DataIOException {
+	try {
+	    this.fileIO.write(Long.toString(l) + TextDataWriter.END_OF_LINE);
+	} catch (final IOException e) {
 	    throw new DataIOException(e);
 	}
     }
@@ -98,7 +98,7 @@ public class TextDataWriter implements DataIOWriter {
     public void writeString(final String s) throws DataIOException {
 	try {
 	    this.fileIO.write(s + TextDataWriter.END_OF_LINE);
-	} catch (IOException e) {
+	} catch (final IOException e) {
 	    throw new DataIOException(e);
 	}
     }

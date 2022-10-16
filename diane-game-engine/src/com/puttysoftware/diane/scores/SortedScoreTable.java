@@ -13,18 +13,27 @@ import com.puttysoftware.diane.fileio.XDataReader;
 import com.puttysoftware.diane.fileio.XDataWriter;
 
 public class SortedScoreTable extends ScoreTable {
+    public static SortedScoreTable readSortedScoreTable(final XDataReader xdr) throws IOException {
+	final var order = xdr.readBoolean();
+	final var len = xdr.readInt();
+	final var unitLen = xdr.readInt();
+	final var unitArr = new String[unitLen];
+	for (var z = 0; z < unitLen; z++) {
+	    unitArr[z] = xdr.readString();
+	}
+	final var sst = new SortedScoreTable(unitLen, len, order, unitArr);
+	for (var x = 0; x < len; x++) {
+	    sst.table.set(x, Score.readScore(xdr));
+	}
+	return sst;
+    }
+
     // Fields
     protected boolean sortOrder;
 
     // Constructors
     public SortedScoreTable() {
-	super();
 	this.sortOrder = true;
-    }
-
-    private SortedScoreTable(final int mv, final int length, final boolean ascending, final String[] customUnit) {
-	super(mv, length, customUnit);
-	this.sortOrder = ascending;
     }
 
     public SortedScoreTable(final int mv, final int length, final boolean ascending, final long startingScore,
@@ -39,18 +48,13 @@ public class SortedScoreTable extends ScoreTable {
 	}
     }
 
-    @Override
-    public void setEntryScore(final int pos, final long newScore) {
-	// Do nothing
-    }
-
-    @Override
-    public void setEntryName(final int pos, final String newName) {
-	// Do nothing
+    private SortedScoreTable(final int mv, final int length, final boolean ascending, final String[] customUnit) {
+	super(mv, length, customUnit);
+	this.sortOrder = ascending;
     }
 
     public void addScore(final long newScore, final String newName) {
-	final Score newEntry = new Score(newScore, newName);
+	final var newEntry = new Score(newScore, newName);
 	if (this.sortOrder) {
 	    // Append the new score to the end
 	    this.table.add(newEntry);
@@ -69,27 +73,25 @@ public class SortedScoreTable extends ScoreTable {
     }
 
     public void addScore(final long[] newScore, final String newName) {
-	final Score newEntry = new Score(this.scoreCount, newScore, newName);
+	final var newEntry = new Score(this.scoreCount, newScore, newName);
 	if (this.sortOrder) {
 	    // Append the new score to the end
 	    this.table.add(newEntry);
 	    // Sort the score table
 	    Collections.sort(this.table, new Score.ScoreComparatorDesc());
-	    // Remove the lowest score
-	    this.table.remove(this.table.size() - 1);
 	} else {
 	    // Append the new score to the end
 	    this.table.add(newEntry);
 	    // Sort the score table
 	    Collections.sort(this.table, new Score.ScoreComparatorAsc());
-	    // Remove the highest score
-	    this.table.remove(this.table.size() - 1);
 	}
+	// Remove the lowest score
+	this.table.remove(this.table.size() - 1);
     }
 
     public boolean checkScore(final long[] newScore) {
-	final Score newEntry = new Score(this.scoreCount, newScore, ""); //$NON-NLS-1$
-	final ArrayList<Score> temp = new ArrayList<>(this.table);
+	final var newEntry = new Score(this.scoreCount, newScore, ""); //$NON-NLS-1$
+	final var temp = new ArrayList<>(this.table);
 	if (this.sortOrder) {
 	    // Copy the current table to the temporary table
 	    Collections.copy(temp, this.table);
@@ -110,19 +112,14 @@ public class SortedScoreTable extends ScoreTable {
 	return !Collections.max(temp, new Score.ScoreComparatorAsc()).equals(newEntry);
     }
 
-    public static SortedScoreTable readSortedScoreTable(final XDataReader xdr) throws IOException {
-	final boolean order = xdr.readBoolean();
-	final int len = xdr.readInt();
-	final int unitLen = xdr.readInt();
-	final String[] unitArr = new String[unitLen];
-	for (int z = 0; z < unitLen; z++) {
-	    unitArr[z] = xdr.readString();
-	}
-	final SortedScoreTable sst = new SortedScoreTable(unitLen, len, order, unitArr);
-	for (int x = 0; x < len; x++) {
-	    sst.table.set(x, Score.readScore(xdr));
-	}
-	return sst;
+    @Override
+    public void setEntryName(final int pos, final String newName) {
+	// Do nothing
+    }
+
+    @Override
+    public void setEntryScore(final int pos, final long newScore) {
+	// Do nothing
     }
 
     public void writeSortedScoreTable(final XDataWriter xdw) throws IOException {
@@ -136,8 +133,8 @@ public class SortedScoreTable extends ScoreTable {
 		xdw.writeString(element);
 	    }
 	}
-	for (int x = 0; x < this.table.size(); x++) {
-	    this.table.get(x).writeScore(xdw);
+	for (final Score element : this.table) {
+	    element.writeScore(xdw);
 	}
     }
 }

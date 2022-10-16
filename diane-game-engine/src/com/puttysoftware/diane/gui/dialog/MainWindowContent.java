@@ -12,19 +12,14 @@ import java.awt.LayoutManager;
 import javax.swing.JPanel;
 
 public final class MainWindowContent {
-    private JPanel content;
+    private final JPanel content;
 
     MainWindowContent(final Dimension contentSize) {
-	super();
 	this.content = new JPanel();
 	this.content.setPreferredSize(contentSize);
 	this.content.setMinimumSize(contentSize);
 	this.content.setMaximumSize(contentSize);
 	this.content.setSize(contentSize);
-    }
-
-    JPanel owner() {
-	return this.content;
     }
 
     public void add(final Component comp) {
@@ -35,11 +30,15 @@ public final class MainWindowContent {
 	this.content.add(comp, constraints);
     }
 
-    public void setLayout(final LayoutManager mgr) {
-	this.content.setLayout(mgr);
+    JPanel owner() {
+	return this.content;
     }
 
     public void removeAll() {
 	this.content.removeAll();
+    }
+
+    public void setLayout(final LayoutManager mgr) {
+	this.content.setLayout(mgr);
     }
 }

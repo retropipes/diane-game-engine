@@ -8,11 +8,11 @@ package com.puttysoftware.diane.scores;
 import java.util.ArrayList;
 
 public class ScoreTable {
+    protected static final String DEFAULT_UNIT = ""; //$NON-NLS-1$
     // Fields and Constants
     protected int scoreCount;
     protected ArrayList<Score> table;
     protected String[] unit;
-    protected static final String DEFAULT_UNIT = ""; //$NON-NLS-1$
 
     // Constructors
     public ScoreTable() {
@@ -43,17 +43,21 @@ public class ScoreTable {
 	}
     }
 
+    public String getEntryName(final int pos) {
+	return this.table.get(pos).getName();
+    }
+
     // Methods
     public long getEntryScore(final int which, final int pos) {
 	return this.table.get(pos).getScore(which);
     }
 
-    public String getEntryName(final int pos) {
-	return this.table.get(pos).getName();
-    }
-
     public int getLength() {
 	return this.table.size();
+    }
+
+    public int getScoreCount() {
+	return this.scoreCount;
     }
 
     public String getUnit() {
@@ -64,15 +68,11 @@ public class ScoreTable {
 	return this.unit;
     }
 
-    public int getScoreCount() {
-	return this.scoreCount;
+    public void setEntryName(final int pos, final String newName) {
+	this.table.get(pos).setName(newName);
     }
 
     public void setEntryScore(final int pos, final long newScore) {
 	this.table.get(pos).setScore(newScore);
-    }
-
-    public void setEntryName(final int pos, final String newName) {
-	this.table.get(pos).setName(newName);
     }
 }

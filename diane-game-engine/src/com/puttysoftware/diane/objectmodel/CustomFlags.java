@@ -18,11 +18,6 @@ final class CustomFlags {
 	this.flags = new ArrayList<>();
     }
 
-    // Methods
-    public int length() {
-	return this.flags.size();
-    }
-
     public boolean add(final int count) {
 	if (this.flags.size() != 0) {
 	    return false;
@@ -45,16 +40,29 @@ final class CustomFlags {
 	this.flags.add(false);
     }
 
+    @Override
+    public boolean equals(final Object obj) {
+	if (this == obj) {
+	    return true;
+	}
+	if (!(obj instanceof final CustomFlags other)) {
+	    return false;
+	}
+	return Objects.equals(this.flags, other.flags);
+    }
+
     public boolean get(final int index) {
 	return this.flags.get(index);
     }
 
-    public boolean toggle(final int index) {
-	if (this.flags.size() <= index) {
-	    return false;
-	}
-	this.flags.set(index, !this.flags.get(index));
-	return true;
+    @Override
+    public int hashCode() {
+	return Objects.hash(this.flags);
+    }
+
+    // Methods
+    public int length() {
+	return this.flags.size();
     }
 
     public boolean set(final int index, final boolean value) {
@@ -65,20 +73,11 @@ final class CustomFlags {
 	return true;
     }
 
-    @Override
-    public int hashCode() {
-	return Objects.hash(this.flags);
-    }
-
-    @Override
-    public boolean equals(final Object obj) {
-	if (this == obj) {
-	    return true;
-	}
-	if (!(obj instanceof CustomFlags)) {
+    public boolean toggle(final int index) {
+	if (this.flags.size() <= index) {
 	    return false;
 	}
-	final CustomFlags other = (CustomFlags) obj;
-	return Objects.equals(this.flags, other.flags);
+	this.flags.set(index, !this.flags.get(index));
+	return true;
     }
 }

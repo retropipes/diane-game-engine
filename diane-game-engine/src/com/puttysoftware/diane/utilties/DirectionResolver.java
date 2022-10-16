@@ -1,39 +1,91 @@
-/*  Diane Game Engine
-Copyleft (C) 2019 Eric Ahnell
+/*  DungeonDiver7: A Dungeon-Diving RPG
+ Copyright (C) 2021-present Eric Ahnell
 
-Any questions should be directed to the author via email at: support@puttysoftware.com
+ Any questions should be directed to the author via email at: products@puttysoftware.com
  */
 package com.puttysoftware.diane.utilties;
 
 public class DirectionResolver {
-    public static final int resolve(final int dirX, final int dirY) {
-	final int fdX = (int) Math.signum(dirX);
-	final int fdY = (int) Math.signum(dirY);
-	if (fdX == 0 && fdY == 0) {
+    public static final int COUNT = 8;
+
+    public static Directions resolve(final int dX, final int dY) {
+	final var dirX = (int) Math.signum(dX);
+	final var dirY = (int) Math.signum(dY);
+	if (dirX == 0 && dirY == 0) {
 	    return Directions.NONE;
-	} else if (fdX == 0 && fdY == -1) {
+	} else if (dirX == 0 && dirY == -1) {
 	    return Directions.NORTH;
-	} else if (fdX == 0 && fdY == 1) {
+	} else if (dirX == 0 && dirY == 1) {
 	    return Directions.SOUTH;
-	} else if (fdX == -1 && fdY == 0) {
+	} else if (dirX == -1 && dirY == 0) {
 	    return Directions.WEST;
-	} else if (fdX == 1 && fdY == 0) {
+	} else if (dirX == 1 && dirY == 0) {
 	    return Directions.EAST;
-	} else if (fdX == 1 && fdY == 1) {
+	} else if (dirX == 1 && dirY == 1) {
 	    return Directions.SOUTHEAST;
-	} else if (fdX == -1 && fdY == 1) {
+	} else if (dirX == -1 && dirY == 1) {
 	    return Directions.SOUTHWEST;
-	} else if (fdX == -1 && fdY == -1) {
+	} else if (dirX == -1 && dirY == -1) {
 	    return Directions.NORTHWEST;
-	} else if (fdX == 1 && fdY == -1) {
+	} else if (dirX == 1 && dirY == -1) {
 	    return Directions.NORTHEAST;
 	} else {
 	    return Directions.INVALID;
 	}
     }
 
-    public static final int[] unresolve(final int dir) {
-	int[] res = new int[2];
+    public static Directions resolveHV(final int dX, final int dY) {
+	final var dirX = (int) Math.signum(dX);
+	final var dirY = (int) Math.signum(dY);
+	if (dirX == 0 && dirY == 0) {
+	    return Directions.NONE;
+	} else if ((dirX == 0 && dirY == -1) || (dirX == 0 && dirY == 1)) {
+	    return Directions.VERTICAL;
+	} else if (dirX == -1 && dirY == 0) {
+	    return Directions.HORIZONTAL;
+	} else if (dirX == 1 && dirY == 0) {
+	    return Directions.HORIZONTAL;
+	} else if (dirX == 1 && dirY == 1) {
+	    return Directions.SOUTHEAST;
+	} else if (dirX == -1 && dirY == 1) {
+	    return Directions.SOUTHWEST;
+	} else if (dirX == -1 && dirY == -1) {
+	    return Directions.NORTHWEST;
+	} else if (dirX == 1 && dirY == -1) {
+	    return Directions.NORTHEAST;
+	} else {
+	    return Directions.INVALID;
+	}
+    }
+
+    public static Directions resolveInvert(final int dX, final int dY) {
+	final var dirX = (int) Math.signum(dX);
+	final var dirY = (int) Math.signum(dY);
+	if (dirX == 0 && dirY == 0) {
+	    return Directions.NONE;
+	} else if (dirX == 0 && dirY == -1) {
+	    return Directions.SOUTH;
+	} else if (dirX == 0 && dirY == 1) {
+	    return Directions.NORTH;
+	} else if (dirX == -1 && dirY == 0) {
+	    return Directions.EAST;
+	} else if (dirX == 1 && dirY == 0) {
+	    return Directions.WEST;
+	} else if (dirX == 1 && dirY == 1) {
+	    return Directions.NORTHWEST;
+	} else if (dirX == -1 && dirY == 1) {
+	    return Directions.NORTHEAST;
+	} else if (dirX == -1 && dirY == -1) {
+	    return Directions.SOUTHEAST;
+	} else if (dirX == 1 && dirY == -1) {
+	    return Directions.SOUTHWEST;
+	} else {
+	    return Directions.INVALID;
+	}
+    }
+
+    public static int[] unresolve(final Directions dir) {
+	var res = new int[2];
 	if (dir == Directions.NONE) {
 	    res[0] = 0;
 	    res[1] = 0;

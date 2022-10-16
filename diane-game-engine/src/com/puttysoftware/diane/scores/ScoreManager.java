@@ -40,7 +40,7 @@ public class ScoreManager {
 
     // Methods
     public boolean addScore(final long newScore) {
-	boolean success = true;
+	var success = true;
 	this.name = null;
 	this.name = CommonDialogs.showTextInputDialog(ScoreManager.NAME_PROMPT, this.title);
 	if (this.name != null) {
@@ -51,8 +51,14 @@ public class ScoreManager {
 	return success;
     }
 
+    public boolean addScore(final long newScore, final String newName) {
+	final var success = true;
+	this.table.addScore(newScore, newName);
+	return success;
+    }
+
     public boolean addScore(final long[] newScore) {
-	boolean success = true;
+	var success = true;
 	this.name = null;
 	this.name = CommonDialogs.showTextInputDialog(ScoreManager.NAME_PROMPT, this.title);
 	if (this.name != null) {
@@ -69,12 +75,6 @@ public class ScoreManager {
 
     public boolean checkScore(final long[] newScore) {
 	return this.table.checkScore(newScore);
-    }
-
-    public boolean addScore(final long newScore, final String newName) {
-	final boolean success = true;
-	this.table.addScore(newScore, newName);
-	return success;
     }
 
     public void viewTable() {

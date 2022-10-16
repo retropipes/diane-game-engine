@@ -12,14 +12,9 @@ public final class ScoreTableViewer {
     private static final int ENTRIES_PER_PAGE = 10;
     private static final String VIEWER_STRING = "Score Table Viewer"; //$NON-NLS-1$
 
-    // Private constructor
-    private ScoreTableViewer() {
-	// Do nothing
-    }
-
     // Methods
     public static void view(final ScoreTable table, final String customTitle, final String[] unit) {
-	final StringBuilder msgBuilder = new StringBuilder();
+	final var msgBuilder = new StringBuilder();
 	String msg = null;
 	String title = null;
 	if (customTitle == null || customTitle.isEmpty()) {
@@ -53,5 +48,10 @@ public final class ScoreTableViewer {
 	    msg = msg.substring(0, msg.length() - 1);
 	    CommonDialogs.showTitledDialog(msg, title);
 	}
+    }
+
+    // Private constructor
+    private ScoreTableViewer() {
+	// Do nothing
     }
 }

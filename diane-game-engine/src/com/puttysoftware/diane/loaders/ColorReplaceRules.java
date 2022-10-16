@@ -22,7 +22,7 @@ public final class ColorReplaceRules {
 
     // Methods
     public void add(final Color find, final Color replace) {
-	final ColorReplaceRule value = new ColorReplaceRule(find, replace);
+	final var value = new ColorReplaceRule(find, replace);
 	this.rules.add(value);
     }
 
@@ -30,8 +30,8 @@ public final class ColorReplaceRules {
 	if (input == null) {
 	    throw new IllegalArgumentException("input == NULL!");
 	}
-	BufferedImageIcon result = input;
-	for (ColorReplaceRule rule : this.rules) {
+	var result = input;
+	for (final ColorReplaceRule rule : this.rules) {
 	    result = rule.apply(result);
 	}
 	return result;
@@ -42,19 +42,18 @@ public final class ColorReplaceRules {
     }
 
     @Override
-    public int hashCode() {
-	return Objects.hash(this.rules);
-    }
-
-    @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
 	if (this == obj) {
 	    return true;
 	}
-	if (!(obj instanceof ColorReplaceRules)) {
+	if (!(obj instanceof final ColorReplaceRules other)) {
 	    return false;
 	}
-	ColorReplaceRules other = (ColorReplaceRules) obj;
 	return Objects.equals(this.rules, other.rules);
+    }
+
+    @Override
+    public int hashCode() {
+	return Objects.hash(this.rules);
     }
 }

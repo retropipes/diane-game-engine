@@ -16,29 +16,11 @@ public class DataReader implements AutoCloseable {
     private DataInputStream dis;
     private final File file;
 
-    // Constructors
-    public DataReader(final String filename) throws IOException {
-	this.dataMode = DataMode.TEXT;
-	this.br = new BufferedReader(new FileReader(filename));
-	this.dis = null;
-	this.file = new File(filename);
-    }
-
     public DataReader(final File filename) throws IOException {
 	this.dataMode = DataMode.TEXT;
 	this.br = new BufferedReader(new FileReader(filename));
 	this.dis = null;
 	this.file = filename;
-    }
-
-    public DataReader(final String filename, final DataMode mode) throws IOException {
-	this.dataMode = mode;
-	if (mode != DataMode.BINARY) {
-	    this.br = new BufferedReader(new FileReader(filename));
-	} else {
-	    this.dis = new DataInputStream(new FileInputStream(filename));
-	}
-	this.file = new File(filename);
     }
 
     public DataReader(final File filename, final DataMode mode) throws IOException {
@@ -51,7 +33,7 @@ public class DataReader implements AutoCloseable {
 	this.file = filename;
     }
 
-    protected DataReader(final InputStream stream, final DataMode mode) throws IOException {
+    protected DataReader(final InputStream stream, final DataMode mode) {
 	this.dataMode = mode;
 	if (mode != DataMode.BINARY) {
 	    this.br = new BufferedReader(new InputStreamReader(stream));
@@ -61,9 +43,22 @@ public class DataReader implements AutoCloseable {
 	this.file = null;
     }
 
-    // Methods
-    public File getFile() {
-	return this.file;
+    // Constructors
+    public DataReader(final String filename) throws IOException {
+	this.dataMode = DataMode.TEXT;
+	this.br = new BufferedReader(new FileReader(filename));
+	this.dis = null;
+	this.file = new File(filename);
+    }
+
+    public DataReader(final String filename, final DataMode mode) throws IOException {
+	this.dataMode = mode;
+	if (mode != DataMode.BINARY) {
+	    this.br = new BufferedReader(new FileReader(filename));
+	} else {
+	    this.dis = new DataInputStream(new FileInputStream(filename));
+	}
+	this.file = new File(filename);
     }
 
     @Override
@@ -75,35 +70,16 @@ public class DataReader implements AutoCloseable {
 	}
     }
 
-    public int readInt() throws IOException {
-	if (this.dataMode != DataMode.BINARY) {
-	    return Integer.parseInt(this.br.readLine());
-	} else {
-	    return this.dis.readInt();
-	}
+    // Methods
+    public File getFile() {
+	return this.file;
     }
 
-    public float readFloat() throws IOException {
+    public boolean readBoolean() throws IOException {
 	if (this.dataMode != DataMode.BINARY) {
-	    return Float.parseFloat(this.br.readLine());
+	    return Boolean.parseBoolean(this.br.readLine());
 	} else {
-	    return this.dis.readFloat();
-	}
-    }
-
-    public double readDouble() throws IOException {
-	if (this.dataMode != DataMode.BINARY) {
-	    return Double.parseDouble(this.br.readLine());
-	} else {
-	    return this.dis.readDouble();
-	}
-    }
-
-    public long readLong() throws IOException {
-	if (this.dataMode != DataMode.BINARY) {
-	    return Long.parseLong(this.br.readLine());
-	} else {
-	    return this.dis.readLong();
+	    return this.dis.readBoolean();
 	}
     }
 
@@ -115,11 +91,35 @@ public class DataReader implements AutoCloseable {
 	}
     }
 
-    public boolean readBoolean() throws IOException {
+    public double readDouble() throws IOException {
 	if (this.dataMode != DataMode.BINARY) {
-	    return Boolean.parseBoolean(this.br.readLine());
+	    return Double.parseDouble(this.br.readLine());
 	} else {
-	    return this.dis.readBoolean();
+	    return this.dis.readDouble();
+	}
+    }
+
+    public float readFloat() throws IOException {
+	if (this.dataMode != DataMode.BINARY) {
+	    return Float.parseFloat(this.br.readLine());
+	} else {
+	    return this.dis.readFloat();
+	}
+    }
+
+    public int readInt() throws IOException {
+	if (this.dataMode != DataMode.BINARY) {
+	    return Integer.parseInt(this.br.readLine());
+	} else {
+	    return this.dis.readInt();
+	}
+    }
+
+    public long readLong() throws IOException {
+	if (this.dataMode != DataMode.BINARY) {
+	    return Long.parseLong(this.br.readLine());
+	} else {
+	    return this.dis.readLong();
 	}
     }
 

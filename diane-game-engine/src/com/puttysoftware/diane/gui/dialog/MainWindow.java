@@ -15,13 +15,27 @@ import javax.swing.WindowConstants;
 
 public final class MainWindow {
     private static MainWindow window;
+
+    public static MainWindow getMainWindow() {
+	return MainWindow.window;
+    }
+
+    public static void mainWindow(final int width, final int height) {
+	if (MainWindow.window == null) {
+	    MainWindow.window = new MainWindow(width, height);
+	}
+    }
+
+    static JFrame owner() {
+	return MainWindow.getMainWindow().frame;
+    }
+
     private final JFrame frame;
     private MainWindowContent content;
-    private Dimension contentSize;
-    private LinkedList<MainWindowContent> savedContentStack;
+    private final Dimension contentSize;
+    private final LinkedList<MainWindowContent> savedContentStack;
 
     private MainWindow(final int width, final int height) {
-	super();
 	this.frame = new JFrame();
 	this.frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 	this.frame.setResizable(false);
@@ -33,22 +47,8 @@ public final class MainWindow {
 	this.frame.pack();
     }
 
-    static JFrame owner() {
-	return MainWindow.getMainWindow().frame;
-    }
-
-    public static void createMainWindow(final int width, final int height) {
-	if (MainWindow.window == null) {
-	    MainWindow.window = new MainWindow(width, height);
-	}
-    }
-
-    public final MainWindowContent createContent() {
-	return new MainWindowContent(this.contentSize);
-    }
-
-    public static MainWindow getMainWindow() {
-	return MainWindow.window;
+    public void addKeyListener(final KeyListener l) {
+	this.frame.addKeyListener(l);
     }
 
     public void attachAndSave(final MainWindowContent customContent) {
@@ -57,25 +57,25 @@ public final class MainWindow {
 	this.frame.setContentPane(this.content.owner());
     }
 
-    public void restoreSaved() {
-	this.setDefaultButton(null);
-	this.content = this.savedContentStack.pop();
-	this.frame.setContentPane(this.content.owner());
-    }
-
-    public void setTitle(final String title) {
-	this.frame.setTitle(title);
-    }
-
-    public void addKeyListener(final KeyListener l) {
-	this.frame.addKeyListener(l);
+    public MainWindowContent createContent() {
+	return new MainWindowContent(this.contentSize);
     }
 
     public void removeKeyListener(final KeyListener l) {
 	this.frame.removeKeyListener(l);
     }
 
+    public void restoreSaved() {
+	this.setDefaultButton(null);
+	this.content = this.savedContentStack.pop();
+	this.frame.setContentPane(this.content.owner());
+    }
+
     public void setDefaultButton(final JButton defaultButton) {
 	this.frame.getRootPane().setDefaultButton(defaultButton);
+    }
+
+    public void setTitle(final String title) {
+	this.frame.setTitle(title);
     }
 }

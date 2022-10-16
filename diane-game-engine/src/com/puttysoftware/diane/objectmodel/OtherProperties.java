@@ -27,9 +27,9 @@ class OtherProperties {
 	}
     }
 
+    private static final int OTHER_DATA_TYPES = 7;
     // Properties
     private final FlagStorage otherData;
-    private static final int OTHER_DATA_TYPES = 7;
 
     // Constructors
     public OtherProperties() {
@@ -41,48 +41,28 @@ class OtherProperties {
     // Methods
     @Override
     public boolean equals(final Object obj) {
-	if (obj == null) {
+	if (obj == null || this.getClass() != obj.getClass()) {
 	    return false;
 	}
-	if (this.getClass() != obj.getClass()) {
-	    return false;
-	}
-	final OtherProperties other = (OtherProperties) obj;
+	final var other = (OtherProperties) obj;
 	if (!Objects.equals(this.otherData, other.otherData)) {
 	    return false;
 	}
 	return true;
     }
 
-    @Override
-    public int hashCode() {
-	int hash = 3;
-	hash = 89 * hash + Objects.hashCode(this.otherData);
-	return hash;
-    }
-
     public boolean hasFriction() {
 	return this.otherData.getCell(OtherDataTypes.FRICTION.index);
     }
 
-    public void setFriction(final boolean value) {
-	this.otherData.setCell(value, OtherDataTypes.FRICTION.index);
+    @Override
+    public int hashCode() {
+	final var hash = 3;
+	return 89 * hash + Objects.hashCode(this.otherData);
     }
 
-    public boolean isUsable() {
-	return this.otherData.getCell(OtherDataTypes.USABLE.index);
-    }
-
-    public void setUsable(final boolean value) {
-	this.otherData.setCell(value, OtherDataTypes.USABLE.index);
-    }
-
-    public boolean isDestroyable() {
-	return this.otherData.getCell(OtherDataTypes.DESTROYABLE.index);
-    }
-
-    public void setDestroyable(final boolean value) {
-	this.otherData.setCell(value, OtherDataTypes.DESTROYABLE.index);
+    public boolean isCarryable() {
+	return this.otherData.getCell(OtherDataTypes.CARRYABLE.index);
     }
 
     public boolean isChainReacting() {
@@ -93,31 +73,47 @@ class OtherProperties {
 	return this.otherData.getCell(OtherDataTypes.CHAINS_HORIZONTAL.index);
     }
 
-    public void setChainReactingHorizontally(final boolean value) {
-	this.otherData.setCell(value, OtherDataTypes.CHAINS_HORIZONTAL.index);
-    }
-
     public boolean isChainReactingVertically() {
 	return this.otherData.getCell(OtherDataTypes.CHAINS_VERTICAL.index);
     }
 
-    public void setChainReactingVertically(final boolean value) {
-	this.otherData.setCell(value, OtherDataTypes.CHAINS_VERTICAL.index);
-    }
-
-    public boolean isCarryable() {
-	return this.otherData.getCell(OtherDataTypes.CARRYABLE.index);
-    }
-
-    public void setCarryable(final boolean value) {
-	this.otherData.setCell(value, OtherDataTypes.CARRYABLE.index);
+    public boolean isDestroyable() {
+	return this.otherData.getCell(OtherDataTypes.DESTROYABLE.index);
     }
 
     public boolean isTimerTicking() {
 	return this.otherData.getCell(OtherDataTypes.TIMER_TICKING.index);
     }
 
+    public boolean isUsable() {
+	return this.otherData.getCell(OtherDataTypes.USABLE.index);
+    }
+
+    public void setCarryable(final boolean value) {
+	this.otherData.setCell(value, OtherDataTypes.CARRYABLE.index);
+    }
+
+    public void setChainReactingHorizontally(final boolean value) {
+	this.otherData.setCell(value, OtherDataTypes.CHAINS_HORIZONTAL.index);
+    }
+
+    public void setChainReactingVertically(final boolean value) {
+	this.otherData.setCell(value, OtherDataTypes.CHAINS_VERTICAL.index);
+    }
+
+    public void setDestroyable(final boolean value) {
+	this.otherData.setCell(value, OtherDataTypes.DESTROYABLE.index);
+    }
+
+    public void setFriction(final boolean value) {
+	this.otherData.setCell(value, OtherDataTypes.FRICTION.index);
+    }
+
     public void setTimerTicking(final boolean value) {
 	this.otherData.setCell(value, OtherDataTypes.TIMER_TICKING.index);
+    }
+
+    public void setUsable(final boolean value) {
+	this.otherData.setCell(value, OtherDataTypes.USABLE.index);
     }
 }

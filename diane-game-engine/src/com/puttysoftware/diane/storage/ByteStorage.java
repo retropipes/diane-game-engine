@@ -6,6 +6,7 @@ Any questions should be directed to the author via email at: support@puttysoftwa
 package com.puttysoftware.diane.storage;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 /**
  * Data storage for bytes.
@@ -20,21 +21,22 @@ public class ByteStorage {
     private final int[] dataShape;
     private final int[] interProd;
 
-    // Constructor
+    // Protected copy constructor
     /**
-     * Main constructor.
+     * Serialization-related protected copy constructor.
      *
-     * @param shape simulated dimensions for the stored data
+     * @param source the underlying array where stored data came from
+     * @param shape  simulated dimensions for the stored data
      */
-    public ByteStorage(final int... shape) {
+    protected ByteStorage(final byte[] source, final int... shape) {
 	this.dataShape = shape;
 	this.interProd = new int[this.dataShape.length];
-	int product = 1;
-	for (int x = 0; x < this.dataShape.length; x++) {
+	var product = 1;
+	for (var x = 0; x < this.dataShape.length; x++) {
 	    this.interProd[x] = product;
 	    product *= this.dataShape[x];
 	}
-	this.dataStore = new byte[product];
+	this.dataStore = Arrays.copyOf(source, product);
     }
 
     // Copy constructor
@@ -46,30 +48,29 @@ public class ByteStorage {
     public ByteStorage(final ByteStorage source) {
 	this.dataShape = source.dataShape;
 	this.interProd = new int[this.dataShape.length];
-	int product = 1;
-	for (int x = 0; x < this.dataShape.length; x++) {
+	var product = 1;
+	for (var x = 0; x < this.dataShape.length; x++) {
 	    this.interProd[x] = product;
 	    product *= this.dataShape[x];
 	}
 	this.dataStore = Arrays.copyOf(source.dataStore, product);
     }
 
-    // Protected copy constructor
+    // Constructor
     /**
-     * Serialization-related protected copy constructor.
+     * Main constructor.
      *
-     * @param source the underlying array where stored data came from
-     * @param shape  simulated dimensions for the stored data
+     * @param shape simulated dimensions for the stored data
      */
-    protected ByteStorage(final byte[] source, final int... shape) {
+    public ByteStorage(final int... shape) {
 	this.dataShape = shape;
 	this.interProd = new int[this.dataShape.length];
-	int product = 1;
-	for (int x = 0; x < this.dataShape.length; x++) {
+	var product = 1;
+	for (var x = 0; x < this.dataShape.length; x++) {
 	    this.interProd[x] = product;
 	    product *= this.dataShape[x];
 	}
-	this.dataStore = Arrays.copyOf(source, product);
+	this.dataStore = new byte[product];
     }
 
     // Methods
@@ -84,14 +85,8 @@ public class ByteStorage {
 	if (this == obj) {
 	    return true;
 	}
-	if (obj == null) {
-	    return false;
-	}
-	if (!(obj instanceof ByteStorage)) {
-	    return false;
-	}
-	final ByteStorage other = (ByteStorage) obj;
-	if (!Arrays.equals(this.dataStore, other.dataStore)) {
+	if (obj == null || !(obj instanceof final ByteStorage other)
+		|| !Arrays.equals(this.dataStore, other.dataStore)) {
 	    return false;
 	}
 	return true;
@@ -103,9 +98,7 @@ public class ByteStorage {
      * @param obj the data to fill with
      */
     public final void fill(final byte obj) {
-	for (int x = 0; x < this.dataStore.length; x++) {
-	    this.dataStore[x] = obj;
-	}
+	Arrays.fill(this.dataStore, obj);
     }
 
     /**
@@ -115,7 +108,7 @@ public class ByteStorage {
      * @return the data at that location
      */
     public final byte getCell(final int... loc) {
-	final int aloc = this.ravelLocation(loc);
+	final var aloc = this.ravelLocation(loc);
 	return this.dataStore[aloc];
     }
 
@@ -153,9 +146,7 @@ public class ByteStorage {
      */
     @Override
     public int hashCode() {
-	final int prime = 31;
-	final int result = 1;
-	return prime * result + Arrays.hashCode(this.dataStore);
+	return Objects.hash(Arrays.hashCode(this.dataStore));
     }
 
     /**
@@ -165,12 +156,12 @@ public class ByteStorage {
      * @return a raw index
      */
     protected final int ravelLocation(final int... loc) {
-	int res = 0;
+	var res = 0;
 	// Sanity check #1
 	if (loc.length != this.interProd.length) {
 	    throw new IllegalArgumentException(Integer.toString(loc.length));
 	}
-	for (int x = 0; x < this.interProd.length; x++) {
+	for (var x = 0; x < this.interProd.length; x++) {
 	    // Sanity check #2
 	    if (loc[x] < 0 || loc[x] >= this.dataShape[x]) {
 		throw new ArrayIndexOutOfBoundsException(loc[x]);
@@ -187,7 +178,7 @@ public class ByteStorage {
      * @param loc the location to modify
      */
     public final void setCell(final byte obj, final int... loc) {
-	final int aloc = this.ravelLocation(loc);
+	final var aloc = this.ravelLocation(loc);
 	this.dataStore[aloc] = obj;
     }
 

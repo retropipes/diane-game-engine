@@ -3,13 +3,15 @@ package com.puttysoftware.diane.fileio;
 import java.io.File;
 
 public interface DataIOReader extends AutoCloseable {
+    boolean atEOF() throws DataIOException;
+
+    @Override
+    void close() throws DataIOException;
+
     // Methods
     DataMode getDataIOMode();
 
     File getFile();
-
-    @Override
-    void close() throws DataIOException;
 
     boolean readBoolean() throws DataIOException;
 
@@ -30,6 +32,4 @@ public interface DataIOReader extends AutoCloseable {
     int readUnsignedShortByteArrayAsInt() throws DataIOException;
 
     String readWindowsString(byte[] buflen) throws DataIOException;
-
-    boolean atEOF() throws DataIOException;
 }

@@ -11,14 +11,18 @@ import com.puttysoftware.diane.fileio.XDataReader;
 import com.puttysoftware.diane.fileio.XDataWriter;
 
 public final class PolyTable extends Polynomial {
+    public static PolyTable readPage(final XDataReader reader) throws IOException {
+	final var p = new PolyTable(Polynomial.readPolynomial(reader));
+	final var tempMaxRange = reader.readInt();
+	final var tempExperience = reader.readBoolean();
+	p.maxRange = tempMaxRange;
+	p.experience = tempExperience;
+	return p;
+    }
+
     // Fields
     private int maxRange;
     private boolean experience;
-
-    // Constructors
-    private PolyTable(final Polynomial p) {
-	super(p);
-    }
 
     public PolyTable(final int maxPower, final int params, final int range, final boolean isExperience) {
 	super(maxPower, params);
@@ -26,19 +30,27 @@ public final class PolyTable extends Polynomial {
 	this.experience = isExperience;
     }
 
-    // Methods
-    public int getMaxRange() {
-	return this.maxRange;
+    // Constructors
+    private PolyTable(final Polynomial p) {
+	super(p);
     }
 
-    public boolean isExperience() {
-	return this.experience;
+    @Override
+    public boolean equals(final Object obj) {
+	if (this == obj) {
+	    return true;
+	}
+	if (!super.equals(obj) || !(obj instanceof final PolyTable other) || this.experience != other.experience
+		|| this.maxRange != other.maxRange) {
+	    return false;
+	}
+	return true;
     }
 
     @Override
     public long evaluate(final int paramValue) {
 	int x;
-	long result = 0;
+	var result = 0L;
 	for (x = 0; x < this.coefficients.length; x++) {
 	    result += (long) (this.coefficients[x][Polynomial.DEFAULT_PARAM] * Math.pow(paramValue, x));
 	}
@@ -53,7 +65,7 @@ public final class PolyTable extends Polynomial {
     @Override
     public long evaluate(final int[] paramValues) {
 	int x, y;
-	long result = 0;
+	var result = 0L;
 	for (x = 0; x < this.coefficients.length; x++) {
 	    for (y = 0; y < this.coefficients[x].length; y++) {
 		result += (long) (this.coefficients[x][y] * Math.pow(paramValues[y], x));
@@ -70,54 +82,33 @@ public final class PolyTable extends Polynomial {
     }
 
     public long[] evaluateToArray() {
-	final long[] result = new long[this.maxRange];
-	for (int x = 0; x < result.length; x++) {
+	final var result = new long[this.maxRange];
+	for (var x = 0; x < result.length; x++) {
 	    result[x] = this.evaluate(x + 1);
 	}
 	return result;
     }
 
-    public static PolyTable readPage(final XDataReader reader) throws IOException {
-	final PolyTable p = new PolyTable(Polynomial.readPolynomial(reader));
-	final int tempMaxRange = reader.readInt();
-	final boolean tempExperience = reader.readBoolean();
-	p.maxRange = tempMaxRange;
-	p.experience = tempExperience;
-	return p;
+    // Methods
+    public int getMaxRange() {
+	return this.maxRange;
+    }
+
+    @Override
+    public int hashCode() {
+	final var prime = 31;
+	var result = super.hashCode();
+	result = prime * result + (this.experience ? 1231 : 1237);
+	return prime * result + this.maxRange;
+    }
+
+    public boolean isExperience() {
+	return this.experience;
     }
 
     public void writePage(final XDataWriter writer) throws IOException {
 	this.writePolynomial(writer);
 	writer.writeInt(this.maxRange);
 	writer.writeBoolean(this.experience);
-    }
-
-    @Override
-    public int hashCode() {
-	final int prime = 31;
-	int result = super.hashCode();
-	result = prime * result + (this.experience ? 1231 : 1237);
-	return prime * result + this.maxRange;
-    }
-
-    @Override
-    public boolean equals(final Object obj) {
-	if (this == obj) {
-	    return true;
-	}
-	if (!super.equals(obj)) {
-	    return false;
-	}
-	if (!(obj instanceof PolyTable)) {
-	    return false;
-	}
-	final PolyTable other = (PolyTable) obj;
-	if (this.experience != other.experience) {
-	    return false;
-	}
-	if (this.maxRange != other.maxRange) {
-	    return false;
-	}
-	return true;
     }
 }

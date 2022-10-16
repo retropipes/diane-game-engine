@@ -16,13 +16,13 @@ public final class ErrorLogger {
 
     // Methods
     public void logError(final Throwable t) {
-	final ErrorLogWriter elw = new ErrorLogWriter(t, this.name);
+	final var elw = new ErrorLogWriter(t, this.name);
 	elw.writeErrorInfo();
 	System.exit(1);
     }
 
     public void logWarning(final Throwable t) {
-	final WarningLogWriter wlw = new WarningLogWriter(t, this.name);
+	final var wlw = new WarningLogWriter(t, this.name);
 	wlw.writeLogInfo();
     }
 }

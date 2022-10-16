@@ -29,29 +29,12 @@ public class ObjectStorage {
     public ObjectStorage(final int... shape) {
 	this.dataShape = shape;
 	this.interProd = new int[this.dataShape.length];
-	int product = 1;
-	for (int x = 0; x < this.dataShape.length; x++) {
+	var product = 1;
+	for (var x = 0; x < this.dataShape.length; x++) {
 	    this.interProd[x] = product;
 	    product *= this.dataShape[x];
 	}
 	this.dataStore = new Object[product];
-    }
-
-    // Copy constructor
-    /**
-     * Main copy constructor.
-     *
-     * @param source the @self to make a copy of
-     */
-    public ObjectStorage(final ObjectStorage source) {
-	this.dataShape = source.dataShape;
-	this.interProd = new int[this.dataShape.length];
-	int product = 1;
-	for (int x = 0; x < this.dataShape.length; x++) {
-	    this.interProd[x] = product;
-	    product *= this.dataShape[x];
-	}
-	this.dataStore = Arrays.copyOf(source.dataStore, product);
     }
 
     // Protected copy constructor
@@ -64,12 +47,29 @@ public class ObjectStorage {
     protected ObjectStorage(final Object[] source, final int... shape) {
 	this.dataShape = shape;
 	this.interProd = new int[this.dataShape.length];
-	int product = 1;
-	for (int x = 0; x < this.dataShape.length; x++) {
+	var product = 1;
+	for (var x = 0; x < this.dataShape.length; x++) {
 	    this.interProd[x] = product;
 	    product *= this.dataShape[x];
 	}
 	this.dataStore = Arrays.copyOf(source, product);
+    }
+
+    // Copy constructor
+    /**
+     * Main copy constructor.
+     *
+     * @param source the @self to make a copy of
+     */
+    public ObjectStorage(final ObjectStorage source) {
+	this.dataShape = source.dataShape;
+	this.interProd = new int[this.dataShape.length];
+	var product = 1;
+	for (var x = 0; x < this.dataShape.length; x++) {
+	    this.interProd[x] = product;
+	    product *= this.dataShape[x];
+	}
+	this.dataStore = Arrays.copyOf(source.dataStore, product);
     }
 
     // Methods
@@ -84,14 +84,8 @@ public class ObjectStorage {
 	if (this == obj) {
 	    return true;
 	}
-	if (obj == null) {
-	    return false;
-	}
-	if (!(obj instanceof ObjectStorage)) {
-	    return false;
-	}
-	final ObjectStorage other = (ObjectStorage) obj;
-	if (!Arrays.deepEquals(this.dataStore, other.dataStore)) {
+	if (obj == null || !(obj instanceof final ObjectStorage other)
+		|| !Arrays.deepEquals(this.dataStore, other.dataStore)) {
 	    return false;
 	}
 	return true;
@@ -103,9 +97,7 @@ public class ObjectStorage {
      * @param obj the data to fill with
      */
     public final void fill(final Object obj) {
-	for (int x = 0; x < this.dataStore.length; x++) {
-	    this.dataStore[x] = obj;
-	}
+	Arrays.fill(this.dataStore, obj);
     }
 
     /**
@@ -115,7 +107,7 @@ public class ObjectStorage {
      * @return the data at that location
      */
     public final Object getCell(final int... loc) {
-	final int aloc = this.ravelLocation(loc);
+	final var aloc = this.ravelLocation(loc);
 	return this.dataStore[aloc];
     }
 
@@ -153,8 +145,8 @@ public class ObjectStorage {
      */
     @Override
     public int hashCode() {
-	final int prime = 31;
-	final int result = 1;
+	final var prime = 31;
+	final var result = 1;
 	return prime * result + Arrays.deepHashCode(this.dataStore);
     }
 
@@ -165,12 +157,12 @@ public class ObjectStorage {
      * @return a raw index
      */
     protected final int ravelLocation(final int... loc) {
-	int res = 0;
+	var res = 0;
 	// Sanity check #1
 	if (loc.length != this.interProd.length) {
 	    throw new IllegalArgumentException(Integer.toString(loc.length));
 	}
-	for (int x = 0; x < this.interProd.length; x++) {
+	for (var x = 0; x < this.interProd.length; x++) {
 	    // Sanity check #2
 	    if (loc[x] < 0 || loc[x] >= this.dataShape[x]) {
 		throw new ArrayIndexOutOfBoundsException(loc[x]);
@@ -187,7 +179,7 @@ public class ObjectStorage {
      * @param loc the location to modify
      */
     public final void setCell(final Object obj, final int... loc) {
-	final int aloc = this.ravelLocation(loc);
+	final var aloc = this.ravelLocation(loc);
 	this.dataStore[aloc] = obj;
     }
 

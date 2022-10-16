@@ -18,11 +18,6 @@ final class CustomTexts {
 	this.texts = new ArrayList<>();
     }
 
-    // Methods
-    public int length() {
-	return this.texts.size();
-    }
-
     public boolean add(final int count) {
 	if (this.texts.size() <= count) {
 	    return false;
@@ -45,8 +40,29 @@ final class CustomTexts {
 	this.texts.add("");
     }
 
+    @Override
+    public boolean equals(final Object obj) {
+	if (this == obj) {
+	    return true;
+	}
+	if (!(obj instanceof final CustomTexts other)) {
+	    return false;
+	}
+	return Objects.equals(this.texts, other.texts);
+    }
+
     public String get(final int index) {
 	return this.texts.get(index);
+    }
+
+    @Override
+    public int hashCode() {
+	return Objects.hash(this.texts);
+    }
+
+    // Methods
+    public int length() {
+	return this.texts.size();
     }
 
     public boolean set(final int index, final String value) {
@@ -55,22 +71,5 @@ final class CustomTexts {
 	}
 	this.texts.set(index, value);
 	return true;
-    }
-
-    @Override
-    public int hashCode() {
-	return Objects.hash(this.texts);
-    }
-
-    @Override
-    public boolean equals(final Object obj) {
-	if (this == obj) {
-	    return true;
-	}
-	if (!(obj instanceof CustomTexts)) {
-	    return false;
-	}
-	final CustomTexts other = (CustomTexts) obj;
-	return Objects.equals(this.texts, other.texts);
     }
 }

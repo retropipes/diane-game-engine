@@ -15,6 +15,24 @@ public class GameIODataReader implements DataIOReader {
 	this.file = new File(filename);
     }
 
+    @Override
+    public boolean atEOF() throws DataIOException {
+	try {
+	    return this.fileIO.getFilePointer() == this.fileIO.length();
+	} catch (final IOException e) {
+	    throw new DataIOException(e);
+	}
+    }
+
+    @Override
+    public void close() throws DataIOException {
+	try {
+	    this.fileIO.close();
+	} catch (final IOException e) {
+	    throw new DataIOException(e);
+	}
+    }
+
     // Methods
     @Override
     public DataMode getDataIOMode() {
@@ -27,19 +45,10 @@ public class GameIODataReader implements DataIOReader {
     }
 
     @Override
-    public void close() throws DataIOException {
-	try {
-	    this.fileIO.close();
-	} catch (IOException e) {
-	    throw new DataIOException(e);
-	}
-    }
-
-    @Override
     public boolean readBoolean() throws DataIOException {
 	try {
 	    return this.fileIO.readBoolean();
-	} catch (IOException e) {
+	} catch (final IOException e) {
 	    throw new DataIOException(e);
 	}
     }
@@ -48,7 +57,7 @@ public class GameIODataReader implements DataIOReader {
     public byte readByte() throws DataIOException {
 	try {
 	    return this.fileIO.readByte();
-	} catch (IOException e) {
+	} catch (final IOException e) {
 	    throw new DataIOException(e);
 	}
     }
@@ -56,10 +65,10 @@ public class GameIODataReader implements DataIOReader {
     @Override
     public byte[] readBytes(final int len) throws DataIOException {
 	try {
-	    final byte[] buf = new byte[len];
+	    final var buf = new byte[len];
 	    this.fileIO.read(buf);
 	    return buf;
-	} catch (IOException e) {
+	} catch (final IOException e) {
 	    throw new DataIOException(e);
 	}
     }
@@ -68,7 +77,7 @@ public class GameIODataReader implements DataIOReader {
     public double readDouble() throws DataIOException {
 	try {
 	    return this.fileIO.readDouble();
-	} catch (IOException e) {
+	} catch (final IOException e) {
 	    throw new DataIOException(e);
 	}
     }
@@ -77,7 +86,7 @@ public class GameIODataReader implements DataIOReader {
     public int readInt() throws DataIOException {
 	try {
 	    return this.fileIO.readInt();
-	} catch (IOException e) {
+	} catch (final IOException e) {
 	    throw new DataIOException(e);
 	}
     }
@@ -86,7 +95,7 @@ public class GameIODataReader implements DataIOReader {
     public long readLong() throws DataIOException {
 	try {
 	    return this.fileIO.readLong();
-	} catch (IOException e) {
+	} catch (final IOException e) {
 	    throw new DataIOException(e);
 	}
     }
@@ -95,7 +104,7 @@ public class GameIODataReader implements DataIOReader {
     public String readString() throws DataIOException {
 	try {
 	    return this.fileIO.readUTF();
-	} catch (IOException e) {
+	} catch (final IOException e) {
 	    throw new DataIOException(e);
 	}
     }
@@ -104,7 +113,7 @@ public class GameIODataReader implements DataIOReader {
     public int readUnsignedByte() throws DataIOException {
 	try {
 	    return this.fileIO.readUnsignedByte();
-	} catch (IOException e) {
+	} catch (final IOException e) {
 	    throw new DataIOException(e);
 	}
     }
@@ -112,10 +121,10 @@ public class GameIODataReader implements DataIOReader {
     @Override
     public int readUnsignedShortByteArrayAsInt() throws DataIOException {
 	try {
-	    final byte[] buf = new byte[Short.BYTES];
+	    final var buf = new byte[Short.BYTES];
 	    this.fileIO.read(buf);
 	    return DataIOUtilities.unsignedShortByteArrayToInt(buf);
-	} catch (IOException e) {
+	} catch (final IOException e) {
 	    throw new DataIOException(e);
 	}
     }
@@ -125,16 +134,7 @@ public class GameIODataReader implements DataIOReader {
 	try {
 	    this.fileIO.read(buflen);
 	    return DataIOUtilities.decodeWindowsStringData(buflen);
-	} catch (IOException e) {
-	    throw new DataIOException(e);
-	}
-    }
-
-    @Override
-    public boolean atEOF() throws DataIOException {
-	try {
-	    return this.fileIO.getFilePointer() == this.fileIO.length();
-	} catch (IOException e) {
+	} catch (final IOException e) {
 	    throw new DataIOException(e);
 	}
     }

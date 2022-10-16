@@ -34,18 +34,7 @@ public class SavedScoreManager extends ScoreManager {
     // Methods
     @Override
     public boolean addScore(final long newScore) {
-	final boolean success = super.addScore(newScore);
-	try {
-	    this.writeScoresFile();
-	} catch (final IOException io) {
-	    // Do nothing
-	}
-	return success;
-    }
-
-    @Override
-    public boolean addScore(final long[] newScore) {
-	final boolean success = super.addScore(newScore);
+	final var success = super.addScore(newScore);
 	try {
 	    this.writeScoresFile();
 	} catch (final IOException io) {
@@ -56,7 +45,18 @@ public class SavedScoreManager extends ScoreManager {
 
     @Override
     public boolean addScore(final long newScore, final String newName) {
-	final boolean success = super.addScore(newScore, newName);
+	final var success = super.addScore(newScore, newName);
+	try {
+	    this.writeScoresFile();
+	} catch (final IOException io) {
+	    // Do nothing
+	}
+	return success;
+    }
+
+    @Override
+    public boolean addScore(final long[] newScore) {
+	final var success = super.addScore(newScore);
 	try {
 	    this.writeScoresFile();
 	} catch (final IOException io) {
@@ -66,7 +66,7 @@ public class SavedScoreManager extends ScoreManager {
     }
 
     private void readScoresFile() throws IOException {
-	try (XDataReader xdr = new XDataReader(this.scoresFilename, "scores")) { //$NON-NLS-1$
+	try (var xdr = new XDataReader(this.scoresFilename, "scores")) { //$NON-NLS-1$
 	    this.table = SortedScoreTable.readSortedScoreTable(xdr);
 	    xdr.close();
 	} catch (final IOException ioe) {
@@ -75,7 +75,7 @@ public class SavedScoreManager extends ScoreManager {
     }
 
     private void writeScoresFile() throws IOException {
-	try (XDataWriter xdw = new XDataWriter(this.scoresFilename, "scores")) { //$NON-NLS-1$
+	try (var xdw = new XDataWriter(this.scoresFilename, "scores")) { //$NON-NLS-1$
 	    this.table.writeSortedScoreTable(xdw);
 	    xdw.close();
 	} catch (final IOException ioe) {

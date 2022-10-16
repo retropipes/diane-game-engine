@@ -25,20 +25,20 @@ public class EdgePattern {
 	this.inverted = invert;
     }
 
-    public EdgePosition getPosition() {
-	return this.position;
+    public Color getColor() {
+	return this.color;
     }
 
     public EdgeDirection getDirection() {
 	return this.direction;
     }
 
-    public EdgeType getType() {
-	return this.type;
+    public EdgePosition getPosition() {
+	return this.position;
     }
 
-    public Color getColor() {
-	return this.color;
+    public EdgeType getType() {
+	return this.type;
     }
 
     public boolean isInverted() {

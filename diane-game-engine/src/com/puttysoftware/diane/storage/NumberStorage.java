@@ -6,6 +6,7 @@ Any questions should be directed to the author via email at: support@puttysoftwa
 package com.puttysoftware.diane.storage;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 /**
  * Data storage for 32-bit integers.
@@ -29,29 +30,12 @@ public class NumberStorage {
     public NumberStorage(final int... shape) {
 	this.dataShape = shape;
 	this.interProd = new int[shape.length];
-	int product = 1;
-	for (int x = 0; x < shape.length; x++) {
+	var product = 1;
+	for (var x = 0; x < shape.length; x++) {
 	    this.interProd[x] = product;
 	    product *= shape[x];
 	}
 	this.dataStore = new int[product];
-    }
-
-    // Copy constructor
-    /**
-     * Main copy constructor.
-     *
-     * @param source the @self to make a copy of
-     */
-    public NumberStorage(final NumberStorage source) {
-	this.dataShape = source.dataShape;
-	this.interProd = new int[this.dataShape.length];
-	int product = 1;
-	for (int x = 0; x < this.dataShape.length; x++) {
-	    this.interProd[x] = product;
-	    product *= this.dataShape[x];
-	}
-	this.dataStore = Arrays.copyOf(source.dataStore, product);
     }
 
     // Protected copy constructor
@@ -64,12 +48,29 @@ public class NumberStorage {
     protected NumberStorage(final int[] source, final int... shape) {
 	this.dataShape = shape;
 	this.interProd = new int[this.dataShape.length];
-	int product = 1;
-	for (int x = 0; x < this.dataShape.length; x++) {
+	var product = 1;
+	for (var x = 0; x < this.dataShape.length; x++) {
 	    this.interProd[x] = product;
 	    product *= this.dataShape[x];
 	}
 	this.dataStore = Arrays.copyOf(source, product);
+    }
+
+    // Copy constructor
+    /**
+     * Main copy constructor.
+     *
+     * @param source the @self to make a copy of
+     */
+    public NumberStorage(final NumberStorage source) {
+	this.dataShape = source.dataShape;
+	this.interProd = new int[this.dataShape.length];
+	var product = 1;
+	for (var x = 0; x < this.dataShape.length; x++) {
+	    this.interProd[x] = product;
+	    product *= this.dataShape[x];
+	}
+	this.dataStore = Arrays.copyOf(source.dataStore, product);
     }
 
     // Methods
@@ -84,14 +85,8 @@ public class NumberStorage {
 	if (this == obj) {
 	    return true;
 	}
-	if (obj == null) {
-	    return false;
-	}
-	if (!(obj instanceof NumberStorage)) {
-	    return false;
-	}
-	final NumberStorage other = (NumberStorage) obj;
-	if (!Arrays.equals(this.dataStore, other.dataStore)) {
+	if (obj == null || !(obj instanceof final NumberStorage other)
+		|| !Arrays.equals(this.dataStore, other.dataStore)) {
 	    return false;
 	}
 	return true;
@@ -103,9 +98,7 @@ public class NumberStorage {
      * @param obj the data to fill with
      */
     public final void fill(final int obj) {
-	for (int x = 0; x < this.dataStore.length; x++) {
-	    this.dataStore[x] = obj;
-	}
+	Arrays.fill(this.dataStore, obj);
     }
 
     /**
@@ -115,7 +108,7 @@ public class NumberStorage {
      * @return the data at that location
      */
     public final int getCell(final int... loc) {
-	final int aloc = this.ravelLocation(loc);
+	final var aloc = this.ravelLocation(loc);
 	return this.dataStore[aloc];
     }
 
@@ -153,9 +146,7 @@ public class NumberStorage {
      */
     @Override
     public int hashCode() {
-	final int prime = 31;
-	final int result = 1;
-	return prime * result + Arrays.hashCode(this.dataStore);
+	return Objects.hash(Arrays.hashCode(this.dataStore));
     }
 
     /**
@@ -165,12 +156,12 @@ public class NumberStorage {
      * @return a raw index
      */
     protected final int ravelLocation(final int... loc) {
-	int res = 0;
+	var res = 0;
 	// Sanity check #1
 	if (loc.length != this.interProd.length) {
 	    throw new IllegalArgumentException(Integer.toString(loc.length));
 	}
-	for (int x = 0; x < this.interProd.length; x++) {
+	for (var x = 0; x < this.interProd.length; x++) {
 	    // Sanity check #2
 	    if (loc[x] < 0 || loc[x] >= this.dataShape[x]) {
 		throw new ArrayIndexOutOfBoundsException(loc[x]);
@@ -187,7 +178,7 @@ public class NumberStorage {
      * @param loc the location to modify
      */
     public final void setCell(final int obj, final int... loc) {
-	final int aloc = this.ravelLocation(loc);
+	final var aloc = this.ravelLocation(loc);
 	this.dataStore[aloc] = obj;
     }
 

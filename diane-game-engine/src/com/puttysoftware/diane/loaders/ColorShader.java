@@ -9,6 +9,15 @@ import java.awt.Color;
 import java.util.Objects;
 
 public class ColorShader {
+    private static float[] doColorMath(final float[] inputColor, final float[] inputShade) {
+	final var outputColor = new float[4];
+	for (var c = 0; c < 3; c++) {
+	    outputColor[c] = inputColor[c] * inputShade[c];
+	}
+	outputColor[3] = 1.0F;
+	return outputColor;
+    }
+
     // Fields
     private final Color shadeColor;
     private final String shadeName;
@@ -19,35 +28,16 @@ public class ColorShader {
 	this.shadeName = name;
     }
 
-    // Methods
-    public String getName() {
-	return this.shadeName;
-    }
-
     public Color applyShade(final Color source) {
 	if (source.getAlpha() != 255) {
 	    return source;
 	}
-	float[] sourceComp = new float[4];
+	var sourceComp = new float[4];
 	sourceComp = source.getColorComponents(sourceComp);
-	float[] shadeComp = new float[4];
+	var shadeComp = new float[4];
 	shadeComp = this.shadeColor.getColorComponents(shadeComp);
-	float[] result = ColorShader.doColorMath(sourceComp, shadeComp);
+	final var result = ColorShader.doColorMath(sourceComp, shadeComp);
 	return new Color(result[0], result[1], result[2], result[3]);
-    }
-
-    private static float[] doColorMath(final float[] inputColor, final float[] inputShade) {
-	final float[] outputColor = new float[4];
-	for (int c = 0; c < 3; c++) {
-	    outputColor[c] = inputColor[c] * inputShade[c];
-	}
-	outputColor[3] = 1.0F;
-	return outputColor;
-    }
-
-    @Override
-    public int hashCode() {
-	return Objects.hash(this.shadeColor, this.shadeName);
     }
 
     @Override
@@ -55,10 +45,19 @@ public class ColorShader {
 	if (this == obj) {
 	    return true;
 	}
-	if (!(obj instanceof ColorShader)) {
+	if (!(obj instanceof final ColorShader other)) {
 	    return false;
 	}
-	final ColorShader other = (ColorShader) obj;
 	return Objects.equals(this.shadeColor, other.shadeColor) && Objects.equals(this.shadeName, other.shadeName);
+    }
+
+    // Methods
+    public String getName() {
+	return this.shadeName;
+    }
+
+    @Override
+    public int hashCode() {
+	return Objects.hash(this.shadeColor, this.shadeName);
     }
 }

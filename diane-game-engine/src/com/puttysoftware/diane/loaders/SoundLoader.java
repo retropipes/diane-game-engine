@@ -8,26 +8,19 @@ package com.puttysoftware.diane.loaders;
 import java.io.IOException;
 import java.net.URL;
 
-import javax.sound.sampled.AudioFormat;
-import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.DataLine;
-import javax.sound.sampled.Line;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.SourceDataLine;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 import com.puttysoftware.diane.Diane;
-import com.puttysoftware.diane.asset.SoundIndex;
+import com.puttysoftware.diane.asset.DianeSoundIndex;
 
 public class SoundLoader {
-    private SoundLoader() {
-	// Do nothing
-    }
-
     private static final int BUFFER_SIZE = 4096; // 4Kb
 
-    public static void play(final SoundIndex sound) {
+    public static void play(final DianeSoundIndex sound) {
 	SoundLoader.play(sound.getSoundURL());
     }
 
@@ -35,14 +28,14 @@ public class SoundLoader {
 	new Thread() {
 	    @Override
 	    public void run() {
-		try (AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(sound)) {
-		    final AudioFormat format = audioInputStream.getFormat();
-		    final DataLine.Info info = new DataLine.Info(SourceDataLine.class, format);
-		    try (Line line = AudioSystem.getLine(info); SourceDataLine auline = (SourceDataLine) line) {
+		try (var audioInputStream = AudioSystem.getAudioInputStream(sound)) {
+		    final var format = audioInputStream.getFormat();
+		    final var info = new DataLine.Info(SourceDataLine.class, format);
+		    try (var line = AudioSystem.getLine(info); var auline = (SourceDataLine) line) {
 			auline.open(format);
 			auline.start();
-			int nBytesRead = 0;
-			final byte[] abData = new byte[SoundLoader.BUFFER_SIZE];
+			var nBytesRead = 0;
+			final var abData = new byte[SoundLoader.BUFFER_SIZE];
 			try {
 			    while (nBytesRead != -1) {
 				nBytesRead = audioInputStream.read(abData, 0, abData.length);
@@ -58,12 +51,14 @@ public class SoundLoader {
 		    } catch (final LineUnavailableException e) {
 			Diane.handleError(e);
 		    }
-		} catch (final UnsupportedAudioFileException e) {
-		    Diane.handleError(e);
-		} catch (final IOException e) {
+		} catch (final UnsupportedAudioFileException | IOException e) {
 		    Diane.handleError(e);
 		}
 	    }
 	}.start();
+    }
+
+    private SoundLoader() {
+	// Do nothing
     }
 }

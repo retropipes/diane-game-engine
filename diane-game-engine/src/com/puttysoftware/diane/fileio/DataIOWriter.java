@@ -3,13 +3,13 @@ package com.puttysoftware.diane.fileio;
 import java.io.File;
 
 public interface DataIOWriter extends AutoCloseable {
+    @Override
+    void close() throws DataIOException;
+
     // Methods
     DataMode getDataIOMode();
 
     File getFile();
-
-    @Override
-    void close() throws DataIOException;
 
     void writeBoolean(boolean value) throws DataIOException;
 

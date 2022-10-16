@@ -17,6 +17,10 @@ public class Map {
 	this.data = new ObjectStorage(dimensions);
     }
 
+    public void fill(final ObjectModel with) {
+	this.data.fill(with);
+    }
+
     public ObjectModel getCell(final int... location) {
 	return (ObjectModel) this.data.getCell(location);
     }
@@ -27,9 +31,5 @@ public class Map {
 
     public void setCell(final ObjectModel o, final int... location) {
 	this.data.setCell(o, location);
-    }
-
-    public void fill(final ObjectModel with) {
-	this.data.fill(with);
     }
 }
