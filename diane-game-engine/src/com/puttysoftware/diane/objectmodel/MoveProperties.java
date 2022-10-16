@@ -41,7 +41,7 @@ class MoveProperties {
     // Methods
     @Override
     public boolean equals(final Object obj) {
-	if ((obj == null) || (this.getClass() != obj.getClass())) {
+	if (obj == null || this.getClass() != obj.getClass()) {
 	    return false;
 	}
 	final var other = (MoveProperties) obj;
@@ -53,7 +53,7 @@ class MoveProperties {
 
     @Override
     public int hashCode() {
-	var hash = 7;
+	final var hash = 7;
 	return 17 * hash + Objects.hashCode(this.moveData);
     }
 

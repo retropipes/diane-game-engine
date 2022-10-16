@@ -36,7 +36,7 @@ class VisionProperties {
     // Methods
     @Override
     public boolean equals(final Object obj) {
-	if ((obj == null) || (this.getClass() != obj.getClass())) {
+	if (obj == null || this.getClass() != obj.getClass()) {
 	    return false;
 	}
 	final var other = (VisionProperties) obj;
@@ -48,7 +48,7 @@ class VisionProperties {
 
     @Override
     public int hashCode() {
-	var hash = 3;
+	final var hash = 3;
 	return 89 * hash + Objects.hashCode(this.visionData);
     }
 
