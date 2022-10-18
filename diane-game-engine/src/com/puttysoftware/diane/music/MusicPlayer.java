@@ -1,6 +1,5 @@
 package com.puttysoftware.diane.music;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 
 import javax.sound.sampled.AudioFormat;
@@ -28,10 +27,10 @@ public class MusicPlayer {
 	return this.playThread != null && this.playThread.isAlive();
     }
 
-    public synchronized void load(final DianeMusicIndex index) throws IOException {
-	final var modFile = index.getMusicFile();
-	final var moduleData = new byte[(int) modFile.length()];
-	try (var inputStream = new FileInputStream(modFile)) {
+    public synchronized static MusicPlayer load(final DianeMusicIndex index) throws IOException {
+	final var source = index.getMusicURL();
+	try (var inputStream = source.openStream()) {
+	    final var moduleData = inputStream.readAllBytes();
 	    var offset = 0;
 	    while (offset < moduleData.length) {
 		final var len = inputStream.read(moduleData, offset, moduleData.length - offset);
@@ -42,9 +41,11 @@ public class MusicPlayer {
 		offset += len;
 	    }
 	    inputStream.close();
-	    this.module = new Module(moduleData);
-	    this.ibxm = new IBXM(this.module, MusicPlayer.SAMPLE_RATE);
-	    this.ibxm.setInterpolation(this.interpolation);
+	    MusicPlayer mp = new MusicPlayer();
+	    mp.module = new Module(moduleData);
+	    mp.ibxm = new IBXM(mp.module, MusicPlayer.SAMPLE_RATE);
+	    mp.ibxm.setInterpolation(mp.interpolation);
+	    return mp;
 	} catch (final IOException ioe) {
 	    throw ioe;
 	}
@@ -56,7 +57,7 @@ public class MusicPlayer {
 	    this.playThread = new Thread(() -> {
 		final var mixBuf = new int[MusicPlayer.this.ibxm.getMixBufferLength()];
 		final var outBuf = new byte[mixBuf.length * 4];
-		AudioFormat audioFormat = new AudioFormat(MusicPlayer.SAMPLE_RATE, 16, 2, true, true);
+		final var audioFormat = new AudioFormat(MusicPlayer.SAMPLE_RATE, 16, 2, true, true);
 		try (var audioLine = AudioSystem.getSourceDataLine(audioFormat)) {
 		    audioLine.open();
 		    audioLine.start();
@@ -73,7 +74,8 @@ public class MusicPlayer {
 			    }
 			    outBuf[outIdx] = (byte) (ampl >> 8);
 			    outIdx++;
-			    outBuf[outIdx++] = (byte) ampl;
+			    outBuf[outIdx] = (byte) ampl;
+			    outIdx++;
 			}
 			audioLine.write(outBuf, 0, outIdx);
 		    }

@@ -231,7 +231,7 @@ class Module {
 	    final var instOffset = Module.ushortle(moduleData, moduleDataIdx) << 4;
 	    moduleDataIdx += 2;
 	    instrument.name = Module.codePage850(moduleData, instOffset + 48, 28);
-	    if ((moduleData[instOffset] != 1) || (Module.ushortle(moduleData, instOffset + 76) != 0x4353)) {
+	    if (moduleData[instOffset] != 1 || Module.ushortle(moduleData, instOffset + 76) != 0x4353) {
 		continue;
 	    }
 	    var sampleOffset = (moduleData[instOffset + 13] & 0xFF) << 20;
@@ -297,7 +297,8 @@ class Module {
 		var noteKey = 0;
 		var noteIns = 0;
 		if ((token & 0x20) == 0x20) { /* Key + Instrument. */
-		    noteKey = moduleData[inOffset++] & 0xFF;
+		    noteKey = moduleData[inOffset] & 0xFF;
+		    inOffset++;
 		    noteIns = moduleData[inOffset++] & 0xFF;
 		    if (noteKey < 0xFE) {
 			noteKey = (noteKey >> 4) * 12 + (noteKey & 0xF) + 1;
@@ -308,7 +309,8 @@ class Module {
 		}
 		var noteVol = 0;
 		if ((token & 0x40) == 0x40) { /* Volume Column. */
-		    noteVol = (moduleData[inOffset++] & 0x7F) + 0x10;
+		    noteVol = (moduleData[inOffset] & 0x7F) + 0x10;
+		    inOffset++;
 		    if (noteVol > 0x50) {
 			noteVol = 0;
 		    }
@@ -316,7 +318,8 @@ class Module {
 		var noteEffect = 0;
 		var noteParam = 0;
 		if ((token & 0x80) == 0x80) { /* Effect + Param. */
-		    noteEffect = moduleData[inOffset++] & 0xFF;
+		    noteEffect = moduleData[inOffset] & 0xFF;
+		    inOffset++;
 		    noteParam = moduleData[inOffset++] & 0xFF;
 		    if (noteEffect < 1 || noteEffect >= 0x40) {
 			noteEffect = noteParam = 0;
@@ -410,7 +413,8 @@ class Module {
 		    pattern.data[patternDataOffset] = key;
 		    patternDataOffset++;
 		    final var ins = (flags & 0x02) > 0 ? moduleData[dataOffset++] : 0;
-		    pattern.data[patternDataOffset++] = ins;
+		    pattern.data[patternDataOffset] = ins;
+		    patternDataOffset++;
 		    final var vol = (flags & 0x04) > 0 ? moduleData[dataOffset++] : 0;
 		    pattern.data[patternDataOffset++] = vol;
 		    var fxc = (flags & 0x08) > 0 ? moduleData[dataOffset++] : 0;

@@ -58,7 +58,32 @@ public final class AnonymousPicturePicker {
     private Color savedCHColor;
     private final EventHandler handler;
 
-    // Constructor
+    // Constructors
+    public AnonymousPicturePicker(final BufferedImageIcon[] pictures, final boolean[] enabled) {
+	this.handler = new EventHandler();
+	this.pickerJPanel = new JPanel();
+	this.pickerJPanel.setLayout(new BorderLayout());
+	this.choiceJPanel = new JPanel();
+	this.radioJPanel = new JPanel();
+	this.radioGroup = new ButtonGroup();
+	this.choiceRadioJPanel = new JPanel();
+	this.choiceRadioJPanel.setLayout(new BorderLayout());
+	this.choiceRadioJPanel.add(this.radioJPanel, BorderLayout.WEST);
+	this.choiceRadioJPanel.add(this.choiceJPanel, BorderLayout.CENTER);
+	this.scrollPane = new JScrollPane(this.choiceRadioJPanel);
+	this.scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+	this.scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+	this.pickerJPanel.add(this.scrollPane, BorderLayout.CENTER);
+	this.updatePicker(pictures, enabled);
+	this.index = 0;
+	this.savedSPColor = this.scrollPane.getBackground();
+	this.savedPCColor = this.pickerJPanel.getBackground();
+	this.savedCCColor = this.choiceJPanel.getBackground();
+	this.savedRCColor = this.radioJPanel.getBackground();
+	this.savedCRCColor = this.choiceRadioJPanel.getBackground();
+	this.savedCHColor = this.scrollPane.getBackground();
+    }
+    
     public AnonymousPicturePicker(final BufferedImageIcon[] pictures, final boolean[] enabled,
 	    final Color choiceColor) {
 	this.handler = new EventHandler();

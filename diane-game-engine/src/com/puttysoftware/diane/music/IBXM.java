@@ -63,7 +63,8 @@ class IBXM {
 	while (outIdx < count) {
 	    final var outL = fl + (buf[inIdx] >> 1);
 	    inIdx++;
-	    final var outR = fr + (buf[inIdx++] >> 1);
+	    final var outR = fr + (buf[inIdx] >> 1);
+	    inIdx++;
 	    fl = buf[inIdx++] >> 2;
 	    fr = buf[inIdx++] >> 2;
 	    buf[outIdx++] = outL + fl;
@@ -304,7 +305,8 @@ class IBXM {
 	    offset++;
 	    s1 = mixBuffer[offset] * a1;
 	    s2 = this.rampBuffer[offset] * a2;
-	    mixBuffer[offset++] = s1 + s2 >> 8;
+	    mixBuffer[offset] = s1 + s2 >> 8;
+	    offset++;
 	}
 	System.arraycopy(mixBuffer, this.tickLen << 1, this.rampBuffer, 0, offset);
     }

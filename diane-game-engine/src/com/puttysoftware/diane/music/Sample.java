@@ -73,7 +73,8 @@ class Sample {
 	    final var y = (m * outSampleFrac >> Sample.FP_SHIFT) + c;
 	    mixBuffer[outIdx] += y * leftGain >> Sample.FP_SHIFT;
 	    outIdx++;
-	    mixBuffer[outIdx++] += y * rightGain >> Sample.FP_SHIFT;
+	    mixBuffer[outIdx] += y * rightGain >> Sample.FP_SHIFT;
+	    outIdx++;
 	    outSampleFrac += step;
 	    outSampleIdx += outSampleFrac >> Sample.FP_SHIFT;
 	    outSampleFrac &= Sample.FP_MASK;
@@ -104,7 +105,8 @@ class Sample {
 	    final int y = data[fixedSampleIdx];
 	    mixBuffer[outIdx] += y * leftGain >> Sample.FP_SHIFT;
 	    outIdx++;
-	    mixBuffer[outIdx++] += y * rightGain >> Sample.FP_SHIFT;
+	    mixBuffer[outIdx] += y * rightGain >> Sample.FP_SHIFT;
+	    outIdx++;
 	    fixedSampleFrac += step;
 	    fixedSampleIdx += fixedSampleFrac >> Sample.FP_SHIFT;
 	    fixedSampleFrac &= Sample.FP_MASK;
@@ -171,7 +173,8 @@ class Sample {
 	    final var y = a1 + ((a2 - a1) * (outSampleFrac & Sample.TABLE_INTERP_MASK) >> Sample.TABLE_INTERP_SHIFT);
 	    mixBuffer[outIdx] += y * leftGain >> Sample.FP_SHIFT;
 	    outIdx++;
-	    mixBuffer[outIdx++] += y * rightGain >> Sample.FP_SHIFT;
+	    mixBuffer[outIdx] += y * rightGain >> Sample.FP_SHIFT;
+	    outIdx++;
 	    outSampleFrac += step;
 	    outSampleIdx += outSampleFrac >> Sample.FP_SHIFT;
 	    outSampleFrac &= Sample.FP_MASK;

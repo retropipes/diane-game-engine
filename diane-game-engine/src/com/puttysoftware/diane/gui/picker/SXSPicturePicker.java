@@ -59,11 +59,9 @@ public final class SXSPicturePicker {
     private final EventHandler handler;
     private final int stackCount;
 
-    // Constructor
-    public SXSPicturePicker(final BufferedImageIcon[] pictures, final boolean[] enabled, final Color choiceColor,
-	    final int newStackCount) {
+    // Constructors
+    public SXSPicturePicker(final BufferedImageIcon[] pictures, final boolean[] enabled, final int newStackCount) {
 	this.stackCount = newStackCount;
-	this.savedCHColor = choiceColor;
 	this.handler = new EventHandler();
 	this.pickerJPanel = new JPanel();
 	this.pickerJPanel.setLayout(new BorderLayout());
@@ -78,6 +76,34 @@ public final class SXSPicturePicker {
 	this.scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 	this.scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 	this.pickerJPanel.add(this.scrollPane, BorderLayout.CENTER);
+	this.savedCHColor = this.scrollPane.getBackground();
+	this.updatePicker(pictures, enabled);
+	this.index = 0;
+	this.savedSPColor = this.scrollPane.getBackground();
+	this.savedPCColor = this.pickerJPanel.getBackground();
+	this.savedCCColor = this.choiceJPanel.getBackground();
+	this.savedRCColor = this.radioJPanel.getBackground();
+	this.savedCRCColor = this.choiceRadioJPanel.getBackground();
+    }
+
+    public SXSPicturePicker(final BufferedImageIcon[] pictures, final boolean[] enabled, final Color choiceColor,
+	    final int newStackCount) {
+	this.stackCount = newStackCount;
+	this.handler = new EventHandler();
+	this.pickerJPanel = new JPanel();
+	this.pickerJPanel.setLayout(new BorderLayout());
+	this.choiceJPanel = new JPanel();
+	this.radioJPanel = new JPanel();
+	this.radioGroup = new ButtonGroup();
+	this.choiceRadioJPanel = new JPanel();
+	this.choiceRadioJPanel.setLayout(new BorderLayout());
+	this.choiceRadioJPanel.add(this.radioJPanel, BorderLayout.WEST);
+	this.choiceRadioJPanel.add(this.choiceJPanel, BorderLayout.CENTER);
+	this.scrollPane = new JScrollPane(this.choiceRadioJPanel);
+	this.scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+	this.scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+	this.pickerJPanel.add(this.scrollPane, BorderLayout.CENTER);
+	this.savedCHColor = choiceColor;
 	this.updatePicker(pictures, enabled);
 	this.index = 0;
 	this.savedSPColor = this.scrollPane.getBackground();

@@ -23,7 +23,7 @@ import javax.swing.SwingConstants;
 
 import com.puttysoftware.diane.asset.BufferedImageIcon;
 import com.puttysoftware.diane.locale.ErrorString;
-import com.puttysoftware.diane.strings.DianeStrings;
+import com.puttysoftware.diane.locale.PrivateStrings;
 
 class ImageListDialog {
     private static class SubJList<T> extends JList<T> {
@@ -83,14 +83,14 @@ class ImageListDialog {
 	    ImageListDialog.dialogFrame = MainWindow.getMainWindow();
 	    ImageListDialog.dialogPane = ImageListDialog.dialogFrame.createContent();
 	    // Create and initialize the buttons.
-	    final var cancelButton = new JButton(DianeStrings.error(ErrorString.CANCEL_BUTTON));
+	    final var cancelButton = new JButton(PrivateStrings.error(ErrorString.CANCEL_BUTTON));
 	    cancelButton.addActionListener(h -> {
 		ImageListDialog.setValue(CommonDialogs.CANCEL);
 		ImageListDialog.dialogFrame.restoreSaved();
 	    });
 	    //
-	    final var setButton = new JButton(DianeStrings.error(ErrorString.OK_BUTTON));
-	    setButton.setActionCommand(DianeStrings.error(ErrorString.OK_BUTTON));
+	    final var setButton = new JButton(PrivateStrings.error(ErrorString.OK_BUTTON));
+	    setButton.setActionCommand(PrivateStrings.error(ErrorString.OK_BUTTON));
 	    setButton.addActionListener(h -> {
 		ImageListDialog.setValue(ImageListDialog.list.getSelectedIndex());
 		ImageListDialog.dialogFrame.restoreSaved();

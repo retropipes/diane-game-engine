@@ -10,16 +10,7 @@ public class FilenameChecker {
 	if (filename.contains("/") || filename.contains("?") || filename.contains("<") || filename.contains(">")) { //$NON-NLS-1$
 	    return false;
 	}
-	if (filename.contains("\\")) { //$NON-NLS-1$
-	    return false;
-	}
-	if (filename.contains(":")) { //$NON-NLS-1$
-	    return false;
-	}
-	if (filename.contains("*")) { //$NON-NLS-1$
-	    return false;
-	}
-	if (filename.contains("|")) { //$NON-NLS-1$
+	if (filename.contains("\\") || filename.contains(":") || filename.contains("*") || filename.contains("|")) { //$NON-NLS-1$
 	    return false;
 	}
 	if (filename.contains("\"")) { //$NON-NLS-1$

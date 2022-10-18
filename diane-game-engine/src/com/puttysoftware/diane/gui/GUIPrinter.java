@@ -23,7 +23,7 @@ import javax.print.attribute.PrintRequestAttributeSet;
 
 import com.puttysoftware.diane.gui.dialog.CommonDialogs;
 import com.puttysoftware.diane.locale.ErrorString;
-import com.puttysoftware.diane.strings.DianeStrings;
+import com.puttysoftware.diane.locale.PrivateStrings;
 
 public class GUIPrinter {
     public static void printScreen() {
@@ -48,8 +48,8 @@ public class GUIPrinter {
 		job.print(doc, pras);
 	    }
 	} catch (final IOException | PrintException | NullPointerException npe) {
-	    CommonDialogs.showErrorDialog(DianeStrings.error(ErrorString.PRINT_ERROR_MESSAGE),
-		    DianeStrings.error(ErrorString.PRINT_ERROR_TITLE));
+	    CommonDialogs.showErrorDialog(PrivateStrings.error(ErrorString.PRINT_ERROR_MESSAGE),
+		    PrivateStrings.error(ErrorString.PRINT_ERROR_TITLE));
 	}
     }
 

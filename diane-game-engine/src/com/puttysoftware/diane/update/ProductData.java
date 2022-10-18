@@ -76,7 +76,7 @@ public class ProductData {
 	    newPrerelease = Integer.parseInt(br.readLine());
 	}
 	final var hasUpdate = new UpdateCheckResults(newMajor, newMinor, newBugfix, newPrerelease);
-	if ((newMajor > this.majorVersion) || (newMajor == this.majorVersion && newMinor > this.minorVersion)) {
+	if (newMajor > this.majorVersion || newMajor == this.majorVersion && newMinor > this.minorVersion) {
 	    return hasUpdate;
 	} else if (newMajor == this.majorVersion && newMinor == this.minorVersion && newBugfix > this.bugfixVersion) {
 	    return hasUpdate;

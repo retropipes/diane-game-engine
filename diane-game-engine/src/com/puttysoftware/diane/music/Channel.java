@@ -485,7 +485,7 @@ class Channel {
 	this.vibratoAdd = 0;
 	this.fxCount++;
 	this.retrigCount++;
-	if (((this.noteEffect != 0x7D) || (this.fxCount > this.noteParam))) {
+	if (this.noteEffect != 0x7D || this.fxCount > this.noteParam) {
 	    switch (this.noteVol & 0xF0) {
 	    case 0x60: /* Vol Slide Down. */
 		this.volume -= this.noteVol & 0xF;

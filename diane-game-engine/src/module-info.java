@@ -8,6 +8,7 @@ module com.puttysoftware.diane {
     requires transitive java.desktop;
 
     exports com.puttysoftware.diane;
+    exports com.puttysoftware.diane.ack;
     exports com.puttysoftware.diane.asset;
     exports com.puttysoftware.diane.edge;
     exports com.puttysoftware.diane.fileio;
@@ -21,9 +22,11 @@ module com.puttysoftware.diane {
     exports com.puttysoftware.diane.music;
     exports com.puttysoftware.diane.objectmodel;
     exports com.puttysoftware.diane.polytable;
+    exports com.puttysoftware.diane.randomrange;
     exports com.puttysoftware.diane.scores;
     exports com.puttysoftware.diane.sound;
     exports com.puttysoftware.diane.storage;
+    exports com.puttysoftware.diane.strings;
     exports com.puttysoftware.diane.update;
     exports com.puttysoftware.diane.utilties;
 }

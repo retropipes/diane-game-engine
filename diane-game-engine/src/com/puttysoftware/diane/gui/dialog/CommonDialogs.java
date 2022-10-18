@@ -90,6 +90,17 @@ public class CommonDialogs {
 	}
     }
 
+    public static int showCustomDialogWithDefault(final String prompt, final String title, final String[] buttonNames,
+	    final String defaultButton) {
+	try {
+	    return InputWithDefaultDialog.showDialog(prompt, title, CommonDialogs.ICON, buttonNames, defaultButton)
+		    .get();
+	} catch (InterruptedException | ExecutionException e) {
+	    Diane.handleError(e);
+	    return CommonDialogs.CANCEL;
+	}
+    }
+
     // Methods
     /**
      * Displays a dialog.
@@ -204,6 +215,22 @@ public class CommonDialogs {
 	try {
 	    return ListWithDescDialog
 		    .showDialog(labelText, title, possibleValues, initialValue, descValue, possibleDescriptions).get();
+	} catch (InterruptedException | ExecutionException e) {
+	    Diane.handleError(e);
+	    return null;
+	}
+    }
+
+    /**
+     * Displays a password input dialog, allowing the user to enter a value.
+     *
+     * @param prompt The input prompt.
+     * @param title  The dialog title.
+     * @return The value the user input.
+     */
+    public static char[] showPasswordInputDialog(final String prompt, final String title) {
+	try {
+	    return PasswordInputDialog.showDialog(prompt, title, CommonDialogs.ICON).get();
 	} catch (InterruptedException | ExecutionException e) {
 	    Diane.handleError(e);
 	    return null;

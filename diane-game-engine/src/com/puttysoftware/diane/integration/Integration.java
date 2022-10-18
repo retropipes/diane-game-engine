@@ -58,6 +58,10 @@ public class Integration {
 	    this.otherOS = true;
 	}
     }
+    
+    public static Integration integrate() {
+	return new Integration();
+    }
 
     public void addAppForegroundListener(final AppForegroundListener listener) {
 	if (this.supported && this.desktop.isSupported(Desktop.Action.APP_EVENT_FOREGROUND)) {

@@ -49,15 +49,28 @@ public final class StackedPicturePicker {
     private final int stackCount;
     private final int imageSize;
 
-    // Constructor
-    public StackedPicturePicker(final BufferedImageIcon[] pictures, final boolean[] enabled, final Color choiceColor,
-	    final int newStackCount, final int placeholderSize) {
+    // Constructors
+    public StackedPicturePicker(final BufferedImageIcon[] pictures, final boolean[] enabled, final int newStackCount,
+	    final int placeholderSize) {
 	this.imageSize = placeholderSize;
-	this.savedCHColor = choiceColor;
 	this.stackCount = newStackCount;
 	this.handler = new EventHandler();
 	this.radioGroup = new ButtonGroup();
 	this.pickerJPanel = new JPanel();
+	this.savedCHColor = this.pickerJPanel.getBackground();
+	this.updatePicker(pictures, enabled);
+	this.index = 0;
+	this.savedCRCColor = this.pickerJPanel.getBackground();
+    }
+
+    public StackedPicturePicker(final BufferedImageIcon[] pictures, final boolean[] enabled, final Color choiceColor,
+	    final int newStackCount, final int placeholderSize) {
+	this.imageSize = placeholderSize;
+	this.stackCount = newStackCount;
+	this.handler = new EventHandler();
+	this.radioGroup = new ButtonGroup();
+	this.pickerJPanel = new JPanel();
+	this.savedCHColor = choiceColor;
 	this.updatePicker(pictures, enabled);
 	this.index = 0;
 	this.savedCRCColor = this.pickerJPanel.getBackground();

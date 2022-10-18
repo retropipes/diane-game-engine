@@ -39,9 +39,9 @@ public class DirectionResolver {
 	final var dirY = (int) Math.signum(dY);
 	if (dirX == 0 && dirY == 0) {
 	    return Directions.NONE;
-	} else if ((dirX == 0 && (dirY == -1 || dirY == 1))) {
+	} else if (dirX == 0 && (dirY == -1 || dirY == 1)) {
 	    return Directions.VERTICAL;
-	} else if ((dirX == -1 && dirY == 0) || (dirX == 1 && dirY == 0)) {
+	} else if (((dirX == -1 || dirX == 1) && dirY == 0)) {
 	    return Directions.HORIZONTAL;
 	} else if (dirX == 1 && dirY == 1) {
 	    return Directions.SOUTHEAST;

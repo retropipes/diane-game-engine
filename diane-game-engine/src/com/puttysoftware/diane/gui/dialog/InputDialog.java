@@ -15,7 +15,7 @@ import javax.swing.JPanel;
 
 import com.puttysoftware.diane.asset.BufferedImageIcon;
 import com.puttysoftware.diane.locale.ErrorString;
-import com.puttysoftware.diane.strings.DianeStrings;
+import com.puttysoftware.diane.locale.PrivateStrings;
 
 class InputDialog {
     private static MainWindow dialogFrame;
@@ -98,7 +98,7 @@ class InputDialog {
 	    final BufferedImageIcon icon) {
 	InputDialog.completer = new CompletableFuture<>();
 	Executors.newSingleThreadExecutor().submit(() -> {
-	    final String[] possibleValues = { "Yes", "No", DianeStrings.error(ErrorString.CANCEL_BUTTON) };
+	    final String[] possibleValues = { "Yes", "No", PrivateStrings.error(ErrorString.CANCEL_BUTTON) };
 	    InputDialog.initializeDialog(text, title, icon, possibleValues);
 	});
 	return InputDialog.completer;

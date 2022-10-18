@@ -28,7 +28,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 
 import com.puttysoftware.diane.locale.ErrorString;
-import com.puttysoftware.diane.strings.DianeStrings;
+import com.puttysoftware.diane.locale.PrivateStrings;
 
 class ListWithDescDialog {
     private static class SubJList<T> extends JList<T> {
@@ -91,13 +91,13 @@ class ListWithDescDialog {
 	    // Initialize the descriptions
 	    ListWithDescDialog.descs = possibleDescriptions;
 	    // Create and initialize the buttons.
-	    final var cancelButton = new JButton(DianeStrings.error(ErrorString.CANCEL_BUTTON));
+	    final var cancelButton = new JButton(PrivateStrings.error(ErrorString.CANCEL_BUTTON));
 	    cancelButton.addActionListener(h -> {
 		ListWithDescDialog.setValue(null);
 		ListWithDescDialog.dialogFrame.restoreSaved();
 	    });
-	    final var setButton = new JButton(DianeStrings.error(ErrorString.OK_BUTTON));
-	    setButton.setActionCommand(DianeStrings.error(ErrorString.OK_BUTTON));
+	    final var setButton = new JButton(PrivateStrings.error(ErrorString.OK_BUTTON));
+	    setButton.setActionCommand(PrivateStrings.error(ErrorString.OK_BUTTON));
 	    setButton.addActionListener(h -> {
 		ListWithDescDialog.setValue(ListWithDescDialog.list.getSelectedValue());
 		ListWithDescDialog.dialogFrame.restoreSaved();

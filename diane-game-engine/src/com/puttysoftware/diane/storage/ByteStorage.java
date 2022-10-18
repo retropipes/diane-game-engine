@@ -177,6 +177,28 @@ public class ByteStorage {
      * @param obj the new data value
      * @param loc the location to modify
      */
+    public final void offsetCell(final byte obj, final int... loc) {
+	final var aloc = this.ravelLocation(loc);
+	this.dataStore[aloc] += obj;
+    }
+
+    /**
+     * Change stored data directly in the underlying array. To convert a simulated
+     * index to a raw index, use ravelLocation().
+     *
+     * @param obj    the new data value
+     * @param rawLoc the index to modify
+     */
+    protected final void offsetRawCell(final byte obj, final int rawLoc) {
+	this.dataStore[rawLoc] += obj;
+    }
+
+    /**
+     * Change stored data at a given location.
+     *
+     * @param obj the new data value
+     * @param loc the location to modify
+     */
     public final void setCell(final byte obj, final int... loc) {
 	final var aloc = this.ravelLocation(loc);
 	this.dataStore[aloc] = obj;

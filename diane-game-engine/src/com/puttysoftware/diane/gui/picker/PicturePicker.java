@@ -59,7 +59,7 @@ public final class PicturePicker {
     private Color savedCHColor;
     private final EventHandler handler;
 
-    // Constructor
+    // Constructors
     public PicturePicker(final BufferedImageIcon[] pictures, final String[] names) {
 	this.handler = new EventHandler();
 	this.pickerJPanel = new JPanel();
@@ -76,6 +76,31 @@ public final class PicturePicker {
 	this.scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 	this.pickerJPanel.add(this.scrollPane, BorderLayout.CENTER);
 	this.updatePicker(pictures, names);
+	this.index = 0;
+	this.savedSPColor = null;
+	this.savedPCColor = null;
+	this.savedCCColor = null;
+	this.savedRCColor = null;
+	this.savedCRCColor = null;
+	this.savedCHColor = null;
+    }
+    
+    public PicturePicker(final BufferedImageIcon[] pictures, final String[] names, final boolean[] enabled) {
+	this.handler = new EventHandler();
+	this.pickerJPanel = new JPanel();
+	this.pickerJPanel.setLayout(new BorderLayout());
+	this.choiceJPanel = new JPanel();
+	this.radioJPanel = new JPanel();
+	this.radioGroup = new ButtonGroup();
+	this.choiceRadioJPanel = new JPanel();
+	this.choiceRadioJPanel.setLayout(new BorderLayout());
+	this.choiceRadioJPanel.add(this.radioJPanel, BorderLayout.WEST);
+	this.choiceRadioJPanel.add(this.choiceJPanel, BorderLayout.CENTER);
+	this.scrollPane = new JScrollPane(this.choiceRadioJPanel);
+	this.scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+	this.scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+	this.pickerJPanel.add(this.scrollPane, BorderLayout.CENTER);
+	this.updatePicker(pictures, names, enabled);
 	this.index = 0;
 	this.savedSPColor = null;
 	this.savedPCColor = null;
