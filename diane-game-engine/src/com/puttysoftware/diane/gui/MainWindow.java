@@ -156,7 +156,7 @@ public final class MainWindow {
 	this.frame.setTransferHandler(h);
     }
 
-    public final JComponent createContent() {
+    public final JPanel createContent() {
 	var newContent = new JPanel();
 	newContent.setPreferredSize(this.contentSize);
 	newContent.setMinimumSize(this.contentSize);
