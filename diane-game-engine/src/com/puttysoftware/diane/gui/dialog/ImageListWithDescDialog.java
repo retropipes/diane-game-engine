@@ -19,6 +19,7 @@ import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
@@ -28,6 +29,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 
 import com.puttysoftware.diane.asset.BufferedImageIcon;
+import com.puttysoftware.diane.gui.MainWindow;
 import com.puttysoftware.diane.locale.ErrorString;
 import com.puttysoftware.diane.locale.PrivateStrings;
 
@@ -65,7 +67,7 @@ class ImageListWithDescDialog {
     }
 
     private static MainWindow dialogFrame;
-    private static MainWindowContent dialogPane;
+    private static JComponent dialogPane;
     private static String[] descs;
     private static JList<BufferedImageIcon> list;
     private static CompletableFuture<Integer> completer = new CompletableFuture<>();
@@ -88,7 +90,7 @@ class ImageListWithDescDialog {
 	    final String... possibleDescriptions) {
 	Executors.newSingleThreadExecutor().submit(() -> {
 	    // Create and initialize the dialog.
-	    ImageListWithDescDialog.dialogFrame = MainWindow.getMainWindow();
+	    ImageListWithDescDialog.dialogFrame = MainWindow.mainWindow();
 	    ImageListWithDescDialog.dialogPane = ImageListWithDescDialog.dialogFrame.createContent();
 	    // Initialize the descriptions
 	    ImageListWithDescDialog.descs = possibleDescriptions;
@@ -155,7 +157,7 @@ class ImageListWithDescDialog {
 	    ImageListWithDescDialog.dialogPane.add(buttonPane, BorderLayout.PAGE_END);
 	    // Initialize values.
 	    ImageListWithDescDialog.setValue(initialValue);
-	    ImageListWithDescDialog.dialogFrame.attachAndSave(ImageListWithDescDialog.dialogPane);
+	    ImageListWithDescDialog.dialogFrame.setAndSave(ImageListWithDescDialog.dialogPane, title);
 	});
 	return ImageListWithDescDialog.completer;
     }

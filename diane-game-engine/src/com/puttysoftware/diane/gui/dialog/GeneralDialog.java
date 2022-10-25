@@ -10,16 +10,18 @@ import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import com.puttysoftware.diane.asset.BufferedImageIcon;
+import com.puttysoftware.diane.gui.MainWindow;
 import com.puttysoftware.diane.locale.ErrorString;
 import com.puttysoftware.diane.locale.PrivateStrings;
 
 class GeneralDialog {
     private static MainWindow dialogFrame;
-    private static MainWindowContent dialogPane;
+    private static JComponent dialogPane;
     private static CompletableFuture<Void> completer = new CompletableFuture<>();
 
     /**
@@ -28,7 +30,7 @@ class GeneralDialog {
     public static Future<Void> showDialog(final String text, final String title, final BufferedImageIcon icon) {
 	Executors.newSingleThreadExecutor().submit(() -> {
 	    // Create and initialize the dialog.
-	    GeneralDialog.dialogFrame = MainWindow.getMainWindow();
+	    GeneralDialog.dialogFrame = MainWindow.mainWindow();
 	    GeneralDialog.dialogPane = GeneralDialog.dialogFrame.createContent();
 	    // Create and initialize the buttons.
 	    final var setButton = new JButton(PrivateStrings.error(ErrorString.OK_BUTTON));
@@ -58,7 +60,7 @@ class GeneralDialog {
 	    GeneralDialog.dialogPane.add(iconPane, BorderLayout.WEST);
 	    GeneralDialog.dialogPane.add(mainPane, BorderLayout.CENTER);
 	    GeneralDialog.dialogPane.add(buttonPane, BorderLayout.SOUTH);
-	    GeneralDialog.dialogFrame.attachAndSave(GeneralDialog.dialogPane);
+	    GeneralDialog.dialogFrame.setAndSave(GeneralDialog.dialogPane, title);
 	});
 	return GeneralDialog.completer;
     }

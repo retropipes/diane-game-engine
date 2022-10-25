@@ -10,17 +10,19 @@ import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import com.puttysoftware.diane.asset.BufferedImageIcon;
+import com.puttysoftware.diane.gui.MainWindow;
 import com.puttysoftware.diane.locale.ErrorString;
 import com.puttysoftware.diane.locale.PrivateStrings;
 
 class TextInputDialog {
     private static MainWindow dialogFrame;
-    private static MainWindowContent dialogPane;
+    private static JComponent dialogPane;
     private static JTextField input;
     private static CompletableFuture<String> completer = new CompletableFuture<>();
 
@@ -40,7 +42,7 @@ class TextInputDialog {
 	    final String initialValue) {
 	Executors.newSingleThreadExecutor().submit(() -> {
 	    // Create and initialize the dialog.
-	    TextInputDialog.dialogFrame = MainWindow.getMainWindow();
+	    TextInputDialog.dialogFrame = MainWindow.mainWindow();
 	    TextInputDialog.dialogPane = TextInputDialog.dialogFrame.createContent();
 	    // Create and initialize the buttons.
 	    final var cancelButton = new JButton(PrivateStrings.error(ErrorString.CANCEL_BUTTON));
@@ -81,7 +83,7 @@ class TextInputDialog {
 	    TextInputDialog.dialogPane.add(buttonPane, BorderLayout.SOUTH);
 	    // Initialize values.
 	    TextInputDialog.setValue(initialValue);
-	    TextInputDialog.dialogFrame.attachAndSave(TextInputDialog.dialogPane);
+	    TextInputDialog.dialogFrame.setAndSave(TextInputDialog.dialogPane, title);
 	});
 	return TextInputDialog.completer;
     }

@@ -9,27 +9,31 @@ package com.puttysoftware.diane.gui;
 import java.awt.Dimension;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowListener;
+import java.util.LinkedList;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
+import javax.swing.JPanel;
 import javax.swing.JRootPane;
 import javax.swing.TransferHandler;
 import javax.swing.WindowConstants;
 
 import com.puttysoftware.diane.gui.dialog.CommonDialogs;
-import com.puttysoftware.diane.strings.DianeStrings;
 
 public final class MainWindow {
     private static MainWindow window;
 
     public static MainWindow mainWindow() {
+	return MainWindow.window;
+    }
+
+    public static void createMainWindow(final int width, final int height) {
 	if (MainWindow.window == null) {
-	    MainWindow.window = new MainWindow();
+	    MainWindow.window = new MainWindow(width, height);
 	    MainWindow.window.frame.setIconImage(CommonDialogs.icon());
 	}
-	return MainWindow.window;
     }
 
     static JFrame owner() {
@@ -37,20 +41,23 @@ public final class MainWindow {
     }
 
     private final JFrame frame;
-    private String savedTitle;
+    private final Dimension contentSize;
     private JComponent content;
-    private JComponent savedContent;
+    private final LinkedList<JComponent> savedContentStack;
+    private final LinkedList<String> savedTitleStack;
 
-    private MainWindow() {
+    private MainWindow(final int width, final int height) {
 	this.frame = new JFrame();
 	this.frame.getRootPane().setWindowDecorationStyle(JRootPane.FRAME);
 	this.frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 	this.frame.setResizable(false);
-	this.content = MainContentFactory.content();
-	this.savedContent = MainContentFactory.content();
-	this.savedTitle = DianeStrings.EMPTY;
+	this.contentSize = new Dimension(width, height);
+	this.content = this.createContent();
+	this.savedContentStack = new LinkedList<>();
+	this.savedTitleStack = new LinkedList<>();
 	this.frame.setContentPane(this.content);
 	this.frame.setVisible(true);
+	this.frame.pack();
     }
 
     public void addKeyListener(final KeyListener l) {
@@ -62,7 +69,7 @@ public final class MainWindow {
     }
 
     public void checkAndSetTitle(final String title) {
-	if (this.savedTitle != DianeStrings.EMPTY) {
+	if (!this.savedTitleStack.isEmpty()) {
 	    this.frame.setTitle(title);
 	}
     }
@@ -80,7 +87,7 @@ public final class MainWindow {
     }
 
     public Dimension getPreferredSize() {
-	return this.content.getPreferredSize();
+	return this.contentSize;
     }
 
     public int getWidth() {
@@ -108,22 +115,22 @@ public final class MainWindow {
     }
 
     public void restoreSaved() {
-	this.content = this.savedContent;
+	this.content = this.savedContentStack.pop();
 	this.frame.setContentPane(this.content);
-	this.frame.setTitle(this.savedTitle);
+	this.frame.setTitle(this.savedTitleStack.pop());
     }
 
     public void setAndSave(final JComponent customContent, final String title) {
-	this.savedContent = this.content;
-	this.savedTitle = this.frame.getTitle();
+	this.savedContentStack.push(this.content);
+	this.savedTitleStack.push(this.frame.getTitle());
 	this.content = customContent;
 	this.frame.setContentPane(this.content);
 	this.frame.setTitle(title);
     }
 
     public void setAndSave(final ScreenController screen) {
-	this.savedContent = this.content;
-	this.savedTitle = this.frame.getTitle();
+	this.savedContentStack.push(this.content);
+	this.savedTitleStack.push(this.frame.getTitle());
 	this.content = screen.content();
 	this.frame.setContentPane(this.content);
 	this.frame.setTitle(screen.title());
@@ -147,5 +154,14 @@ public final class MainWindow {
 
     public void setTransferHandler(final TransferHandler h) {
 	this.frame.setTransferHandler(h);
+    }
+
+    public final JComponent createContent() {
+	var newContent = new JPanel();
+	newContent.setPreferredSize(this.contentSize);
+	newContent.setMinimumSize(this.contentSize);
+	newContent.setMaximumSize(this.contentSize);
+	newContent.setSize(this.contentSize);
+	return newContent;
     }
 }

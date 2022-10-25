@@ -19,6 +19,7 @@ import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
@@ -27,6 +28,7 @@ import javax.swing.JTextArea;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 
+import com.puttysoftware.diane.gui.MainWindow;
 import com.puttysoftware.diane.locale.ErrorString;
 import com.puttysoftware.diane.locale.PrivateStrings;
 
@@ -64,7 +66,7 @@ class ListWithDescDialog {
     }
 
     private static MainWindow dialogFrame;
-    private static MainWindowContent dialogPane;
+    private static JComponent dialogPane;
     private static String[] descs;
     private static JList<String> list;
     private static CompletableFuture<String> completer = new CompletableFuture<>();
@@ -86,7 +88,7 @@ class ListWithDescDialog {
 	    final String initialValue, final String descValue, final String... possibleDescriptions) {
 	Executors.newSingleThreadExecutor().submit(() -> {
 	    // Create and initialize the dialog.
-	    ListWithDescDialog.dialogFrame = MainWindow.getMainWindow();
+	    ListWithDescDialog.dialogFrame = MainWindow.mainWindow();
 	    ListWithDescDialog.dialogPane = ListWithDescDialog.dialogFrame.createContent();
 	    // Initialize the descriptions
 	    ListWithDescDialog.descs = possibleDescriptions;
@@ -153,7 +155,7 @@ class ListWithDescDialog {
 	    ListWithDescDialog.dialogPane.add(buttonPane, BorderLayout.PAGE_END);
 	    // Initialize values.
 	    ListWithDescDialog.setValue(initialValue);
-	    ListWithDescDialog.dialogFrame.attachAndSave(ListWithDescDialog.dialogPane);
+	    ListWithDescDialog.dialogFrame.setAndSave(ListWithDescDialog.dialogPane, title);
 	});
 	return ListWithDescDialog.completer;
     }

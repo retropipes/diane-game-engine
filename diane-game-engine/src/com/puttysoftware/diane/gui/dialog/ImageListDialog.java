@@ -14,6 +14,7 @@ import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
@@ -22,6 +23,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 
 import com.puttysoftware.diane.asset.BufferedImageIcon;
+import com.puttysoftware.diane.gui.MainWindow;
 import com.puttysoftware.diane.locale.ErrorString;
 import com.puttysoftware.diane.locale.PrivateStrings;
 
@@ -59,7 +61,7 @@ class ImageListDialog {
     }
 
     private static MainWindow dialogFrame;
-    private static MainWindowContent dialogPane;
+    private static JComponent dialogPane;
     private static JList<BufferedImageIcon> list;
     private static CompletableFuture<Integer> completer = new CompletableFuture<>();
 
@@ -80,7 +82,7 @@ class ImageListDialog {
 	    final BufferedImageIcon[] possibleValues, final int initialValue) {
 	Executors.newSingleThreadExecutor().submit(() -> {
 	    // Create and initialize the dialog.
-	    ImageListDialog.dialogFrame = MainWindow.getMainWindow();
+	    ImageListDialog.dialogFrame = MainWindow.mainWindow();
 	    ImageListDialog.dialogPane = ImageListDialog.dialogFrame.createContent();
 	    // Create and initialize the buttons.
 	    final var cancelButton = new JButton(PrivateStrings.error(ErrorString.CANCEL_BUTTON));
@@ -136,7 +138,7 @@ class ImageListDialog {
 	    ImageListDialog.dialogPane.add(buttonPane, BorderLayout.PAGE_END);
 	    // Initialize values.
 	    ImageListDialog.setValue(initialValue);
-	    ImageListDialog.dialogFrame.attachAndSave(ImageListDialog.dialogPane);
+	    ImageListDialog.dialogFrame.setAndSave(ImageListDialog.dialogPane, title);
 	});
 	return ImageListDialog.completer;
     }

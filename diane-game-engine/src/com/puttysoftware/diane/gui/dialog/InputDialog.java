@@ -10,22 +10,24 @@ import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import com.puttysoftware.diane.asset.BufferedImageIcon;
+import com.puttysoftware.diane.gui.MainWindow;
 import com.puttysoftware.diane.locale.ErrorString;
 import com.puttysoftware.diane.locale.PrivateStrings;
 
 class InputDialog {
     private static MainWindow dialogFrame;
-    private static MainWindowContent dialogPane;
+    private static JComponent dialogPane;
     private static CompletableFuture<Integer> completer;
 
     private static void initializeDialog(final String text, final String title, final BufferedImageIcon icon,
 	    final String[] possibleValues) {
 	// Create and initialize the dialog.
-	InputDialog.dialogFrame = MainWindow.getMainWindow();
+	InputDialog.dialogFrame = MainWindow.mainWindow();
 	InputDialog.dialogPane = InputDialog.dialogFrame.createContent();
 	// main part of the dialog
 	final var iconPane = new JPanel();
@@ -60,7 +62,7 @@ class InputDialog {
 	InputDialog.dialogPane.add(iconPane, BorderLayout.WEST);
 	InputDialog.dialogPane.add(mainPane, BorderLayout.CENTER);
 	InputDialog.dialogPane.add(buttonPane, BorderLayout.SOUTH);
-	InputDialog.dialogFrame.attachAndSave(InputDialog.dialogPane);
+	InputDialog.dialogFrame.setAndSave(InputDialog.dialogPane, title);
     }
 
     private static void setValue(final int newValue) {

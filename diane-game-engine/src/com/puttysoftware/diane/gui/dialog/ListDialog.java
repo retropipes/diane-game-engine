@@ -19,6 +19,7 @@ import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
@@ -27,6 +28,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 
 import com.puttysoftware.diane.asset.BufferedImageIcon;
+import com.puttysoftware.diane.gui.MainWindow;
 import com.puttysoftware.diane.locale.ErrorString;
 import com.puttysoftware.diane.locale.PrivateStrings;
 
@@ -64,7 +66,7 @@ class ListDialog {
     }
 
     private static MainWindow dialogFrame;
-    private static MainWindowContent dialogPane;
+    private static JComponent dialogPane;
     private static JList<String> list;
     private static CompletableFuture<String> completer = new CompletableFuture<>();
 
@@ -85,7 +87,7 @@ class ListDialog {
 	    final String[] possibleValues, final String initialValue) {
 	Executors.newSingleThreadExecutor().submit(() -> {
 	    // Create and initialize the dialog.
-	    ListDialog.dialogFrame = MainWindow.getMainWindow();
+	    ListDialog.dialogFrame = MainWindow.mainWindow();
 	    ListDialog.dialogPane = ListDialog.dialogFrame.createContent();
 	    // Create and initialize the buttons.
 	    final var cancelButton = new JButton(PrivateStrings.error(ErrorString.CANCEL_BUTTON));
@@ -142,7 +144,7 @@ class ListDialog {
 	    ListDialog.dialogPane.add(buttonPane, BorderLayout.PAGE_END);
 	    // Initialize values.
 	    ListDialog.setValue(initialValue);
-	    ListDialog.dialogFrame.attachAndSave(ListDialog.dialogPane);
+	    ListDialog.dialogFrame.setAndSave(ListDialog.dialogPane, title);
 	});
 	return ListDialog.completer;
     }

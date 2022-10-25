@@ -10,17 +10,19 @@ import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 
 import com.puttysoftware.diane.asset.BufferedImageIcon;
+import com.puttysoftware.diane.gui.MainWindow;
 import com.puttysoftware.diane.locale.ErrorString;
 import com.puttysoftware.diane.locale.PrivateStrings;
 
 class PasswordInputDialog {
     private static MainWindow dialogFrame;
-    private static MainWindowContent dialogPane;
+    private static JComponent dialogPane;
     private static JPasswordField input;
     private static CompletableFuture<char[]> completer = new CompletableFuture<>();
 
@@ -39,7 +41,7 @@ class PasswordInputDialog {
     public static Future<char[]> showDialog(final String text, final String title, final BufferedImageIcon icon) {
 	Executors.newSingleThreadExecutor().submit(() -> {
 	    // Create and initialize the dialog.
-	    PasswordInputDialog.dialogFrame = MainWindow.getMainWindow();
+	    PasswordInputDialog.dialogFrame = MainWindow.mainWindow();
 	    PasswordInputDialog.dialogPane = PasswordInputDialog.dialogFrame.createContent();
 	    // Create and initialize the buttons.
 	    final var cancelButton = new JButton(PrivateStrings.error(ErrorString.CANCEL_BUTTON));
@@ -79,7 +81,7 @@ class PasswordInputDialog {
 	    PasswordInputDialog.dialogPane.add(mainPane, BorderLayout.CENTER);
 	    PasswordInputDialog.dialogPane.add(buttonPane, BorderLayout.SOUTH);
 	    // Initialize values.
-	    PasswordInputDialog.dialogFrame.attachAndSave(PasswordInputDialog.dialogPane);
+	    PasswordInputDialog.dialogFrame.setAndSave(PasswordInputDialog.dialogPane, title);
 	});
 	return PasswordInputDialog.completer;
     }
