@@ -39,6 +39,15 @@ class RandomnessSource {
     }
 
     /**
+     * Next bounded integer.
+     *
+     * @return the bounded integer
+     */
+    static int nextBoundedInt(final int bound) {
+	return RandomnessSource.getSource().nextInt(bound);
+    }
+
+    /**
      * Next long.
      *
      * @return the long
