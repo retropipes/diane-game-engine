@@ -31,16 +31,6 @@ public class MusicPlayer {
 	final var source = index.getMusicURL();
 	try (var inputStream = source.openStream()) {
 	    final var moduleData = inputStream.readAllBytes();
-	    var offset = 0;
-	    while (offset < moduleData.length) {
-		final var len = inputStream.read(moduleData, offset, moduleData.length - offset);
-		if (len < 0) {
-		    inputStream.close();
-		    throw new IOException("Unexpected end of file."); //$NON-NLS-1$
-		}
-		offset += len;
-	    }
-	    inputStream.close();
 	    MusicPlayer mp = new MusicPlayer();
 	    mp.module = new Module(moduleData);
 	    mp.ibxm = new IBXM(mp.module, MusicPlayer.SAMPLE_RATE);
