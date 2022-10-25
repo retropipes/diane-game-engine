@@ -23,6 +23,7 @@ module com.puttysoftware.diane {
     exports com.puttysoftware.diane.objectmodel;
     exports com.puttysoftware.diane.polytable;
     exports com.puttysoftware.diane.randomrange;
+    exports com.puttysoftware.diane.sandbox;
     exports com.puttysoftware.diane.scores;
     exports com.puttysoftware.diane.sound;
     exports com.puttysoftware.diane.storage;
