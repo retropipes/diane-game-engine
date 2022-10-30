@@ -49,6 +49,7 @@ public final class MainWindow {
     private final Dimension contentSize;
     private JComponent content;
     private DianeMusicIndex currentMusic;
+    private JButton currentDefault;
     private final LinkedList<JComponent> savedContentStack;
     private final LinkedList<String> savedTitleStack;
     private final LinkedList<DianeMusicIndex> savedMusicStack;
@@ -137,9 +138,9 @@ public final class MainWindow {
 		Diane.handleError(e);
 	    }
 	}
-	var oldDefault = this.savedDefaultButtonStack.pop();
-	if (oldDefault != null) {
-	    this.frame.getRootPane().setDefaultButton(oldDefault);
+	this.currentDefault = this.savedDefaultButtonStack.pop();
+	if (this.currentDefault != null) {
+	    this.frame.getRootPane().setDefaultButton(this.currentDefault);
 	}
     }
 
@@ -147,7 +148,7 @@ public final class MainWindow {
 	this.savedContentStack.push(this.content);
 	this.savedTitleStack.push(this.frame.getTitle());
 	this.savedMusicStack.push(this.currentMusic);
-	this.savedDefaultButtonStack.push(null);
+	this.savedDefaultButtonStack.push(this.currentDefault);
 	this.content = customContent;
 	this.frame.setContentPane(this.content);
 	this.frame.setTitle(title);
@@ -158,7 +159,7 @@ public final class MainWindow {
 	this.savedContentStack.push(this.content);
 	this.savedTitleStack.push(this.frame.getTitle());
 	this.savedMusicStack.push(this.currentMusic);
-	this.savedDefaultButtonStack.push(defaultButton);
+	this.savedDefaultButtonStack.push(this.currentDefault);
 	this.content = customContent;
 	this.frame.setContentPane(this.content);
 	this.frame.setTitle(title);
@@ -170,7 +171,7 @@ public final class MainWindow {
 	this.savedContentStack.push(this.content);
 	this.savedTitleStack.push(this.frame.getTitle());
 	this.savedMusicStack.push(this.currentMusic);
-	this.savedDefaultButtonStack.push(null);
+	this.savedDefaultButtonStack.push(this.currentDefault);
 	this.content = customContent;
 	this.frame.setContentPane(this.content);
 	this.frame.setTitle(title);
@@ -189,6 +190,7 @@ public final class MainWindow {
 	this.savedContentStack.push(this.content);
 	this.savedTitleStack.push(this.frame.getTitle());
 	this.savedMusicStack.push(this.currentMusic);
+	this.savedDefaultButtonStack.push(this.currentDefault);
 	this.content = customContent;
 	this.frame.setContentPane(this.content);
 	this.frame.setTitle(title);
@@ -206,6 +208,8 @@ public final class MainWindow {
     public void setAndSave(final ScreenController screen) {
 	this.savedContentStack.push(this.content);
 	this.savedTitleStack.push(this.frame.getTitle());
+	this.savedMusicStack.push(this.currentMusic);
+	this.savedDefaultButtonStack.push(this.currentDefault);
 	this.content = screen.content();
 	this.frame.setContentPane(this.content);
 	this.frame.setTitle(screen.title());
