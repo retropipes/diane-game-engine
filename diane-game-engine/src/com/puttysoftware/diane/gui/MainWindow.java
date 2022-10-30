@@ -131,7 +131,7 @@ public final class MainWindow {
 	this.frame.setTitle(this.savedTitleStack.pop());
 	var oldMusic = this.currentMusic;
 	this.currentMusic = this.savedMusicStack.pop();
-	if (oldMusic != DefaultAssets.NO_MUSIC && this.currentMusic != DefaultAssets.NO_MUSIC) {
+	if (this.currentMusic != oldMusic) {
 	    try {
 		MusicPlayer.play(this.currentMusic);
 	    } catch (IOException e) {
@@ -177,9 +177,10 @@ public final class MainWindow {
 	this.content = customContent;
 	this.frame.setContentPane(this.content);
 	this.frame.setTitle(title);
+	var oldMusic = this.currentMusic;
 	this.currentMusic = music;
 	this.currentDefault = null;
-	if (this.currentMusic != DefaultAssets.NO_MUSIC) {
+	if (this.currentMusic != oldMusic) {
 	    try {
 		MusicPlayer.play(this.currentMusic);
 	    } catch (IOException e) {
@@ -197,8 +198,9 @@ public final class MainWindow {
 	this.content = customContent;
 	this.frame.setContentPane(this.content);
 	this.frame.setTitle(title);
+	var oldMusic = this.currentMusic;
 	this.currentMusic = music;
-	if (this.currentMusic != DefaultAssets.NO_MUSIC) {
+	if (this.currentMusic != oldMusic) {
 	    try {
 		MusicPlayer.play(this.currentMusic);
 	    } catch (IOException e) {
@@ -217,8 +219,9 @@ public final class MainWindow {
 	this.content = screen.content();
 	this.frame.setContentPane(this.content);
 	this.frame.setTitle(screen.title());
+	var oldMusic = this.currentMusic;
 	this.currentMusic = screen.music();
-	if (this.currentMusic != DefaultAssets.NO_MUSIC) {
+	if (this.currentMusic != oldMusic) {
 	    try {
 		MusicPlayer.play(this.currentMusic);
 	    } catch (IOException e) {
