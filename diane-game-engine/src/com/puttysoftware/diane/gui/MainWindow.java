@@ -126,8 +126,9 @@ public final class MainWindow {
 	this.content = this.savedContentStack.pop();
 	this.frame.setContentPane(this.content);
 	this.frame.setTitle(this.savedTitleStack.pop());
+	var oldMusic = this.currentMusic;
 	this.currentMusic = this.savedMusicStack.pop();
-	if (this.currentMusic != DefaultAssets.NO_MUSIC) {
+	if (oldMusic != DefaultAssets.NO_MUSIC && this.currentMusic != DefaultAssets.NO_MUSIC) {
 	    try {
 		MusicPlayer.play(this.currentMusic);
 	    } catch (IOException e) {
