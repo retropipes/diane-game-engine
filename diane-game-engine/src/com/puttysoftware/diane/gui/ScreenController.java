@@ -9,7 +9,10 @@ package com.puttysoftware.diane.gui;
 import java.awt.event.WindowAdapter;
 import java.lang.ref.WeakReference;
 
+import javax.swing.JButton;
 import javax.swing.JPanel;
+
+import com.puttysoftware.diane.asset.DianeMusicIndex;
 
 public abstract class ScreenController extends WindowAdapter {
     // Fields
@@ -80,5 +83,19 @@ public abstract class ScreenController extends WindowAdapter {
 	    throw new IllegalStateException();
 	}
 	return this.model.getTitle();
+    }
+
+    DianeMusicIndex music() {
+	if (this.model == null) {
+	    throw new IllegalStateException();
+	}
+	return this.model.getMusic();
+    }
+
+    JButton defaultButton() {
+	if (this.model == null) {
+	    throw new IllegalStateException();
+	}
+	return this.model.getDefaultButton();
     }
 }

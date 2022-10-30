@@ -52,6 +52,7 @@ public final class MainWindow {
     private final LinkedList<JComponent> savedContentStack;
     private final LinkedList<String> savedTitleStack;
     private final LinkedList<DianeMusicIndex> savedMusicStack;
+    private final LinkedList<JButton> savedDefaultButtonStack;
 
     private MainWindow(final int width, final int height) {
 	this.frame = new JFrame();
@@ -63,6 +64,7 @@ public final class MainWindow {
 	this.savedContentStack = new LinkedList<>();
 	this.savedTitleStack = new LinkedList<>();
 	this.savedMusicStack = new LinkedList<>();
+	this.savedDefaultButtonStack = new LinkedList<>();
 	this.frame.setContentPane(this.content);
 	this.frame.setVisible(true);
 	this.frame.pack();
@@ -135,19 +137,55 @@ public final class MainWindow {
 		Diane.handleError(e);
 	    }
 	}
+	var oldDefault = this.savedDefaultButtonStack.pop();
+	if (oldDefault != null) {
+	    this.frame.getRootPane().setDefaultButton(oldDefault);
+	}
     }
 
     public void setAndSave(final JComponent customContent, final String title) {
 	this.savedContentStack.push(this.content);
 	this.savedTitleStack.push(this.frame.getTitle());
 	this.savedMusicStack.push(this.currentMusic);
+	this.savedDefaultButtonStack.push(null);
 	this.content = customContent;
 	this.frame.setContentPane(this.content);
 	this.frame.setTitle(title);
 	this.currentMusic = DefaultAssets.NO_MUSIC;
     }
 
+    public void setAndSave(final JComponent customContent, final String title, final JButton defaultButton) {
+	this.savedContentStack.push(this.content);
+	this.savedTitleStack.push(this.frame.getTitle());
+	this.savedMusicStack.push(this.currentMusic);
+	this.savedDefaultButtonStack.push(defaultButton);
+	this.content = customContent;
+	this.frame.setContentPane(this.content);
+	this.frame.setTitle(title);
+	this.currentMusic = DefaultAssets.NO_MUSIC;
+	this.frame.getRootPane().setDefaultButton(defaultButton);
+    }
+
     public void setAndSave(final JComponent customContent, final String title, final DianeMusicIndex music) {
+	this.savedContentStack.push(this.content);
+	this.savedTitleStack.push(this.frame.getTitle());
+	this.savedMusicStack.push(this.currentMusic);
+	this.savedDefaultButtonStack.push(null);
+	this.content = customContent;
+	this.frame.setContentPane(this.content);
+	this.frame.setTitle(title);
+	this.currentMusic = music;
+	if (this.currentMusic != DefaultAssets.NO_MUSIC) {
+	    try {
+		MusicPlayer.play(this.currentMusic);
+	    } catch (IOException e) {
+		Diane.handleError(e);
+	    }
+	}
+    }
+
+    public void setAndSave(final JComponent customContent, final String title, final DianeMusicIndex music,
+	    final JButton defaultButton) {
 	this.savedContentStack.push(this.content);
 	this.savedTitleStack.push(this.frame.getTitle());
 	this.savedMusicStack.push(this.currentMusic);
@@ -162,6 +200,7 @@ public final class MainWindow {
 		Diane.handleError(e);
 	    }
 	}
+	this.frame.getRootPane().setDefaultButton(defaultButton);
     }
 
     public void setAndSave(final ScreenController screen) {
@@ -170,10 +209,15 @@ public final class MainWindow {
 	this.content = screen.content();
 	this.frame.setContentPane(this.content);
 	this.frame.setTitle(screen.title());
-    }
-
-    public void setDefaultButton(final JButton defaultButton) {
-	this.frame.getRootPane().setDefaultButton(defaultButton);
+	this.currentMusic = screen.music();
+	if (this.currentMusic != DefaultAssets.NO_MUSIC) {
+	    try {
+		MusicPlayer.play(this.currentMusic);
+	    } catch (IOException e) {
+		Diane.handleError(e);
+	    }
+	}
+	this.frame.getRootPane().setDefaultButton(screen.defaultButton());
     }
 
     public void setDirty(final boolean newDirty) {

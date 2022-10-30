@@ -25,7 +25,7 @@ class InputWithDefaultDialog {
     private static CompletableFuture<Integer> completer;
 
     private static void initializeDialog(final String text, final String title, final BufferedImageIcon icon,
-	    final String[] possibleValues, final String defaultButton) {
+	    final String[] possibleValues, final String defaultButtonName) {
 	// Create and initialize the dialog.
 	InputWithDefaultDialog.dialogFrame = MainWindow.mainWindow();
 	InputWithDefaultDialog.dialogPane = InputWithDefaultDialog.dialogFrame.createContent();
@@ -46,6 +46,7 @@ class InputWithDefaultDialog {
 	buttonPane.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
 	buttonPane.add(Box.createHorizontalGlue());
 	// Create and initialize the buttons.
+	JButton defaultButton = null;
 	for (var i = 0; i < possibleValues.length; i++) {
 	    final var button = new JButton(possibleValues[i]);
 	    button.setActionCommand(Integer.toString(i));
@@ -54,8 +55,8 @@ class InputWithDefaultDialog {
 		InputWithDefaultDialog.dialogFrame.restoreSaved();
 	    });
 	    buttonPane.add(button);
-	    if (possibleValues[i] == defaultButton) {
-		dialogFrame.setDefaultButton(button);
+	    if (possibleValues[i] == defaultButtonName) {
+		defaultButton = button;
 	    }
 	    if (i != possibleValues.length - 1) {
 		buttonPane.add(Box.createRigidArea(new Dimension(10, 0)));
@@ -65,7 +66,7 @@ class InputWithDefaultDialog {
 	InputWithDefaultDialog.dialogPane.add(iconPane, BorderLayout.WEST);
 	InputWithDefaultDialog.dialogPane.add(mainPane, BorderLayout.CENTER);
 	InputWithDefaultDialog.dialogPane.add(buttonPane, BorderLayout.SOUTH);
-	InputWithDefaultDialog.dialogFrame.setAndSave(InputWithDefaultDialog.dialogPane, title);
+	InputWithDefaultDialog.dialogFrame.setAndSave(InputWithDefaultDialog.dialogPane, title, defaultButton);
     }
 
     private static void setValue(final int newValue) {
