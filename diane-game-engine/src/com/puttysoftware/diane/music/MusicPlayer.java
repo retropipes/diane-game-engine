@@ -9,50 +9,44 @@ import com.puttysoftware.diane.asset.DianeMusicIndex;
 
 public class MusicPlayer {
     private static final int SAMPLE_RATE = 41000;
-    private Module module;
-    IBXM ibxm;
-    volatile boolean playing;
-    private int interpolation;
-    private Thread playThread;
+    private static Module module;
+    static IBXM ibxm;
+    volatile static boolean playing;
+    private static int interpolation;
+    private static Thread playThread;
 
     public MusicPlayer() {
 	// Do nothing
     }
 
-    synchronized int getAudio(final int[] mixBuf) {
-	return this.ibxm.getAudio(mixBuf);
+    synchronized static int getAudio(final int[] mixBuf) {
+	return ibxm.getAudio(mixBuf);
     }
 
-    public boolean isPlaying() {
-	return this.playThread != null && this.playThread.isAlive();
+    public static boolean isPlaying() {
+	return playThread != null && playThread.isAlive();
     }
 
-    public synchronized static MusicPlayer load(final DianeMusicIndex index) throws IOException {
+    public synchronized static void play(final DianeMusicIndex index) throws IOException {
+	if (MusicPlayer.isPlaying()) {
+	    MusicPlayer.stopPlaying();
+	}
 	final var source = index.getMusicURL();
 	try (var inputStream = source.openStream()) {
 	    final var moduleData = inputStream.readAllBytes();
-	    MusicPlayer mp = new MusicPlayer();
-	    mp.module = new Module(moduleData);
-	    mp.ibxm = new IBXM(mp.module, MusicPlayer.SAMPLE_RATE);
-	    mp.ibxm.setInterpolation(mp.interpolation);
-	    return mp;
-	} catch (final IOException ioe) {
-	    throw ioe;
-	}
-    }
-
-    public synchronized void play() {
-	if (this.ibxm != null) {
-	    this.playing = true;
-	    this.playThread = new Thread(() -> {
-		final var mixBuf = new int[MusicPlayer.this.ibxm.getMixBufferLength()];
+	    MusicPlayer.module = new Module(moduleData);
+	    MusicPlayer.ibxm = new IBXM(MusicPlayer.module, MusicPlayer.SAMPLE_RATE);
+	    MusicPlayer.ibxm.setInterpolation(MusicPlayer.interpolation);
+	    MusicPlayer.playing = true;
+	    MusicPlayer.playThread = new Thread(() -> {
+		final var mixBuf = new int[MusicPlayer.ibxm.getMixBufferLength()];
 		final var outBuf = new byte[mixBuf.length * 4];
 		final var audioFormat = new AudioFormat(MusicPlayer.SAMPLE_RATE, 16, 2, true, true);
 		try (var audioLine = AudioSystem.getSourceDataLine(audioFormat)) {
 		    audioLine.open();
 		    audioLine.start();
-		    while (MusicPlayer.this.playing) {
-			final var count = MusicPlayer.this.getAudio(mixBuf);
+		    while (MusicPlayer.playing) {
+			final var count = MusicPlayer.getAudio(mixBuf);
 			var outIdx = 0;
 			for (int mixIdx = 0, mixEnd = count * 2; mixIdx < mixEnd; mixIdx++) {
 			    var ampl = mixBuf[mixIdx];
@@ -74,15 +68,17 @@ public class MusicPlayer {
 		    // Ignore
 		}
 	    });
-	    this.playThread.start();
+	    MusicPlayer.playThread.start();
+	} catch (final IOException ioe) {
+	    throw ioe;
 	}
     }
 
-    public synchronized void stopPlaying() {
-	this.playing = false;
+    public synchronized static void stopPlaying() {
+	playing = false;
 	try {
-	    if (this.playThread != null) {
-		this.playThread.join();
+	    if (playThread != null) {
+		playThread.join();
 	    }
 	} catch (final InterruptedException e) {
 	}

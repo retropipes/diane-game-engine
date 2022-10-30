@@ -3,7 +3,7 @@ Copyleft (C) 2019 Eric Ahnell
 
 Any questions should be directed to the author via email at: support@puttysoftware.com
  */
-package com.puttysoftware.diane;
+package com.puttysoftware.diane.internal;
 
 import java.io.BufferedOutputStream;
 import java.io.File;

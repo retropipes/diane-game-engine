@@ -1,4 +1,4 @@
-package com.puttysoftware.diane.ack.internal;
+package com.puttysoftware.diane.internal;
 
 import java.awt.Color;
 

@@ -3,9 +3,9 @@ package com.puttysoftware.diane.ack;
 import java.awt.Color;
 import java.io.IOException;
 
-import com.puttysoftware.diane.ack.internal.AvatarColors;
-import com.puttysoftware.diane.ack.internal.AvatarImageLoader;
 import com.puttysoftware.diane.asset.BufferedImageIcon;
+import com.puttysoftware.diane.internal.AvatarColors;
+import com.puttysoftware.diane.internal.AvatarImageLoader;
 
 public final class AvatarImageModel {
     // Fields

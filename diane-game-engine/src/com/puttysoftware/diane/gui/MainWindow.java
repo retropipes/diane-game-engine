@@ -9,6 +9,7 @@ package com.puttysoftware.diane.gui;
 import java.awt.Dimension;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowListener;
+import java.io.IOException;
 import java.util.LinkedList;
 
 import javax.swing.JButton;
@@ -20,7 +21,11 @@ import javax.swing.JRootPane;
 import javax.swing.TransferHandler;
 import javax.swing.WindowConstants;
 
+import com.puttysoftware.diane.Diane;
+import com.puttysoftware.diane.asset.DianeMusicIndex;
 import com.puttysoftware.diane.gui.dialog.CommonDialogs;
+import com.puttysoftware.diane.internal.DefaultAssets;
+import com.puttysoftware.diane.music.MusicPlayer;
 
 public final class MainWindow {
     private static MainWindow window;
@@ -43,8 +48,10 @@ public final class MainWindow {
     private final JFrame frame;
     private final Dimension contentSize;
     private JComponent content;
+    private DianeMusicIndex currentMusic;
     private final LinkedList<JComponent> savedContentStack;
     private final LinkedList<String> savedTitleStack;
+    private final LinkedList<DianeMusicIndex> savedMusicStack;
 
     private MainWindow(final int width, final int height) {
 	this.frame = new JFrame();
@@ -55,6 +62,7 @@ public final class MainWindow {
 	this.content = this.createContent();
 	this.savedContentStack = new LinkedList<>();
 	this.savedTitleStack = new LinkedList<>();
+	this.savedMusicStack = new LinkedList<>();
 	this.frame.setContentPane(this.content);
 	this.frame.setVisible(true);
 	this.frame.pack();
@@ -118,14 +126,41 @@ public final class MainWindow {
 	this.content = this.savedContentStack.pop();
 	this.frame.setContentPane(this.content);
 	this.frame.setTitle(this.savedTitleStack.pop());
+	this.currentMusic = this.savedMusicStack.pop();
+	if (this.currentMusic != DefaultAssets.NO_MUSIC) {
+	    try {
+		MusicPlayer.play(this.currentMusic);
+	    } catch (IOException e) {
+		Diane.handleError(e);
+	    }
+	}
     }
 
     public void setAndSave(final JComponent customContent, final String title) {
 	this.savedContentStack.push(this.content);
 	this.savedTitleStack.push(this.frame.getTitle());
+	this.savedMusicStack.push(this.currentMusic);
 	this.content = customContent;
 	this.frame.setContentPane(this.content);
 	this.frame.setTitle(title);
+	this.currentMusic = DefaultAssets.NO_MUSIC;
+    }
+
+    public void setAndSave(final JComponent customContent, final String title, final DianeMusicIndex music) {
+	this.savedContentStack.push(this.content);
+	this.savedTitleStack.push(this.frame.getTitle());
+	this.savedMusicStack.push(this.currentMusic);
+	this.content = customContent;
+	this.frame.setContentPane(this.content);
+	this.frame.setTitle(title);
+	this.currentMusic = music;
+	if (this.currentMusic != DefaultAssets.NO_MUSIC) {
+	    try {
+		MusicPlayer.play(this.currentMusic);
+	    } catch (IOException e) {
+		Diane.handleError(e);
+	    }
+	}
     }
 
     public void setAndSave(final ScreenController screen) {

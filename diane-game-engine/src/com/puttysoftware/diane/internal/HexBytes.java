@@ -1,4 +1,4 @@
-package com.puttysoftware.diane.ack.internal;
+package com.puttysoftware.diane.internal;
 
 public class HexBytes {
     // Code obtained from http://www.devx.com/tips/Tip/13540 and modified

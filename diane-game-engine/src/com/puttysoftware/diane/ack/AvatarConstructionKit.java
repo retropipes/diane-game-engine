@@ -6,11 +6,11 @@ import java.util.regex.Pattern;
 
 import javax.swing.JColorChooser;
 
-import com.puttysoftware.diane.ack.internal.AvatarColors;
-import com.puttysoftware.diane.ack.internal.AvatarImageLoader;
-import com.puttysoftware.diane.ack.internal.ImageListDialog;
-import com.puttysoftware.diane.ack.internal.ImageListWithDescDialog;
 import com.puttysoftware.diane.asset.BufferedImageIcon;
+import com.puttysoftware.diane.internal.AvatarColors;
+import com.puttysoftware.diane.internal.AvatarImageLoader;
+import com.puttysoftware.diane.internal.ImageListDialog;
+import com.puttysoftware.diane.internal.ImageListWithDescDialog;
 import com.puttysoftware.diane.randomrange.RandomRange;
 
 public class AvatarConstructionKit {

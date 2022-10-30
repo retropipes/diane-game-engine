@@ -5,6 +5,8 @@ Any questions should be directed to the author via email at: support@puttysoftwa
  */
 package com.puttysoftware.diane;
 
+import com.puttysoftware.diane.internal.DefaultErrorHandler;
+
 public class Diane {
     private static ErrorHandler errHandler;
 
@@ -12,9 +14,15 @@ public class Diane {
 	Diane.errHandler.uncaughtException(Thread.currentThread(), t);
     }
 
-    public static void installErrorHandler(final ErrorHandler handler) {
-	// Install error handler
+    public static void installCustomErrorHandler(final ErrorHandler handler) {
+	// Install custom error handler
 	Diane.errHandler = handler;
+	Thread.setDefaultUncaughtExceptionHandler(Diane.errHandler);
+    }
+
+    public static void installDefaultErrorHandler(final String programName) {
+	// Install default error handler
+	Diane.errHandler = new DefaultErrorHandler(programName);
 	Thread.setDefaultUncaughtExceptionHandler(Diane.errHandler);
     }
 
