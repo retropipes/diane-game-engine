@@ -153,6 +153,7 @@ public final class MainWindow {
 	this.frame.setContentPane(this.content);
 	this.frame.setTitle(title);
 	this.currentMusic = DefaultAssets.NO_MUSIC;
+	this.currentDefault = null;
     }
 
     public void setAndSave(final JComponent customContent, final String title, final JButton defaultButton) {
@@ -164,6 +165,7 @@ public final class MainWindow {
 	this.frame.setContentPane(this.content);
 	this.frame.setTitle(title);
 	this.currentMusic = DefaultAssets.NO_MUSIC;
+	this.currentDefault = defaultButton;
 	this.frame.getRootPane().setDefaultButton(defaultButton);
     }
 
@@ -176,6 +178,7 @@ public final class MainWindow {
 	this.frame.setContentPane(this.content);
 	this.frame.setTitle(title);
 	this.currentMusic = music;
+	this.currentDefault = null;
 	if (this.currentMusic != DefaultAssets.NO_MUSIC) {
 	    try {
 		MusicPlayer.play(this.currentMusic);
@@ -202,6 +205,7 @@ public final class MainWindow {
 		Diane.handleError(e);
 	    }
 	}
+	this.currentDefault = defaultButton;
 	this.frame.getRootPane().setDefaultButton(defaultButton);
     }
 
@@ -221,6 +225,7 @@ public final class MainWindow {
 		Diane.handleError(e);
 	    }
 	}
+	this.currentDefault = screen.defaultButton();
 	this.frame.getRootPane().setDefaultButton(screen.defaultButton());
     }
 
