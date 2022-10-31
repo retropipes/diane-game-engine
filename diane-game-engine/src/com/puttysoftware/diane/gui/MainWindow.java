@@ -50,6 +50,7 @@ public final class MainWindow {
     private JComponent content;
     private DianeMusicIndex currentMusic;
     private JButton currentDefault;
+    private int savedDepth;
     private final LinkedList<JComponent> savedContentStack;
     private final LinkedList<String> savedTitleStack;
     private final LinkedList<DianeMusicIndex> savedMusicStack;
@@ -62,6 +63,7 @@ public final class MainWindow {
 	this.frame.setResizable(false);
 	this.contentSize = new Dimension(width, height);
 	this.content = this.createContent();
+	this.savedDepth = 0;
 	this.savedContentStack = new LinkedList<>();
 	this.savedTitleStack = new LinkedList<>();
 	this.savedMusicStack = new LinkedList<>();
@@ -126,21 +128,24 @@ public final class MainWindow {
     }
 
     public void restoreSaved() {
-	this.content = this.savedContentStack.pop();
-	this.frame.setContentPane(this.content);
-	this.frame.setTitle(this.savedTitleStack.pop());
-	var oldMusic = this.currentMusic;
-	this.currentMusic = this.savedMusicStack.pop();
-	if (this.currentMusic != oldMusic) {
-	    try {
-		MusicPlayer.play(this.currentMusic);
-	    } catch (IOException e) {
-		Diane.handleError(e);
+	if (this.savedDepth > 0) {
+	    this.savedDepth--;
+	    this.content = this.savedContentStack.pop();
+	    this.frame.setContentPane(this.content);
+	    this.frame.setTitle(this.savedTitleStack.pop());
+	    var oldMusic = this.currentMusic;
+	    this.currentMusic = this.savedMusicStack.pop();
+	    if (this.currentMusic != null && this.currentMusic != oldMusic) {
+		try {
+		    MusicPlayer.play(this.currentMusic);
+		} catch (IOException e) {
+		    Diane.handleError(e);
+		}
 	    }
-	}
-	this.currentDefault = this.savedDefaultButtonStack.pop();
-	if (this.currentDefault != null) {
-	    this.frame.getRootPane().setDefaultButton(this.currentDefault);
+	    this.currentDefault = this.savedDefaultButtonStack.pop();
+	    if (this.currentDefault != null) {
+		this.frame.getRootPane().setDefaultButton(this.currentDefault);
+	    }
 	}
     }
 
@@ -149,6 +154,7 @@ public final class MainWindow {
 	this.savedTitleStack.push(this.frame.getTitle());
 	this.savedMusicStack.push(this.currentMusic);
 	this.savedDefaultButtonStack.push(this.currentDefault);
+	this.savedDepth++;
 	this.content = customContent;
 	this.frame.setContentPane(this.content);
 	this.frame.setTitle(title);
@@ -161,6 +167,7 @@ public final class MainWindow {
 	this.savedTitleStack.push(this.frame.getTitle());
 	this.savedMusicStack.push(this.currentMusic);
 	this.savedDefaultButtonStack.push(this.currentDefault);
+	this.savedDepth++;
 	this.content = customContent;
 	this.frame.setContentPane(this.content);
 	this.frame.setTitle(title);
@@ -174,13 +181,14 @@ public final class MainWindow {
 	this.savedTitleStack.push(this.frame.getTitle());
 	this.savedMusicStack.push(this.currentMusic);
 	this.savedDefaultButtonStack.push(this.currentDefault);
+	this.savedDepth++;
 	this.content = customContent;
 	this.frame.setContentPane(this.content);
 	this.frame.setTitle(title);
 	var oldMusic = this.currentMusic;
 	this.currentMusic = music;
 	this.currentDefault = null;
-	if (this.currentMusic != oldMusic) {
+	if (this.currentMusic != null && this.currentMusic != oldMusic) {
 	    try {
 		MusicPlayer.play(this.currentMusic);
 	    } catch (IOException e) {
@@ -195,12 +203,13 @@ public final class MainWindow {
 	this.savedTitleStack.push(this.frame.getTitle());
 	this.savedMusicStack.push(this.currentMusic);
 	this.savedDefaultButtonStack.push(this.currentDefault);
+	this.savedDepth++;
 	this.content = customContent;
 	this.frame.setContentPane(this.content);
 	this.frame.setTitle(title);
 	var oldMusic = this.currentMusic;
 	this.currentMusic = music;
-	if (this.currentMusic != oldMusic) {
+	if (this.currentMusic != null && this.currentMusic != oldMusic) {
 	    try {
 		MusicPlayer.play(this.currentMusic);
 	    } catch (IOException e) {
@@ -216,12 +225,13 @@ public final class MainWindow {
 	this.savedTitleStack.push(this.frame.getTitle());
 	this.savedMusicStack.push(this.currentMusic);
 	this.savedDefaultButtonStack.push(this.currentDefault);
+	this.savedDepth++;
 	this.content = screen.content();
 	this.frame.setContentPane(this.content);
 	this.frame.setTitle(screen.title());
 	var oldMusic = this.currentMusic;
 	this.currentMusic = screen.music();
-	if (this.currentMusic != oldMusic) {
+	if (this.currentMusic != null && this.currentMusic != oldMusic) {
 	    try {
 		MusicPlayer.play(this.currentMusic);
 	    } catch (IOException e) {
