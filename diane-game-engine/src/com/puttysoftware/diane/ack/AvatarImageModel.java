@@ -7,10 +7,10 @@ package com.puttysoftware.diane.ack;
 
 import java.awt.Color;
 
-import com.puttysoftware.diane.asset.BufferedImageIcon;
+import com.puttysoftware.diane.asset.image.BufferedImageIcon;
+import com.puttysoftware.diane.asset.image.ColorReplaceRules;
 import com.puttysoftware.diane.internal.AvatarColors;
 import com.puttysoftware.diane.internal.AvatarImageLoader;
-import com.puttysoftware.diane.loaders.ColorReplaceRules;
 
 public final class AvatarImageModel {
     // Fields

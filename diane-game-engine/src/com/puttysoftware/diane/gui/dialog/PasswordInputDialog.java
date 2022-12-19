@@ -20,10 +20,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 
-import com.puttysoftware.diane.asset.BufferedImageIcon;
+import com.puttysoftware.diane.asset.image.BufferedImageIcon;
 import com.puttysoftware.diane.gui.MainWindow;
-import com.puttysoftware.diane.locale.ErrorString;
-import com.puttysoftware.diane.locale.PrivateStrings;
+import com.puttysoftware.diane.internal.PrivateErrorString;
+import com.puttysoftware.diane.internal.PrivateStrings;
 
 class PasswordInputDialog {
     private static MainWindow dialogFrame;
@@ -49,13 +49,13 @@ class PasswordInputDialog {
 	    PasswordInputDialog.dialogFrame = MainWindow.mainWindow();
 	    PasswordInputDialog.dialogPane = PasswordInputDialog.dialogFrame.createContent();
 	    // Create and initialize the buttons.
-	    final var cancelButton = new JButton(PrivateStrings.error(ErrorString.CANCEL_BUTTON));
+	    final var cancelButton = new JButton(PrivateStrings.error(PrivateErrorString.CANCEL_BUTTON));
 	    cancelButton.addActionListener(h -> {
 		PasswordInputDialog.setValue(null);
 		PasswordInputDialog.dialogFrame.restoreSaved();
 	    });
-	    final var setButton = new JButton(PrivateStrings.error(ErrorString.OK_BUTTON));
-	    setButton.setActionCommand(PrivateStrings.error(ErrorString.OK_BUTTON));
+	    final var setButton = new JButton(PrivateStrings.error(PrivateErrorString.OK_BUTTON));
+	    setButton.setActionCommand(PrivateStrings.error(PrivateErrorString.OK_BUTTON));
 	    setButton.addActionListener(h -> {
 		PasswordInputDialog.setValue(PasswordInputDialog.input.getPassword());
 		PasswordInputDialog.dialogFrame.restoreSaved();

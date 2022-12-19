@@ -20,7 +20,7 @@ import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
 
-import com.puttysoftware.diane.asset.BufferedImageIcon;
+import com.puttysoftware.diane.asset.image.BufferedImageIcon;
 
 public final class AnonymousPicturePicker {
     private class EventHandler implements ActionListener {

@@ -10,12 +10,12 @@ import java.util.regex.Pattern;
 
 import javax.swing.JColorChooser;
 
-import com.puttysoftware.diane.asset.BufferedImageIcon;
+import com.puttysoftware.diane.asset.image.BufferedImageIcon;
+import com.puttysoftware.diane.asset.image.ColorReplaceRules;
 import com.puttysoftware.diane.gui.dialog.CommonDialogs;
 import com.puttysoftware.diane.internal.AvatarColors;
 import com.puttysoftware.diane.internal.AvatarImageLoader;
-import com.puttysoftware.diane.loaders.ColorReplaceRules;
-import com.puttysoftware.diane.randomrange.RandomRange;
+import com.puttysoftware.diane.random.RandomRange;
 
 public class AvatarConstructionKit {
     // Fields

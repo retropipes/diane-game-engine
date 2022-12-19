@@ -6,10 +6,10 @@ Any questions should be directed to the author via email at: support@puttysoftwa
 package com.puttysoftware.diane.internal;
 
 import com.puttysoftware.diane.ack.AvatarImageModel;
-import com.puttysoftware.diane.asset.BufferedImageIcon;
-import com.puttysoftware.diane.loaders.ColorReplaceRules;
-import com.puttysoftware.diane.loaders.ImageCompositor;
-import com.puttysoftware.diane.loaders.ImageLoader;
+import com.puttysoftware.diane.asset.image.BufferedImageIcon;
+import com.puttysoftware.diane.asset.image.ColorReplaceRules;
+import com.puttysoftware.diane.asset.image.ImageCompositor;
+import com.puttysoftware.diane.asset.image.ImageLoader;
 
 public class AvatarImageLoader {
     public static BufferedImageIcon load(final int familyID, final ColorReplaceRules rules) {

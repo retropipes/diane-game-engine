@@ -21,10 +21,10 @@ import javax.swing.TransferHandler;
 import javax.swing.WindowConstants;
 
 import com.puttysoftware.diane.Diane;
-import com.puttysoftware.diane.asset.DianeMusicIndex;
+import com.puttysoftware.diane.asset.music.DianeMusicIndex;
+import com.puttysoftware.diane.asset.music.MusicPlayer;
 import com.puttysoftware.diane.gui.dialog.CommonDialogs;
 import com.puttysoftware.diane.internal.DefaultAssets;
-import com.puttysoftware.diane.music.MusicPlayer;
 
 public final class MainWindow {
     private static MainWindow window;

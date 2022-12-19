@@ -19,8 +19,8 @@ import javax.swing.JPasswordField;
 
 import com.puttysoftware.diane.fileio.XDataReader;
 import com.puttysoftware.diane.fileio.XDataWriter;
-import com.puttysoftware.diane.utilties.Hash;
-import com.puttysoftware.diane.utilties.HexBytes;
+import com.puttysoftware.diane.utility.Hash;
+import com.puttysoftware.diane.utility.HexBytes;
 
 public class PasswordProtector {
     protected static final int MODE_SET = 1;

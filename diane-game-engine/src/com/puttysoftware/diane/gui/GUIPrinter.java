@@ -22,8 +22,8 @@ import javax.print.attribute.HashPrintRequestAttributeSet;
 import javax.print.attribute.PrintRequestAttributeSet;
 
 import com.puttysoftware.diane.gui.dialog.CommonDialogs;
-import com.puttysoftware.diane.locale.ErrorString;
-import com.puttysoftware.diane.locale.PrivateStrings;
+import com.puttysoftware.diane.internal.PrivateErrorString;
+import com.puttysoftware.diane.internal.PrivateStrings;
 
 public class GUIPrinter {
     public static void printScreen() {
@@ -48,8 +48,8 @@ public class GUIPrinter {
 		job.print(doc, pras);
 	    }
 	} catch (final IOException | PrintException | NullPointerException npe) {
-	    CommonDialogs.showErrorDialog(PrivateStrings.error(ErrorString.PRINT_ERROR_MESSAGE),
-		    PrivateStrings.error(ErrorString.PRINT_ERROR_TITLE));
+	    CommonDialogs.showErrorDialog(PrivateStrings.error(PrivateErrorString.PRINT_ERROR_MESSAGE),
+		    PrivateStrings.error(PrivateErrorString.PRINT_ERROR_TITLE));
 	}
     }
 

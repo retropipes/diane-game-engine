@@ -7,7 +7,7 @@ package com.puttysoftware.diane.objectmodel;
 
 import java.util.Objects;
 
-import com.puttysoftware.diane.asset.BufferedImageIcon;
+import com.puttysoftware.diane.asset.image.BufferedImageIcon;
 
 public abstract class GameObject implements ObjectModel {
     // Properties

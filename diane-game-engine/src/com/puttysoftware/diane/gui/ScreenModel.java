@@ -7,7 +7,7 @@ package com.puttysoftware.diane.gui;
 
 import javax.swing.JButton;
 
-import com.puttysoftware.diane.asset.DianeMusicIndex;
+import com.puttysoftware.diane.asset.music.DianeMusicIndex;
 
 public final class ScreenModel {
     // Fields

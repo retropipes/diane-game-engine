@@ -19,10 +19,10 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import com.puttysoftware.diane.asset.BufferedImageIcon;
+import com.puttysoftware.diane.asset.image.BufferedImageIcon;
 import com.puttysoftware.diane.gui.MainWindow;
-import com.puttysoftware.diane.locale.ErrorString;
-import com.puttysoftware.diane.locale.PrivateStrings;
+import com.puttysoftware.diane.internal.PrivateErrorString;
+import com.puttysoftware.diane.internal.PrivateStrings;
 
 class InputWithDefaultDialog {
     private static MainWindow dialogFrame;
@@ -109,7 +109,7 @@ class InputWithDefaultDialog {
 	    final BufferedImageIcon icon, final String defaultButton) {
 	InputWithDefaultDialog.completer = new CompletableFuture<>();
 	Executors.newSingleThreadExecutor().submit(() -> {
-	    final String[] possibleValues = { "Yes", "No", PrivateStrings.error(ErrorString.CANCEL_BUTTON) };
+	    final String[] possibleValues = { "Yes", "No", PrivateStrings.error(PrivateErrorString.CANCEL_BUTTON) };
 	    InputWithDefaultDialog.initializeDialog(text, title, icon, possibleValues, defaultButton);
 	});
 	return InputWithDefaultDialog.completer;

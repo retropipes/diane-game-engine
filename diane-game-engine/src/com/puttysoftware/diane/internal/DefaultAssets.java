@@ -5,9 +5,9 @@ Any questions should be directed to the author via email at: support@puttysoftwa
  */
 package com.puttysoftware.diane.internal;
 
-import com.puttysoftware.diane.asset.DianeImageIndex;
-import com.puttysoftware.diane.asset.DianeMusicIndex;
-import com.puttysoftware.diane.asset.DianeSoundIndex;
+import com.puttysoftware.diane.asset.image.DianeImageIndex;
+import com.puttysoftware.diane.asset.music.DianeMusicIndex;
+import com.puttysoftware.diane.asset.sound.DianeSoundIndex;
 
 public class DefaultAssets {
     private DefaultAssets() {

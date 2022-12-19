@@ -5,7 +5,7 @@ Any questions should be directed to the author via email at: support@puttysoftwa
  */
 package com.puttysoftware.diane.gui;
 
-import com.puttysoftware.diane.asset.BufferedImageIcon;
+import com.puttysoftware.diane.asset.image.BufferedImageIcon;
 import com.puttysoftware.diane.storage.ObjectStorage;
 
 public class DrawGrid extends ObjectStorage {

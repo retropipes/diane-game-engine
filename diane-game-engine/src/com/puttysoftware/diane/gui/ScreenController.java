@@ -11,7 +11,7 @@ import java.lang.ref.WeakReference;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import com.puttysoftware.diane.asset.DianeMusicIndex;
+import com.puttysoftware.diane.asset.music.DianeMusicIndex;
 
 public abstract class ScreenController extends WindowAdapter {
     // Fields

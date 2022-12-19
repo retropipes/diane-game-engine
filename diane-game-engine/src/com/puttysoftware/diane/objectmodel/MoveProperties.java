@@ -8,8 +8,8 @@ package com.puttysoftware.diane.objectmodel;
 import java.util.Objects;
 
 import com.puttysoftware.diane.storage.FlagStorage;
-import com.puttysoftware.diane.utilties.DirectionResolver;
-import com.puttysoftware.diane.utilties.Directions;
+import com.puttysoftware.diane.utility.DirectionResolver;
+import com.puttysoftware.diane.utility.Directions;
 
 class MoveProperties {
     // Private enumeration

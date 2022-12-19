@@ -5,10 +5,10 @@ Any questions should be directed to the author via email at: support@puttysoftwa
  */
 package com.puttysoftware.diane.objectmodel;
 
-import com.puttysoftware.diane.asset.BufferedImageIcon;
-import com.puttysoftware.diane.asset.DianeImageIndex;
-import com.puttysoftware.diane.loaders.ColorReplaceRules;
-import com.puttysoftware.diane.loaders.ColorShader;
+import com.puttysoftware.diane.asset.image.BufferedImageIcon;
+import com.puttysoftware.diane.asset.image.ColorReplaceRules;
+import com.puttysoftware.diane.asset.image.ColorShader;
+import com.puttysoftware.diane.asset.image.DianeImageIndex;
 
 public abstract class Appearance {
     private final String cacheName;
