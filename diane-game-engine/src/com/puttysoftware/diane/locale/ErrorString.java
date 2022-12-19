@@ -1,7 +1,7 @@
-/*  DungeonDiver7: A Dungeon-Diving RPG
- Copyright (C) 2021-present Eric Ahnell
+/*  Diane Game Engine
+Copyleft (C) 2019 Eric Ahnell
 
- Any questions should be directed to the author via email at: products@puttysoftware.com
+Any questions should be directed to the author via email at: support@puttysoftware.com
  */
 package com.puttysoftware.diane.locale;
 
