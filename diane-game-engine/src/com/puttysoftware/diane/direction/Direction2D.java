@@ -5,7 +5,14 @@ Any questions should be directed to the author via email at: support@puttysoftwa
  */
 package com.puttysoftware.diane.direction;
 
-public final class Direction2D {
-    public Direction X;
-    public Direction Y;
+public enum Direction2D {
+    NONE,
+    NORTH,
+    SOUTH,
+    WEST,
+    EAST,
+    NORTH_WEST,
+    NORTH_EAST,
+    SOUTH_WEST,
+    SOUTH_EAST
 }
