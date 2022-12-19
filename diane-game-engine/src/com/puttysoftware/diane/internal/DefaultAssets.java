@@ -8,7 +8,7 @@ public class DefaultAssets {
     private DefaultAssets() {
 	// Unused
     }
-    
+
     public static final DianeImageIndex NO_IMAGE = null;
     public static final DianeSoundIndex NO_SOUND = null;
     public static final DianeMusicIndex NO_MUSIC = null;

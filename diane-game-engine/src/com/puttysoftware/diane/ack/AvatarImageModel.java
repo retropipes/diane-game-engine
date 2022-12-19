@@ -6,6 +6,7 @@ import java.io.IOException;
 import com.puttysoftware.diane.asset.BufferedImageIcon;
 import com.puttysoftware.diane.internal.AvatarColors;
 import com.puttysoftware.diane.internal.AvatarImageLoader;
+import com.puttysoftware.diane.loaders.ColorReplaceRules;
 
 public final class AvatarImageModel {
     // Fields

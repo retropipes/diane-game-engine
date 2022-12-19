@@ -3,8 +3,8 @@ package com.puttysoftware.diane.internal;
 import java.io.IOException;
 
 import com.puttysoftware.diane.ack.AvatarImageModel;
-import com.puttysoftware.diane.ack.ColorReplaceRules;
 import com.puttysoftware.diane.asset.BufferedImageIcon;
+import com.puttysoftware.diane.loaders.ColorReplaceRules;
 
 public class AvatarImageLoader {
     public static BufferedImageIcon load(final int familyID, final ColorReplaceRules rules) throws IOException {

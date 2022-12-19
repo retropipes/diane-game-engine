@@ -10,12 +10,15 @@ module com.puttysoftware.diane {
     exports com.puttysoftware.diane;
     exports com.puttysoftware.diane.ack;
     exports com.puttysoftware.diane.asset;
+    exports com.puttysoftware.diane.audio.mod;
+    exports com.puttysoftware.diane.audio.wav;
     exports com.puttysoftware.diane.edge;
     exports com.puttysoftware.diane.fileio;
     exports com.puttysoftware.diane.fileio.utilities;
     exports com.puttysoftware.diane.gui;
     exports com.puttysoftware.diane.gui.dialog;
     exports com.puttysoftware.diane.gui.picker;
+    exports com.puttysoftware.diane.help;
     exports com.puttysoftware.diane.integration;
     exports com.puttysoftware.diane.loaders;
     exports com.puttysoftware.diane.map;

@@ -84,7 +84,7 @@ public final class PicturePicker {
 	this.savedCRCColor = null;
 	this.savedCHColor = null;
     }
-    
+
     public PicturePicker(final BufferedImageIcon[] pictures, final String[] names, final boolean[] enabled) {
 	this.handler = new EventHandler();
 	this.pickerJPanel = new JPanel();

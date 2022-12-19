@@ -11,6 +11,7 @@ import com.puttysoftware.diane.internal.AvatarColors;
 import com.puttysoftware.diane.internal.AvatarImageLoader;
 import com.puttysoftware.diane.internal.ImageListDialog;
 import com.puttysoftware.diane.internal.ImageListWithDescDialog;
+import com.puttysoftware.diane.loaders.ColorReplaceRules;
 import com.puttysoftware.diane.randomrange.RandomRange;
 
 public class AvatarConstructionKit {
@@ -190,7 +191,8 @@ public class AvatarConstructionKit {
 	final BufferedImageIcon[] input = new BufferedImageIcon[] { AvatarImageLoader.loadWeapon(0, weaponRules),
 		AvatarImageLoader.loadWeapon(1, weaponRules), AvatarImageLoader.loadWeapon(2, weaponRules),
 		AvatarImageLoader.loadWeapon(3, weaponRules) };
-	final String[] descriptions = new String[] { AckStrings.load(16), AckStrings.load(17), AckStrings.load(18), AckStrings.load(19) };
+	final String[] descriptions = new String[] { AckStrings.load(16), AckStrings.load(17), AckStrings.load(18),
+		AckStrings.load(19) };
 	return ImageListWithDescDialog.showDialog(null, labelText, title, input, 0, descriptions[0], descriptions);
     }
 
@@ -200,7 +202,8 @@ public class AvatarConstructionKit {
 	final BufferedImageIcon[] input = new BufferedImageIcon[] { AvatarImageLoader.loadAccessory(0, accessoryRules),
 		AvatarImageLoader.loadAccessory(1, accessoryRules), AvatarImageLoader.loadAccessory(2, accessoryRules),
 		AvatarImageLoader.loadAccessory(3, accessoryRules) };
-	final String[] descriptions = new String[] { AckStrings.load(20), AckStrings.load(21), AckStrings.load(22), AckStrings.load(23) };
+	final String[] descriptions = new String[] { AckStrings.load(20), AckStrings.load(21), AckStrings.load(22),
+		AckStrings.load(23) };
 	return ImageListWithDescDialog.showDialog(null, labelText, title, input, 0, descriptions[0], descriptions);
     }
 

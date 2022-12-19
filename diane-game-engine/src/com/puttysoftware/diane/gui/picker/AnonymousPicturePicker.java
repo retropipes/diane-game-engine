@@ -83,7 +83,7 @@ public final class AnonymousPicturePicker {
 	this.savedCRCColor = this.choiceRadioJPanel.getBackground();
 	this.savedCHColor = this.scrollPane.getBackground();
     }
-    
+
     public AnonymousPicturePicker(final BufferedImageIcon[] pictures, final boolean[] enabled,
 	    final Color choiceColor) {
 	this.handler = new EventHandler();

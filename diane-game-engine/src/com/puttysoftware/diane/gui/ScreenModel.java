@@ -22,7 +22,7 @@ public final class ScreenModel {
 	this.music = null;
 	this.defaultButton = null;
     }
-    
+
     public ScreenModel(final String theTitle, final DianeMusicIndex theMusic, final JButton theDefaultButton) {
 	this.title = theTitle;
 	this.music = theMusic;
@@ -33,11 +33,11 @@ public final class ScreenModel {
     public String getTitle() {
 	return this.title;
     }
-    
+
     public DianeMusicIndex getMusic() {
 	return this.music;
     }
-    
+
     public JButton getDefaultButton() {
 	return this.defaultButton;
     }

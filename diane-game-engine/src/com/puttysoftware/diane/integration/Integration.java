@@ -58,7 +58,7 @@ public class Integration {
 	    this.otherOS = true;
 	}
     }
-    
+
     public static Integration integrate() {
 	return new Integration();
     }
