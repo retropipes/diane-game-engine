@@ -1,7 +1,6 @@
 package com.puttysoftware.diane.ack;
 
 import java.awt.Color;
-import java.io.IOException;
 
 import com.puttysoftware.diane.asset.BufferedImageIcon;
 import com.puttysoftware.diane.internal.AvatarColors;
@@ -147,7 +146,7 @@ public final class AvatarImageModel {
 	return builder.toString();
     }
 
-    public BufferedImageIcon generateAvatarImage() throws IOException {
+    public BufferedImageIcon generateAvatarImage() {
 	return AvatarImageLoader.loadFromModel(this);
     }
 

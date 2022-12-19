@@ -1,16 +1,14 @@
 package com.puttysoftware.diane.ack;
 
 import java.awt.Color;
-import java.io.IOException;
 import java.util.regex.Pattern;
 
 import javax.swing.JColorChooser;
 
 import com.puttysoftware.diane.asset.BufferedImageIcon;
+import com.puttysoftware.diane.gui.dialog.CommonDialogs;
 import com.puttysoftware.diane.internal.AvatarColors;
 import com.puttysoftware.diane.internal.AvatarImageLoader;
-import com.puttysoftware.diane.internal.ImageListDialog;
-import com.puttysoftware.diane.internal.ImageListWithDescDialog;
 import com.puttysoftware.diane.loaders.ColorReplaceRules;
 import com.puttysoftware.diane.randomrange.RandomRange;
 
@@ -102,7 +100,7 @@ public class AvatarConstructionKit {
 		currentWeaponColor1, currentWeaponColor2, currentAccessoryColor1, currentAccessoryColor2);
     }
 
-    public static AvatarImageModel constructAvatar() throws IOException {
+    public static AvatarImageModel constructAvatar() {
 	// Populate rules
 	rules.add(AvatarColors.hairBase, currentHairColor);
 	rules.add(AvatarColors.skinBase, currentSkinColor);
@@ -116,7 +114,7 @@ public class AvatarConstructionKit {
 	accessoryRules.add(AvatarColors.accessory2Base, currentAccessoryColor2);
 	// Construct avatar
 	currentFamilyID = AvatarConstructionKit.pickAvatarFamily();
-	if (currentFamilyID == ImageListWithDescDialog.CANCEL) {
+	if (currentFamilyID == CommonDialogs.CANCEL) {
 	    return null;
 	}
 	currentSkinColor = AvatarConstructionKit.pickAvatarSkinColor();
@@ -144,7 +142,7 @@ public class AvatarConstructionKit {
 	    return null;
 	}
 	currentWeaponID = AvatarConstructionKit.pickAvatarWeapon();
-	if (currentWeaponID == ImageListWithDescDialog.CANCEL) {
+	if (currentWeaponID == CommonDialogs.CANCEL) {
 	    return null;
 	}
 	currentWeaponColor1 = AvatarConstructionKit.pickAvatarWeaponColor1();
@@ -156,7 +154,7 @@ public class AvatarConstructionKit {
 	    return null;
 	}
 	currentAccessoryID = AvatarConstructionKit.pickAvatarAccessory();
-	if (currentAccessoryID == ImageListWithDescDialog.CANCEL) {
+	if (currentAccessoryID == CommonDialogs.CANCEL) {
 	    return null;
 	}
 	currentAccessoryColor1 = AvatarConstructionKit.pickAvatarAccessoryColor1();
@@ -172,7 +170,7 @@ public class AvatarConstructionKit {
 		currentWeaponColor1, currentWeaponColor2, currentAccessoryColor1, currentAccessoryColor2);
     }
 
-    private static int pickAvatarFamily() throws IOException {
+    private static int pickAvatarFamily() {
 	final String labelText = AckStrings.load(0);
 	final String title = AckStrings.load(1);
 	final BufferedImageIcon[] input = new BufferedImageIcon[] { AvatarImageLoader.load(0, rules),
@@ -182,10 +180,10 @@ public class AvatarConstructionKit {
 		AvatarImageLoader.load(10, rules), AvatarImageLoader.load(11, rules), AvatarImageLoader.load(12, rules),
 		AvatarImageLoader.load(13, rules), AvatarImageLoader.load(14, rules),
 		AvatarImageLoader.load(15, rules) };
-	return ImageListDialog.showDialog(null, labelText, title, input, currentFamilyID);
+	return CommonDialogs.showImageListDialog(labelText, title, input, currentFamilyID);
     }
 
-    private static int pickAvatarWeapon() throws IOException {
+    private static int pickAvatarWeapon() {
 	final String labelText = AckStrings.load(2);
 	final String title = AckStrings.load(3);
 	final BufferedImageIcon[] input = new BufferedImageIcon[] { AvatarImageLoader.loadWeapon(0, weaponRules),
@@ -193,10 +191,10 @@ public class AvatarConstructionKit {
 		AvatarImageLoader.loadWeapon(3, weaponRules) };
 	final String[] descriptions = new String[] { AckStrings.load(16), AckStrings.load(17), AckStrings.load(18),
 		AckStrings.load(19) };
-	return ImageListWithDescDialog.showDialog(null, labelText, title, input, 0, descriptions[0], descriptions);
+	return CommonDialogs.showImageListWithDescDialog(labelText, title, input, 0, descriptions[0], descriptions);
     }
 
-    private static int pickAvatarAccessory() throws IOException {
+    private static int pickAvatarAccessory() {
 	final String labelText = AckStrings.load(4);
 	final String title = AckStrings.load(5);
 	final BufferedImageIcon[] input = new BufferedImageIcon[] { AvatarImageLoader.loadAccessory(0, accessoryRules),
@@ -204,7 +202,7 @@ public class AvatarConstructionKit {
 		AvatarImageLoader.loadAccessory(3, accessoryRules) };
 	final String[] descriptions = new String[] { AckStrings.load(20), AckStrings.load(21), AckStrings.load(22),
 		AckStrings.load(23) };
-	return ImageListWithDescDialog.showDialog(null, labelText, title, input, 0, descriptions[0], descriptions);
+	return CommonDialogs.showImageListWithDescDialog(labelText, title, input, 0, descriptions[0], descriptions);
     }
 
     private static Color pickAvatarSkinColor() {
