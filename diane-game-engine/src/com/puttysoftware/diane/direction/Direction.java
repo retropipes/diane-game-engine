@@ -5,7 +5,7 @@ Any questions should be directed to the author via email at: support@puttysoftwa
  */
 package com.puttysoftware.diane.direction;
 
-public enum Direction6D {
+public enum Direction {
     NONE,
     NORTH,
     SOUTH,

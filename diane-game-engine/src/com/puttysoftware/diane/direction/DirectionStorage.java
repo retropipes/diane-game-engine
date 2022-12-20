@@ -8,15 +8,15 @@ package com.puttysoftware.diane.direction;
 import java.util.Arrays;
 
 /**
- * Data storage for general Direction3Ds.
+ * Data storage for general Direction6Ds.
  */
-public class Direction3DStorage {
+public class DirectionStorage {
     // Fields
     /**
      * The underlying array where data is stored. Exposed for serialization purposes
      * for use with the protected copy constructor.
      */
-    protected final Direction3D[] dataStore;
+    protected final Direction[] dataStore;
     private final int[] dataShape;
     private final int[] interProd;
 
@@ -26,7 +26,7 @@ public class Direction3DStorage {
      *
      * @param shape simulated dimensions for the stored data
      */
-    public Direction3DStorage(final int... shape) {
+    public DirectionStorage(final int... shape) {
 	this.dataShape = shape;
 	this.interProd = new int[this.dataShape.length];
 	var product = 1;
@@ -34,7 +34,7 @@ public class Direction3DStorage {
 	    this.interProd[x] = product;
 	    product *= this.dataShape[x];
 	}
-	this.dataStore = new Direction3D[product];
+	this.dataStore = new Direction[product];
     }
 
     // Protected copy constructor
@@ -44,7 +44,7 @@ public class Direction3DStorage {
      * @param source the underlying array where stored data came from
      * @param shape  simulated dimensions for the stored data
      */
-    protected Direction3DStorage(final Direction3D[] source, final int... shape) {
+    protected DirectionStorage(final Direction[] source, final int... shape) {
 	this.dataShape = shape;
 	this.interProd = new int[this.dataShape.length];
 	var product = 1;
@@ -61,7 +61,7 @@ public class Direction3DStorage {
      *
      * @param source the @self to make a copy of
      */
-    public Direction3DStorage(final Direction3DStorage source) {
+    public DirectionStorage(final DirectionStorage source) {
 	this.dataShape = source.dataShape;
 	this.interProd = new int[this.dataShape.length];
 	var product = 1;
@@ -76,7 +76,7 @@ public class Direction3DStorage {
     /**
      * Check for equality.
      *
-     * @param obj the other Direction3D to check
+     * @param obj the other Direction6D to check
      * @return true if equal, false otherwise
      */
     @Override
@@ -84,7 +84,7 @@ public class Direction3DStorage {
 	if (this == obj) {
 	    return true;
 	}
-	if (obj == null || !(obj instanceof final Direction3DStorage other)
+	if (obj == null || !(obj instanceof final DirectionStorage other)
 		|| !Arrays.deepEquals(this.dataStore, other.dataStore)) {
 	    return false;
 	}
@@ -96,7 +96,7 @@ public class Direction3DStorage {
      *
      * @param obj the data to fill with
      */
-    public final void fill(final Direction3D obj) {
+    public final void fill(final Direction obj) {
 	Arrays.fill(this.dataStore, obj);
     }
 
@@ -106,7 +106,7 @@ public class Direction3DStorage {
      * @param loc the location to get data from
      * @return the data at that location
      */
-    public final Direction3D getCell(final int... loc) {
+    public final Direction getCell(final int... loc) {
 	final var aloc = this.ravelLocation(loc);
 	return this.dataStore[aloc];
     }
@@ -118,7 +118,7 @@ public class Direction3DStorage {
      * @param rawLoc the index within the array to get data from
      * @return the data at that index
      */
-    protected final Direction3D getRawCell(final int rawLoc) {
+    protected final Direction getRawCell(final int rawLoc) {
 	return this.dataStore[rawLoc];
     }
 
@@ -178,7 +178,7 @@ public class Direction3DStorage {
      * @param obj the new data value
      * @param loc the location to modify
      */
-    public final void setCell(final Direction3D obj, final int... loc) {
+    public final void setCell(final Direction obj, final int... loc) {
 	final var aloc = this.ravelLocation(loc);
 	this.dataStore[aloc] = obj;
     }
@@ -190,7 +190,7 @@ public class Direction3DStorage {
      * @param obj    the new data value
      * @param rawLoc the index to modify
      */
-    protected final void setRawCell(final Direction3D obj, final int rawLoc) {
+    protected final void setRawCell(final Direction obj, final int rawLoc) {
 	this.dataStore[rawLoc] = obj;
     }
 }

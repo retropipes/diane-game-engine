@@ -5,8 +5,17 @@ Any questions should be directed to the author via email at: support@puttysoftwa
  */
 package com.puttysoftware.diane.direction;
 
-public enum Direction1D {
+public enum DirectionQuery {
     NONE,
     NORTH,
-    SOUTH
+    SOUTH,
+    WEST,
+    EAST,
+    DOWN,
+    UP,
+    INTO,
+    PREVIOUS,
+    NEXT,
+    PAST,
+    FUTURE
 }
