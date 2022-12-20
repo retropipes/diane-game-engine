@@ -6,6 +6,8 @@ Any questions should be directed to the author via email at: support@puttysoftwa
 package com.puttysoftware.diane.direction;
 
 public class DirectionQueryResolver {
+    public static final int COUNT = 12;
+    
     public static boolean resolve(final DirectionQuery q, final Direction d) {
 	switch (q) {
 	case DOWN:

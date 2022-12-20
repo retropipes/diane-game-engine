@@ -7,8 +7,9 @@ package com.puttysoftware.diane.objectmodel;
 
 import java.util.Objects;
 
+import com.puttysoftware.diane.direction.DirectionQuery;
+import com.puttysoftware.diane.direction.DirectionQueryResolver;
 import com.puttysoftware.diane.storage.FlagStorage;
-import com.puttysoftware.diane.utility.DirectionResolver;
 
 class VisionProperties {
     // Private enumeration
@@ -29,7 +30,7 @@ class VisionProperties {
 
     // Constructors
     public VisionProperties() {
-	this.visionData = new FlagStorage(VisionProperties.VISION_DATA_TYPES, DirectionResolver.COUNT);
+	this.visionData = new FlagStorage(VisionProperties.VISION_DATA_TYPES, DirectionQueryResolver.COUNT);
     }
 
     // Methods
@@ -51,19 +52,17 @@ class VisionProperties {
 	return 89 * hash + Objects.hashCode(this.visionData);
     }
 
-    public boolean isDirectionallySightBlocking(final int dirX, final int dirY) {
-	final var dir = DirectionResolver.resolve(dirX, dirY);
+    public boolean isDirectionallySightBlocking(final DirectionQuery dir) {
 	return this.visionData.getCell(VisionDataTypes.EXTERNAL.index, dir.ordinal());
     }
 
-    public boolean isInternallyDirectionallySightBlocking(final int dirX, final int dirY) {
-	final var dir = DirectionResolver.resolve(dirX, dirY);
+    public boolean isInternallyDirectionallySightBlocking(final DirectionQuery dir) {
 	return this.visionData.getCell(VisionDataTypes.INTERNAL.index, dir.ordinal());
     }
 
     public boolean isInternallySightBlocking() {
 	var result = false;
-	for (var dir = 0; dir < DirectionResolver.COUNT; dir++) {
+	for (var dir = 0; dir < DirectionQueryResolver.COUNT; dir++) {
 	    result = result || this.visionData.getCell(VisionDataTypes.INTERNAL.index, dir);
 	}
 	return result;
@@ -71,28 +70,28 @@ class VisionProperties {
 
     public boolean isSightBlocking() {
 	var result = false;
-	for (var dir = 0; dir < DirectionResolver.COUNT; dir++) {
+	for (var dir = 0; dir < DirectionQueryResolver.COUNT; dir++) {
 	    result = result || this.visionData.getCell(VisionDataTypes.EXTERNAL.index, dir);
 	}
 	return result;
     }
 
-    public void setDirectionallySightBlocking(final int dir, final boolean value) {
-	this.visionData.setCell(value, VisionDataTypes.EXTERNAL.index, dir);
+    public void setDirectionallySightBlocking(final DirectionQuery dir, final boolean value) {
+	this.visionData.setCell(value, VisionDataTypes.EXTERNAL.index, dir.ordinal());
     }
 
-    public void setInternallyDirectionallySightBlocking(final int dir, final boolean value) {
-	this.visionData.setCell(value, VisionDataTypes.INTERNAL.index, dir);
+    public void setInternallyDirectionallySightBlocking(final DirectionQuery dir, final boolean value) {
+	this.visionData.setCell(value, VisionDataTypes.INTERNAL.index, dir.ordinal());
     }
 
     public void setInternallySightBlocking(final boolean value) {
-	for (var dir = 0; dir < DirectionResolver.COUNT; dir++) {
+	for (var dir = 0; dir < DirectionQueryResolver.COUNT; dir++) {
 	    this.visionData.setCell(value, VisionDataTypes.INTERNAL.index, dir);
 	}
     }
 
     public void setSightBlocking(final boolean value) {
-	for (var dir = 0; dir < DirectionResolver.COUNT; dir++) {
+	for (var dir = 0; dir < DirectionQueryResolver.COUNT; dir++) {
 	    this.visionData.setCell(value, VisionDataTypes.EXTERNAL.index, dir);
 	}
     }

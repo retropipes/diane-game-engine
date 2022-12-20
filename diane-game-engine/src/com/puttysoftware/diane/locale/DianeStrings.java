@@ -8,18 +8,9 @@ package com.puttysoftware.diane.locale;
 import java.util.ResourceBundle;
 
 import com.puttysoftware.diane.direction.Direction;
-import com.puttysoftware.diane.utility.Directions;
 
 public final class DianeStrings {
     public static final String EMPTY = "";
-
-    public static String direction(final Directions item) {
-	return ResourceBundle.getBundle("locale.diane.dirold").getString(Integer.toString(item.ordinal()));
-    }
-
-    public static String directionSuffix(final Directions item) {
-	return ResourceBundle.getBundle("locale.diane.dirsufold").getString(Integer.toString(item.ordinal()));
-    }
 
     public static String direction(final Direction item) {
 	return ResourceBundle.getBundle("locale.diane.direction").getString(Integer.toString(item.ordinal()));

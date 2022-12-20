@@ -6,6 +6,7 @@ Any questions should be directed to the author via email at: support@puttysoftwa
 package com.puttysoftware.diane.objectmodel;
 
 import com.puttysoftware.diane.asset.image.BufferedImageIcon;
+import com.puttysoftware.diane.direction.DirectionQuery;
 
 public interface ObjectModel {
     BufferedImageIcon getBattleImage();
@@ -34,25 +35,25 @@ public interface ObjectModel {
 
     boolean isDestroyable();
 
-    boolean isDirectionallyPullable(int dirX, int dirY);
+    boolean isDirectionallyPullable(DirectionQuery dir);
 
-    boolean isDirectionallyPullableInto(int dirX, int dirY);
+    boolean isDirectionallyPullableInto(DirectionQuery dir);
 
-    boolean isDirectionallyPullableOut(int dirX, int dirY);
+    boolean isDirectionallyPullableOut(DirectionQuery dir);
 
-    boolean isDirectionallyPushable(int dirX, int dirY);
+    boolean isDirectionallyPushable(DirectionQuery dir);
 
-    boolean isDirectionallyPushableInto(int dirX, int dirY);
+    boolean isDirectionallyPushableInto(DirectionQuery dir);
 
-    boolean isDirectionallyPushableOut(int dirX, int dirY);
+    boolean isDirectionallyPushableOut(DirectionQuery dir);
 
-    boolean isDirectionallySightBlocking(int inDirX, int inDirY);
+    boolean isDirectionallySightBlocking(DirectionQuery dir);
 
-    boolean isDirectionallySolid(int dirX, int dirY);
+    boolean isDirectionallySolid(DirectionQuery dir);
 
-    boolean isInternallyDirectionallySightBlocking(int inDirX, int inDirY);
+    boolean isInternallyDirectionallySightBlocking(DirectionQuery dir);
 
-    boolean isInternallyDirectionallySolid(int dirX, int dirY);
+    boolean isInternallyDirectionallySolid(DirectionQuery dir);
 
     boolean isPullable();
 

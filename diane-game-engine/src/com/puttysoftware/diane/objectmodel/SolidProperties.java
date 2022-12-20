@@ -7,8 +7,9 @@ package com.puttysoftware.diane.objectmodel;
 
 import java.util.Objects;
 
+import com.puttysoftware.diane.direction.DirectionQuery;
+import com.puttysoftware.diane.direction.DirectionQueryResolver;
 import com.puttysoftware.diane.storage.FlagStorage;
-import com.puttysoftware.diane.utility.DirectionResolver;
 
 class SolidProperties {
     // Private enumeration
@@ -29,7 +30,7 @@ class SolidProperties {
 
     // Constructors
     public SolidProperties() {
-	this.solidData = new FlagStorage(SolidProperties.SOLID_DATA_TYPES, DirectionResolver.COUNT);
+	this.solidData = new FlagStorage(SolidProperties.SOLID_DATA_TYPES, DirectionQueryResolver.COUNT);
     }
 
     // Methods
@@ -51,19 +52,17 @@ class SolidProperties {
 	return 89 * hash + Objects.hashCode(this.solidData);
     }
 
-    public boolean isDirectionallySolid(final int dirX, final int dirY) {
-	final var dir = DirectionResolver.resolve(dirX, dirY);
+    public boolean isDirectionallySolid(final DirectionQuery dir) {
 	return this.solidData.getCell(SolidDataTypes.EXTERNAL.index, dir.ordinal());
     }
 
-    public boolean isInternallyDirectionallySolid(final int dirX, final int dirY) {
-	final var dir = DirectionResolver.resolve(dirX, dirY);
+    public boolean isInternallyDirectionallySolid(final DirectionQuery dir) {
 	return this.solidData.getCell(SolidDataTypes.INTERNAL.index, dir.ordinal());
     }
 
     public boolean isInternallySolid() {
 	var result = false;
-	for (var dir = 0; dir < DirectionResolver.COUNT; dir++) {
+	for (var dir = 0; dir < DirectionQueryResolver.COUNT; dir++) {
 	    result = result || this.solidData.getCell(SolidDataTypes.INTERNAL.index, dir);
 	}
 	return result;
@@ -71,28 +70,28 @@ class SolidProperties {
 
     public boolean isSolid() {
 	var result = false;
-	for (var dir = 0; dir < DirectionResolver.COUNT; dir++) {
+	for (var dir = 0; dir < DirectionQueryResolver.COUNT; dir++) {
 	    result = result || this.solidData.getCell(SolidDataTypes.EXTERNAL.index, dir);
 	}
 	return result;
     }
 
-    public void setDirectionallySolid(final int dir, final boolean value) {
-	this.solidData.setCell(value, SolidDataTypes.EXTERNAL.index, dir);
+    public void setDirectionallySolid(final DirectionQuery dir, final boolean value) {
+	this.solidData.setCell(value, SolidDataTypes.EXTERNAL.index, dir.ordinal());
     }
 
-    public void setInternallyDirectionallySolid(final int dir, final boolean value) {
-	this.solidData.setCell(value, SolidDataTypes.INTERNAL.index, dir);
+    public void setInternallyDirectionallySolid(final DirectionQuery dir, final boolean value) {
+	this.solidData.setCell(value, SolidDataTypes.INTERNAL.index, dir.ordinal());
     }
 
     public void setInternallySolid(final boolean value) {
-	for (var dir = 0; dir < DirectionResolver.COUNT; dir++) {
+	for (var dir = 0; dir < DirectionQueryResolver.COUNT; dir++) {
 	    this.solidData.setCell(value, SolidDataTypes.INTERNAL.index, dir);
 	}
     }
 
     public void setSolid(final boolean value) {
-	for (var dir = 0; dir < DirectionResolver.COUNT; dir++) {
+	for (var dir = 0; dir < DirectionQueryResolver.COUNT; dir++) {
 	    this.solidData.setCell(value, SolidDataTypes.EXTERNAL.index, dir);
 	}
     }

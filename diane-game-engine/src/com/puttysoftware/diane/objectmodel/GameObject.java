@@ -8,6 +8,7 @@ package com.puttysoftware.diane.objectmodel;
 import java.util.Objects;
 
 import com.puttysoftware.diane.asset.image.BufferedImageIcon;
+import com.puttysoftware.diane.direction.DirectionQuery;
 
 public abstract class GameObject implements ObjectModel {
     // Properties
@@ -247,53 +248,53 @@ public abstract class GameObject implements ObjectModel {
     }
 
     @Override
-    public final boolean isDirectionallyPullable(final int dirX, final int dirY) {
-	return this.mp.isDirectionallyPullable(dirX, dirY);
+    public final boolean isDirectionallyPullable(final DirectionQuery dir) {
+	return this.mp.isDirectionallyPullable(dir);
     }
 
     @Override
-    public final boolean isDirectionallyPullableInto(final int dirX, final int dirY) {
-	return this.mp.isDirectionallyPullableInto(dirX, dirY);
+    public final boolean isDirectionallyPullableInto(final DirectionQuery dir) {
+	return this.mp.isDirectionallyPullableInto(dir);
     }
 
     @Override
-    public final boolean isDirectionallyPullableOut(final int dirX, final int dirY) {
-	return this.mp.isDirectionallyPullableOut(dirX, dirY);
+    public final boolean isDirectionallyPullableOut(final DirectionQuery dir) {
+	return this.mp.isDirectionallyPullableOut(dir);
     }
 
     @Override
-    public final boolean isDirectionallyPushable(final int dirX, final int dirY) {
-	return this.mp.isDirectionallyPushable(dirX, dirY);
+    public final boolean isDirectionallyPushable(final DirectionQuery dir) {
+	return this.mp.isDirectionallyPushable(dir);
     }
 
     @Override
-    public final boolean isDirectionallyPushableInto(final int dirX, final int dirY) {
-	return this.mp.isDirectionallyPushableInto(dirX, dirY);
+    public final boolean isDirectionallyPushableInto(final DirectionQuery dir) {
+	return this.mp.isDirectionallyPushableInto(dir);
     }
 
     @Override
-    public final boolean isDirectionallyPushableOut(final int dirX, final int dirY) {
-	return this.mp.isDirectionallyPushableOut(dirX, dirY);
+    public final boolean isDirectionallyPushableOut(final DirectionQuery dir) {
+	return this.mp.isDirectionallyPushableOut(dir);
     }
 
     @Override
-    public final boolean isDirectionallySightBlocking(final int dirX, final int dirY) {
-	return this.vp.isDirectionallySightBlocking(dirX, dirY);
+    public final boolean isDirectionallySightBlocking(final DirectionQuery dir) {
+	return this.vp.isDirectionallySightBlocking(dir);
     }
 
     @Override
-    public final boolean isDirectionallySolid(final int dirX, final int dirY) {
-	return this.sp.isDirectionallySolid(dirX, dirY);
+    public final boolean isDirectionallySolid(final DirectionQuery dir) {
+	return this.sp.isDirectionallySolid(dir);
     }
 
     @Override
-    public final boolean isInternallyDirectionallySightBlocking(final int dirX, final int dirY) {
-	return this.vp.isInternallyDirectionallySightBlocking(dirX, dirY);
+    public final boolean isInternallyDirectionallySightBlocking(final DirectionQuery dir) {
+	return this.vp.isInternallyDirectionallySightBlocking(dir);
     }
 
     @Override
-    public final boolean isInternallyDirectionallySolid(final int dirX, final int dirY) {
-	return this.sp.isInternallyDirectionallySolid(dirX, dirY);
+    public final boolean isInternallyDirectionallySolid(final DirectionQuery dir) {
+	return this.sp.isInternallyDirectionallySolid(dir);
     }
 
     @Override
@@ -384,35 +385,35 @@ public abstract class GameObject implements ObjectModel {
 	this.op.setDestroyable(value);
     }
 
-    protected final void setDirectionallyPullable(final int dir, final boolean value) {
+    protected final void setDirectionallyPullable(final DirectionQuery dir, final boolean value) {
 	this.mp.setDirectionallyPullable(dir, value);
     }
 
-    protected final void setDirectionallyPullableInto(final int dir, final boolean value) {
+    protected final void setDirectionallyPullableInto(final DirectionQuery dir, final boolean value) {
 	this.mp.setDirectionallyPullableInto(dir, value);
     }
 
-    protected final void setDirectionallyPullableOut(final int dir, final boolean value) {
+    protected final void setDirectionallyPullableOut(final DirectionQuery dir, final boolean value) {
 	this.mp.setDirectionallyPullableOut(dir, value);
     }
 
-    protected final void setDirectionallyPushable(final int dir, final boolean value) {
+    protected final void setDirectionallyPushable(final DirectionQuery dir, final boolean value) {
 	this.mp.setDirectionallyPushable(dir, value);
     }
 
-    protected final void setDirectionallyPushableInto(final int dir, final boolean value) {
+    protected final void setDirectionallyPushableInto(final DirectionQuery dir, final boolean value) {
 	this.mp.setDirectionallyPushableInto(dir, value);
     }
 
-    protected final void setDirectionallyPushableOut(final int dir, final boolean value) {
+    protected final void setDirectionallyPushableOut(final DirectionQuery dir, final boolean value) {
 	this.mp.setDirectionallyPushableOut(dir, value);
     }
 
-    protected final void setDirectionallySightBlocking(final int dir, final boolean value) {
+    protected final void setDirectionallySightBlocking(final DirectionQuery dir, final boolean value) {
 	this.vp.setDirectionallySightBlocking(dir, value);
     }
 
-    protected final void setDirectionallySolid(final int dir, final boolean value) {
+    protected final void setDirectionallySolid(final DirectionQuery dir, final boolean value) {
 	this.sp.setDirectionallySolid(dir, value);
     }
 
@@ -432,11 +433,11 @@ public abstract class GameObject implements ObjectModel {
 	}
     }
 
-    protected final void setInternallyDirectionallySightBlocking(final int dir, final boolean value) {
+    protected final void setInternallyDirectionallySightBlocking(final DirectionQuery dir, final boolean value) {
 	this.vp.setInternallyDirectionallySightBlocking(dir, value);
     }
 
-    protected final void setInternallyDirectionallySolid(final int dir, final boolean value) {
+    protected final void setInternallyDirectionallySolid(final DirectionQuery dir, final boolean value) {
 	this.sp.setInternallyDirectionallySolid(dir, value);
     }
 
