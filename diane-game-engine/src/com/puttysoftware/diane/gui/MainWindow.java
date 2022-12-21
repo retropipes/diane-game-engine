@@ -22,7 +22,7 @@ import javax.swing.WindowConstants;
 
 import com.puttysoftware.diane.Diane;
 import com.puttysoftware.diane.asset.music.DianeMusicIndex;
-import com.puttysoftware.diane.asset.music.MusicPlayer;
+import com.puttysoftware.diane.asset.music.DianeMusicPlayer;
 import com.puttysoftware.diane.gui.dialog.CommonDialogs;
 import com.puttysoftware.diane.internal.DefaultAssets;
 
@@ -112,7 +112,7 @@ public final class MainWindow {
 	return this.frame.isEnabled();
     }
 
-    void pack() {
+    public void pack() {
 	this.frame.pack();
     }
 
@@ -142,7 +142,7 @@ public final class MainWindow {
 	    this.currentMusic = this.savedMusicStack.pop();
 	    if (this.currentMusic != null && this.currentMusic != oldMusic) {
 		try {
-		    MusicPlayer.play(this.currentMusic);
+		    DianeMusicPlayer.play(this.currentMusic);
 		} catch (IOException e) {
 		    Diane.handleError(e);
 		}
@@ -217,7 +217,7 @@ public final class MainWindow {
 	this.currentDefault = null;
 	if (this.currentMusic != null && this.currentMusic != oldMusic) {
 	    try {
-		MusicPlayer.play(this.currentMusic);
+		DianeMusicPlayer.play(this.currentMusic);
 	    } catch (IOException e) {
 		Diane.handleError(e);
 	    }
@@ -239,7 +239,7 @@ public final class MainWindow {
 	this.currentMusic = music;
 	if (this.currentMusic != null && this.currentMusic != oldMusic) {
 	    try {
-		MusicPlayer.play(this.currentMusic);
+		DianeMusicPlayer.play(this.currentMusic);
 	    } catch (IOException e) {
 		Diane.handleError(e);
 	    }
@@ -262,7 +262,7 @@ public final class MainWindow {
 	this.currentMusic = screen.music();
 	if (this.currentMusic != null && this.currentMusic != oldMusic) {
 	    try {
-		MusicPlayer.play(this.currentMusic);
+		DianeMusicPlayer.play(this.currentMusic);
 	    } catch (IOException e) {
 		Diane.handleError(e);
 	    }
