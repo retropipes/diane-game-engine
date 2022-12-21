@@ -50,6 +50,7 @@ public final class MainWindow {
     private DianeMusicIndex currentMusic;
     private JButton currentDefault;
     private int savedDepth;
+    private int savedTitleDepth;
     private final LinkedList<JComponent> savedContentStack;
     private final LinkedList<String> savedTitleStack;
     private final LinkedList<DianeMusicIndex> savedMusicStack;
@@ -63,6 +64,7 @@ public final class MainWindow {
 	this.contentSize = new Dimension(width, height);
 	this.content = this.createContent();
 	this.savedDepth = 0;
+	this.savedTitleDepth = 0;
 	this.savedContentStack = new LinkedList<>();
 	this.savedTitleStack = new LinkedList<>();
 	this.savedMusicStack = new LinkedList<>();
@@ -127,11 +129,15 @@ public final class MainWindow {
     }
 
     public void restoreSaved() {
+	this.restoreSavedOthers();
+	this.restoreSavedTitle();
+    }
+
+    public void restoreSavedOthers() {
 	if (this.savedDepth > 0) {
 	    this.savedDepth--;
 	    this.content = this.savedContentStack.pop();
 	    this.frame.setContentPane(this.content);
-	    this.frame.setTitle(this.savedTitleStack.pop());
 	    var oldMusic = this.currentMusic;
 	    this.currentMusic = this.savedMusicStack.pop();
 	    if (this.currentMusic != null && this.currentMusic != oldMusic) {
@@ -148,15 +154,35 @@ public final class MainWindow {
 	}
     }
 
+    public void restoreSavedTitle() {
+	if (this.savedTitleDepth > 0) {
+	    this.savedTitleDepth--;
+	    this.frame.setTitle(this.savedTitleStack.pop());
+	}
+    }
+
     public void setAndSave(final JComponent customContent, final String title) {
 	this.savedContentStack.push(this.content);
 	this.savedTitleStack.push(this.frame.getTitle());
 	this.savedMusicStack.push(this.currentMusic);
 	this.savedDefaultButtonStack.push(this.currentDefault);
 	this.savedDepth++;
+	this.savedTitleDepth++;
 	this.content = customContent;
 	this.frame.setContentPane(this.content);
 	this.frame.setTitle(title);
+	this.currentMusic = DefaultAssets.NO_MUSIC;
+	this.currentDefault = null;
+    }
+
+    public void setAndSave(final JComponent customContent) {
+	this.savedContentStack.push(this.content);
+	this.savedMusicStack.push(this.currentMusic);
+	this.savedDefaultButtonStack.push(this.currentDefault);
+	this.savedDepth++;
+	this.savedTitleDepth++;
+	this.content = customContent;
+	this.frame.setContentPane(this.content);
 	this.currentMusic = DefaultAssets.NO_MUSIC;
 	this.currentDefault = null;
     }
@@ -167,6 +193,7 @@ public final class MainWindow {
 	this.savedMusicStack.push(this.currentMusic);
 	this.savedDefaultButtonStack.push(this.currentDefault);
 	this.savedDepth++;
+	this.savedTitleDepth++;
 	this.content = customContent;
 	this.frame.setContentPane(this.content);
 	this.frame.setTitle(title);
@@ -181,6 +208,7 @@ public final class MainWindow {
 	this.savedMusicStack.push(this.currentMusic);
 	this.savedDefaultButtonStack.push(this.currentDefault);
 	this.savedDepth++;
+	this.savedTitleDepth++;
 	this.content = customContent;
 	this.frame.setContentPane(this.content);
 	this.frame.setTitle(title);
@@ -203,6 +231,7 @@ public final class MainWindow {
 	this.savedMusicStack.push(this.currentMusic);
 	this.savedDefaultButtonStack.push(this.currentDefault);
 	this.savedDepth++;
+	this.savedTitleDepth++;
 	this.content = customContent;
 	this.frame.setContentPane(this.content);
 	this.frame.setTitle(title);
@@ -225,6 +254,7 @@ public final class MainWindow {
 	this.savedMusicStack.push(this.currentMusic);
 	this.savedDefaultButtonStack.push(this.currentDefault);
 	this.savedDepth++;
+	this.savedTitleDepth++;
 	this.content = screen.content();
 	this.frame.setContentPane(this.content);
 	this.frame.setTitle(screen.title());
@@ -245,12 +275,22 @@ public final class MainWindow {
 	this.frame.getRootPane().putClientProperty("Window.documentModified", Boolean.valueOf(newDirty));
     }
 
+    public void setDefaultButton(final JButton button) {
+	this.frame.getRootPane().setDefaultButton(button);
+    }
+
     public void setEnabled(final boolean value) {
 	this.frame.setEnabled(value);
     }
 
     public void setMenus(final JMenuBar menus) {
 	this.frame.setJMenuBar(menus);
+    }
+
+    public void setTitle(final String title) {
+	this.savedTitleStack.push(this.frame.getTitle());
+	this.savedTitleDepth++;
+	this.frame.setTitle(title);
     }
 
     public void setTransferHandler(final TransferHandler h) {
