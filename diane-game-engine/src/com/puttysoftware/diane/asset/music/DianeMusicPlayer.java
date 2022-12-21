@@ -10,7 +10,7 @@ import java.io.IOException;
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioSystem;
 
-public class MusicPlayer {
+public class DianeMusicPlayer {
     private static final int SAMPLE_RATE = 41000;
     private static Module module;
     static IBXM ibxm;
@@ -18,7 +18,7 @@ public class MusicPlayer {
     private static int interpolation;
     private static Thread playThread;
 
-    public MusicPlayer() {
+    public DianeMusicPlayer() {
 	// Do nothing
     }
 
@@ -31,25 +31,25 @@ public class MusicPlayer {
     }
 
     public synchronized static void play(final DianeMusicIndex index) throws IOException {
-	if (MusicPlayer.isPlaying()) {
-	    MusicPlayer.stopPlaying();
+	if (DianeMusicPlayer.isPlaying()) {
+	    DianeMusicPlayer.stopPlaying();
 	}
 	final var source = index.getURL();
 	try (var inputStream = source.openStream()) {
 	    final var moduleData = inputStream.readAllBytes();
-	    MusicPlayer.module = new Module(moduleData);
-	    MusicPlayer.ibxm = new IBXM(MusicPlayer.module, MusicPlayer.SAMPLE_RATE);
-	    MusicPlayer.ibxm.setInterpolation(MusicPlayer.interpolation);
-	    MusicPlayer.playing = true;
-	    MusicPlayer.playThread = new Thread(() -> {
-		final var mixBuf = new int[MusicPlayer.ibxm.getMixBufferLength()];
+	    DianeMusicPlayer.module = new Module(moduleData);
+	    DianeMusicPlayer.ibxm = new IBXM(DianeMusicPlayer.module, DianeMusicPlayer.SAMPLE_RATE);
+	    DianeMusicPlayer.ibxm.setInterpolation(DianeMusicPlayer.interpolation);
+	    DianeMusicPlayer.playing = true;
+	    DianeMusicPlayer.playThread = new Thread(() -> {
+		final var mixBuf = new int[DianeMusicPlayer.ibxm.getMixBufferLength()];
 		final var outBuf = new byte[mixBuf.length * 4];
-		final var audioFormat = new AudioFormat(MusicPlayer.SAMPLE_RATE, 16, 2, true, true);
+		final var audioFormat = new AudioFormat(DianeMusicPlayer.SAMPLE_RATE, 16, 2, true, true);
 		try (var audioLine = AudioSystem.getSourceDataLine(audioFormat)) {
 		    audioLine.open();
 		    audioLine.start();
-		    while (MusicPlayer.playing) {
-			final var count = MusicPlayer.getAudio(mixBuf);
+		    while (DianeMusicPlayer.playing) {
+			final var count = DianeMusicPlayer.getAudio(mixBuf);
 			var outIdx = 0;
 			for (int mixIdx = 0, mixEnd = count * 2; mixIdx < mixEnd; mixIdx++) {
 			    var ampl = mixBuf[mixIdx];
@@ -71,7 +71,7 @@ public class MusicPlayer {
 		    // Ignore
 		}
 	    });
-	    MusicPlayer.playThread.start();
+	    DianeMusicPlayer.playThread.start();
 	} catch (final IOException ioe) {
 	    throw ioe;
 	}

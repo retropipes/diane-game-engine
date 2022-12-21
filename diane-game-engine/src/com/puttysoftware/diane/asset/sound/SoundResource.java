@@ -35,7 +35,7 @@ class SoundResource {
 				    line.open(format);
 				    line.start();
 				    var nBytesRead = 0;
-				    final var abData = new byte[SoundPlayer.EXTERNAL_BUFFER_SIZE];
+				    final var abData = new byte[DianeSoundPlayer.EXTERNAL_BUFFER_SIZE];
 				    try {
 					while (nBytesRead != -1) {
 					    nBytesRead = audioInputStream.read(abData, 0, abData.length);

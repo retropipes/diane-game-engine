@@ -5,7 +5,7 @@ Any questions should be directed to the author via email at: support@puttysoftwa
  */
 package com.puttysoftware.diane.asset.sound;
 
-public final class SoundPlayer {
+public final class DianeSoundPlayer {
     // Constants
     protected static final int EXTERNAL_BUFFER_SIZE = 4096; // 4Kb
 
@@ -15,6 +15,6 @@ public final class SoundPlayer {
     }
 
     // Constructor
-    protected SoundPlayer() {
+    protected DianeSoundPlayer() {
     }
 }
