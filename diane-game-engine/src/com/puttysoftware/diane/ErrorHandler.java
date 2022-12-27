@@ -6,4 +6,5 @@ Any questions should be directed to the author via email at: support@puttysoftwa
 package com.puttysoftware.diane;
 
 public interface ErrorHandler extends Thread.UncaughtExceptionHandler {
+    void handleWarning(Throwable t);
 }

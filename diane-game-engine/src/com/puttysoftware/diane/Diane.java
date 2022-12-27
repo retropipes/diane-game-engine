@@ -14,6 +14,10 @@ public class Diane {
 	Diane.errHandler.uncaughtException(Thread.currentThread(), t);
     }
 
+    public static void handleWarning(final Throwable t) {
+	Diane.errHandler.handleWarning(t);
+    }
+
     public static void installCustomErrorHandler(final ErrorHandler handler) {
 	// Install custom error handler
 	Diane.errHandler = handler;

@@ -20,4 +20,9 @@ public class DefaultErrorHandler implements ErrorHandler {
     public void uncaughtException(Thread t, Throwable e) {
 	this.logger.logError(e);
     }
+    
+    @Override
+    public void handleWarning(final Throwable t) {
+	this.logger.logWarning(t);
+    }
 }
