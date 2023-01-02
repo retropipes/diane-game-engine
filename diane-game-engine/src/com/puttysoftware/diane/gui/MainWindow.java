@@ -257,7 +257,7 @@ public final class MainWindow {
 	this.frame.getRootPane().setDefaultButton(defaultButton);
     }
 
-    public void setAndSave(final ScreenController screen) {
+    public void setAndSave(final Screen screen) {
 	this.savedContentStack.push(this.content);
 	this.savedTitleStack.push(this.frame.getTitle());
 	this.savedMusicStack.push(this.currentMusic);

@@ -95,13 +95,21 @@ public abstract class Screen extends WindowAdapter {
 	}
 	return this.value;
     }
-    
+
     public void statusMessage(final String msg) {
 	CommonDialogs.showDialog(msg);
     }
 
+    public void setMusic(final DianeMusicIndex newMusic) {
+	this.music = newMusic;
+    }
+
     public void setTitle(final String newTitle) {
 	this.title = newTitle;
+    }
+
+    public void setDefaultButton(final JButton newDefaultButton) {
+	this.defaultButton = newDefaultButton;
     }
 
     public String title() {
@@ -115,7 +123,7 @@ public abstract class Screen extends WindowAdapter {
     public JButton defaultButton() {
 	return this.defaultButton;
     }
-    
+
     public void updateDirtyWindow(final boolean appDirty) {
 	this.theFrame.setDirty(appDirty);
     }
