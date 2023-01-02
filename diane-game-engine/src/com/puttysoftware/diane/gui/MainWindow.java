@@ -7,6 +7,7 @@ package com.puttysoftware.diane.gui;
 
 import java.awt.Dimension;
 import java.awt.event.KeyListener;
+import java.awt.event.WindowFocusListener;
 import java.awt.event.WindowListener;
 import java.io.IOException;
 import java.util.LinkedList;
@@ -82,6 +83,10 @@ public final class MainWindow {
 	this.frame.addWindowListener(l);
     }
 
+    public void addWindowFocusListener(final WindowFocusListener l) {
+	this.frame.addWindowFocusListener(l);
+    }
+
     public void checkAndSetTitle(final String title) {
 	if (!this.savedTitleStack.isEmpty()) {
 	    this.frame.setTitle(title);
@@ -126,6 +131,10 @@ public final class MainWindow {
 
     public void removeWindowListener(final WindowListener l) {
 	this.frame.removeWindowListener(l);
+    }
+
+    public void removeWindowFocusListener(final WindowFocusListener l) {
+	this.frame.removeWindowFocusListener(l);
     }
 
     public void restoreSaved() {
