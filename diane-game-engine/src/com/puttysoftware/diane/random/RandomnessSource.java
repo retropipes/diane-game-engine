@@ -1,8 +1,6 @@
 /*  Diane Game Engine
-Copyleft (C) 2019 Eric Ahnell
-
-Any questions should be directed to the author via email at: support@puttysoftware.com
- */
+Copyleft (C) 2019-present Eric Ahnell
+Any questions should be directed to the author via email at: support@puttysoftware.com */
 package com.puttysoftware.diane.random;
 
 import java.util.Random;
@@ -22,7 +20,7 @@ class RandomnessSource {
      */
     // Methods
     private static Random getSource() {
-	return RandomnessSource.theSource;
+        return RandomnessSource.theSource;
     }
 
     /**
@@ -31,7 +29,7 @@ class RandomnessSource {
      * @return the double
      */
     static double nextDouble() {
-	return RandomnessSource.getSource().nextDouble();
+        return RandomnessSource.getSource().nextDouble();
     }
 
     /**
@@ -40,7 +38,7 @@ class RandomnessSource {
      * @return the integer
      */
     static int nextInt() {
-	return RandomnessSource.getSource().nextInt();
+        return RandomnessSource.getSource().nextInt();
     }
 
     /**
@@ -49,7 +47,7 @@ class RandomnessSource {
      * @return the bounded integer
      */
     static int nextBoundedInt(final int bound) {
-	return RandomnessSource.getSource().nextInt(bound);
+        return RandomnessSource.getSource().nextInt(bound);
     }
 
     /**
@@ -58,7 +56,7 @@ class RandomnessSource {
      * @return the long
      */
     static long nextLong() {
-	return RandomnessSource.getSource().nextLong();
+        return RandomnessSource.getSource().nextLong();
     }
 
     /**
@@ -66,6 +64,6 @@ class RandomnessSource {
      */
     // Constructor
     private RandomnessSource() {
-	// Do nothing
+        // Do nothing
     }
 }

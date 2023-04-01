@@ -1,8 +1,6 @@
 /*  Diane Game Engine
-Copyleft (C) 2019 Eric Ahnell
-
-Any questions should be directed to the author via email at: support@puttysoftware.com
- */
+Copyleft (C) 2019-present Eric Ahnell
+Any questions should be directed to the author via email at: support@puttysoftware.com */
 package com.puttysoftware.diane.fileio.utility;
 
 import java.io.BufferedReader;
@@ -17,28 +15,28 @@ public class ResourceStreamReader implements AutoCloseable {
 
     // Constructors
     public ResourceStreamReader(final InputStream is) {
-	this.br = new BufferedReader(new InputStreamReader(is));
+        this.br = new BufferedReader(new InputStreamReader(is));
     }
 
     public ResourceStreamReader(final InputStream is, final String encoding) throws UnsupportedEncodingException {
-	this.br = new BufferedReader(new InputStreamReader(is, encoding));
+        this.br = new BufferedReader(new InputStreamReader(is, encoding));
     }
 
     // Methods
     @Override
     public void close() throws IOException {
-	this.br.close();
+        this.br.close();
     }
 
     public int readInt() throws IOException {
-	final var line = this.br.readLine();
-	if (line == null) {
-	    throw new IOException("Input line == null!"); //$NON-NLS-1$
-	}
-	return Integer.parseInt(line);
+        final var line = this.br.readLine();
+        if (line == null) {
+            throw new IOException("Input line == null!"); //$NON-NLS-1$
+        }
+        return Integer.parseInt(line);
     }
 
     public String readString() throws IOException {
-	return this.br.readLine();
+        return this.br.readLine();
     }
 }

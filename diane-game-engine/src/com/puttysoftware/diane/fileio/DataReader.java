@@ -1,8 +1,6 @@
 /*  Diane Game Engine
-Copyleft (C) 2019 Eric Ahnell
-
-Any questions should be directed to the author via email at: support@puttysoftware.com
- */
+Copyleft (C) 2019-present Eric Ahnell
+Any questions should be directed to the author via email at: support@puttysoftware.com */
 package com.puttysoftware.diane.fileio;
 
 import java.io.BufferedReader;
@@ -15,132 +13,132 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 public class DataReader implements AutoCloseable {
-    // Fields
-    private final DataMode dataMode;
-    private BufferedReader br;
-    private DataInputStream dis;
-    private final File file;
+	// Fields
+	private final DataMode dataMode;
+	private BufferedReader br;
+	private DataInputStream dis;
+	private final File file;
 
-    public DataReader(final File filename) throws IOException {
-	this.dataMode = DataMode.TEXT;
-	this.br = new BufferedReader(new FileReader(filename));
-	this.dis = null;
-	this.file = filename;
-    }
-
-    public DataReader(final File filename, final DataMode mode) throws IOException {
-	this.dataMode = mode;
-	if (mode != DataMode.BINARY) {
-	    this.br = new BufferedReader(new FileReader(filename));
-	} else {
-	    this.dis = new DataInputStream(new FileInputStream(filename));
+	public DataReader(final File filename) throws IOException {
+		this.dataMode = DataMode.TEXT;
+		this.br = new BufferedReader(new FileReader(filename));
+		this.dis = null;
+		this.file = filename;
 	}
-	this.file = filename;
-    }
 
-    protected DataReader(final InputStream stream, final DataMode mode) {
-	this.dataMode = mode;
-	if (mode != DataMode.BINARY) {
-	    this.br = new BufferedReader(new InputStreamReader(stream));
-	} else {
-	    this.dis = new DataInputStream(stream);
+	public DataReader(final File filename, final DataMode mode) throws IOException {
+		this.dataMode = mode;
+		if (mode != DataMode.BINARY) {
+			this.br = new BufferedReader(new FileReader(filename));
+		} else {
+			this.dis = new DataInputStream(new FileInputStream(filename));
+		}
+		this.file = filename;
 	}
-	this.file = null;
-    }
 
-    // Constructors
-    public DataReader(final String filename) throws IOException {
-	this.dataMode = DataMode.TEXT;
-	this.br = new BufferedReader(new FileReader(filename));
-	this.dis = null;
-	this.file = new File(filename);
-    }
-
-    public DataReader(final String filename, final DataMode mode) throws IOException {
-	this.dataMode = mode;
-	if (mode != DataMode.BINARY) {
-	    this.br = new BufferedReader(new FileReader(filename));
-	} else {
-	    this.dis = new DataInputStream(new FileInputStream(filename));
+	protected DataReader(final InputStream stream, final DataMode mode) {
+		this.dataMode = mode;
+		if (mode != DataMode.BINARY) {
+			this.br = new BufferedReader(new InputStreamReader(stream));
+		} else {
+			this.dis = new DataInputStream(stream);
+		}
+		this.file = null;
 	}
-	this.file = new File(filename);
-    }
 
-    @Override
-    public void close() throws IOException {
-	if (this.dataMode != DataMode.BINARY) {
-	    this.br.close();
-	} else {
-	    this.dis.close();
+	// Constructors
+	public DataReader(final String filename) throws IOException {
+		this.dataMode = DataMode.TEXT;
+		this.br = new BufferedReader(new FileReader(filename));
+		this.dis = null;
+		this.file = new File(filename);
 	}
-    }
 
-    // Methods
-    public File getFile() {
-	return this.file;
-    }
-
-    public boolean readBoolean() throws IOException {
-	if (this.dataMode != DataMode.BINARY) {
-	    return Boolean.parseBoolean(this.br.readLine());
-	} else {
-	    return this.dis.readBoolean();
+	public DataReader(final String filename, final DataMode mode) throws IOException {
+		this.dataMode = mode;
+		if (mode != DataMode.BINARY) {
+			this.br = new BufferedReader(new FileReader(filename));
+		} else {
+			this.dis = new DataInputStream(new FileInputStream(filename));
+		}
+		this.file = new File(filename);
 	}
-    }
 
-    public byte readByte() throws IOException {
-	if (this.dataMode != DataMode.BINARY) {
-	    return Byte.parseByte(this.br.readLine());
-	} else {
-	    return this.dis.readByte();
+	@Override
+	public void close() throws IOException {
+		if (this.dataMode != DataMode.BINARY) {
+			this.br.close();
+		} else {
+			this.dis.close();
+		}
 	}
-    }
 
-    public double readDouble() throws IOException {
-	if (this.dataMode != DataMode.BINARY) {
-	    return Double.parseDouble(this.br.readLine());
-	} else {
-	    return this.dis.readDouble();
+	// Methods
+	public File getFile() {
+		return this.file;
 	}
-    }
 
-    public float readFloat() throws IOException {
-	if (this.dataMode != DataMode.BINARY) {
-	    return Float.parseFloat(this.br.readLine());
-	} else {
-	    return this.dis.readFloat();
+	public boolean readBoolean() throws IOException {
+		if (this.dataMode != DataMode.BINARY) {
+			return Boolean.parseBoolean(this.br.readLine());
+		} else {
+			return this.dis.readBoolean();
+		}
 	}
-    }
 
-    public int readInt() throws IOException {
-	if (this.dataMode != DataMode.BINARY) {
-	    return Integer.parseInt(this.br.readLine());
-	} else {
-	    return this.dis.readInt();
+	public byte readByte() throws IOException {
+		if (this.dataMode != DataMode.BINARY) {
+			return Byte.parseByte(this.br.readLine());
+		} else {
+			return this.dis.readByte();
+		}
 	}
-    }
 
-    public long readLong() throws IOException {
-	if (this.dataMode != DataMode.BINARY) {
-	    return Long.parseLong(this.br.readLine());
-	} else {
-	    return this.dis.readLong();
+	public double readDouble() throws IOException {
+		if (this.dataMode != DataMode.BINARY) {
+			return Double.parseDouble(this.br.readLine());
+		} else {
+			return this.dis.readDouble();
+		}
 	}
-    }
 
-    public short readShort() throws IOException {
-	if (this.dataMode != DataMode.BINARY) {
-	    return Short.parseShort(this.br.readLine());
-	} else {
-	    return this.dis.readShort();
+	public float readFloat() throws IOException {
+		if (this.dataMode != DataMode.BINARY) {
+			return Float.parseFloat(this.br.readLine());
+		} else {
+			return this.dis.readFloat();
+		}
 	}
-    }
 
-    public String readString() throws IOException {
-	if (this.dataMode != DataMode.BINARY) {
-	    return this.br.readLine();
-	} else {
-	    return this.dis.readUTF();
+	public int readInt() throws IOException {
+		if (this.dataMode != DataMode.BINARY) {
+			return Integer.parseInt(this.br.readLine());
+		} else {
+			return this.dis.readInt();
+		}
 	}
-    }
+
+	public long readLong() throws IOException {
+		if (this.dataMode != DataMode.BINARY) {
+			return Long.parseLong(this.br.readLine());
+		} else {
+			return this.dis.readLong();
+		}
+	}
+
+	public short readShort() throws IOException {
+		if (this.dataMode != DataMode.BINARY) {
+			return Short.parseShort(this.br.readLine());
+		} else {
+			return this.dis.readShort();
+		}
+	}
+
+	public String readString() throws IOException {
+		if (this.dataMode != DataMode.BINARY) {
+			return this.br.readLine();
+		} else {
+			return this.dis.readUTF();
+		}
+	}
 }

@@ -1,8 +1,6 @@
 /*  Diane Game Engine
-Copyleft (C) 2019 Eric Ahnell
-
-Any questions should be directed to the author via email at: support@puttysoftware.com
- */
+Copyleft (C) 2019-present Eric Ahnell
+Any questions should be directed to the author via email at: support@puttysoftware.com */
 package com.puttysoftware.diane.storage;
 
 import java.util.Arrays;
@@ -29,14 +27,14 @@ public class ByteStorage {
      * @param shape  simulated dimensions for the stored data
      */
     protected ByteStorage(final byte[] source, final int... shape) {
-	this.dataShape = shape;
-	this.interProd = new int[this.dataShape.length];
-	var product = 1;
-	for (var x = 0; x < this.dataShape.length; x++) {
-	    this.interProd[x] = product;
-	    product *= this.dataShape[x];
-	}
-	this.dataStore = Arrays.copyOf(source, product);
+        this.dataShape = shape;
+        this.interProd = new int[this.dataShape.length];
+        var product = 1;
+        for (var x = 0; x < this.dataShape.length; x++) {
+            this.interProd[x] = product;
+            product *= this.dataShape[x];
+        }
+        this.dataStore = Arrays.copyOf(source, product);
     }
 
     // Copy constructor
@@ -46,14 +44,14 @@ public class ByteStorage {
      * @param source the @self to make a copy of
      */
     public ByteStorage(final ByteStorage source) {
-	this.dataShape = source.dataShape;
-	this.interProd = new int[this.dataShape.length];
-	var product = 1;
-	for (var x = 0; x < this.dataShape.length; x++) {
-	    this.interProd[x] = product;
-	    product *= this.dataShape[x];
-	}
-	this.dataStore = Arrays.copyOf(source.dataStore, product);
+        this.dataShape = source.dataShape;
+        this.interProd = new int[this.dataShape.length];
+        var product = 1;
+        for (var x = 0; x < this.dataShape.length; x++) {
+            this.interProd[x] = product;
+            product *= this.dataShape[x];
+        }
+        this.dataStore = Arrays.copyOf(source.dataStore, product);
     }
 
     // Constructor
@@ -63,14 +61,14 @@ public class ByteStorage {
      * @param shape simulated dimensions for the stored data
      */
     public ByteStorage(final int... shape) {
-	this.dataShape = shape;
-	this.interProd = new int[this.dataShape.length];
-	var product = 1;
-	for (var x = 0; x < this.dataShape.length; x++) {
-	    this.interProd[x] = product;
-	    product *= this.dataShape[x];
-	}
-	this.dataStore = new byte[product];
+        this.dataShape = shape;
+        this.interProd = new int[this.dataShape.length];
+        var product = 1;
+        for (var x = 0; x < this.dataShape.length; x++) {
+            this.interProd[x] = product;
+            product *= this.dataShape[x];
+        }
+        this.dataStore = new byte[product];
     }
 
     // Methods
@@ -82,14 +80,14 @@ public class ByteStorage {
      */
     @Override
     public boolean equals(final Object obj) {
-	if (this == obj) {
-	    return true;
-	}
-	if (obj == null || !(obj instanceof final ByteStorage other)
-		|| !Arrays.equals(this.dataStore, other.dataStore)) {
-	    return false;
-	}
-	return true;
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || !(obj instanceof final ByteStorage other)
+                || !Arrays.equals(this.dataStore, other.dataStore)) {
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -98,7 +96,7 @@ public class ByteStorage {
      * @param obj the data to fill with
      */
     public final void fill(final byte obj) {
-	Arrays.fill(this.dataStore, obj);
+        Arrays.fill(this.dataStore, obj);
     }
 
     /**
@@ -108,8 +106,8 @@ public class ByteStorage {
      * @return the data at that location
      */
     public final byte getCell(final int... loc) {
-	final var aloc = this.ravelLocation(loc);
-	return this.dataStore[aloc];
+        final var aloc = this.ravelLocation(loc);
+        return this.dataStore[aloc];
     }
 
     /**
@@ -120,7 +118,7 @@ public class ByteStorage {
      * @return the data at that index
      */
     protected final byte getRawCell(final int rawLoc) {
-	return this.dataStore[rawLoc];
+        return this.dataStore[rawLoc];
     }
 
     /**
@@ -129,7 +127,7 @@ public class ByteStorage {
      * @return the underlying array length
      */
     protected final int getRawLength() {
-	return this.dataStore.length;
+        return this.dataStore.length;
     }
 
     /**
@@ -138,7 +136,7 @@ public class ByteStorage {
      * @return the shape, as an array of integers
      */
     public final int[] getShape() {
-	return this.dataShape;
+        return this.dataShape;
     }
 
     /**
@@ -146,7 +144,7 @@ public class ByteStorage {
      */
     @Override
     public int hashCode() {
-	return Objects.hash(Arrays.hashCode(this.dataStore));
+        return Objects.hash(Arrays.hashCode(this.dataStore));
     }
 
     /**
@@ -156,19 +154,19 @@ public class ByteStorage {
      * @return a raw index
      */
     protected final int ravelLocation(final int... loc) {
-	var res = 0;
-	// Sanity check #1
-	if (loc.length != this.interProd.length) {
-	    throw new IllegalArgumentException(Integer.toString(loc.length));
-	}
-	for (var x = 0; x < this.interProd.length; x++) {
-	    // Sanity check #2
-	    if (loc[x] < 0 || loc[x] >= this.dataShape[x]) {
-		throw new ArrayIndexOutOfBoundsException(loc[x]);
-	    }
-	    res += loc[x] * this.interProd[x];
-	}
-	return res;
+        var res = 0;
+        // Sanity check #1
+        if (loc.length != this.interProd.length) {
+            throw new IllegalArgumentException(Integer.toString(loc.length));
+        }
+        for (var x = 0; x < this.interProd.length; x++) {
+            // Sanity check #2
+            if (loc[x] < 0 || loc[x] >= this.dataShape[x]) {
+                throw new ArrayIndexOutOfBoundsException(loc[x]);
+            }
+            res += loc[x] * this.interProd[x];
+        }
+        return res;
     }
 
     /**
@@ -178,8 +176,8 @@ public class ByteStorage {
      * @param loc the location to modify
      */
     public final void offsetCell(final byte obj, final int... loc) {
-	final var aloc = this.ravelLocation(loc);
-	this.dataStore[aloc] += obj;
+        final var aloc = this.ravelLocation(loc);
+        this.dataStore[aloc] += obj;
     }
 
     /**
@@ -190,7 +188,7 @@ public class ByteStorage {
      * @param rawLoc the index to modify
      */
     protected final void offsetRawCell(final byte obj, final int rawLoc) {
-	this.dataStore[rawLoc] += obj;
+        this.dataStore[rawLoc] += obj;
     }
 
     /**
@@ -200,8 +198,8 @@ public class ByteStorage {
      * @param loc the location to modify
      */
     public final void setCell(final byte obj, final int... loc) {
-	final var aloc = this.ravelLocation(loc);
-	this.dataStore[aloc] = obj;
+        final var aloc = this.ravelLocation(loc);
+        this.dataStore[aloc] = obj;
     }
 
     /**
@@ -212,6 +210,6 @@ public class ByteStorage {
      * @param rawLoc the index to modify
      */
     protected final void setRawCell(final byte obj, final int rawLoc) {
-	this.dataStore[rawLoc] = obj;
+        this.dataStore[rawLoc] = obj;
     }
 }
