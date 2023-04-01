@@ -109,7 +109,6 @@ public final class StackedPicturePicker {
 		return this.index;
 	}
 
-	// Methods
 	public JPanel getPicker() {
 		return this.pickerJPanel;
 	}

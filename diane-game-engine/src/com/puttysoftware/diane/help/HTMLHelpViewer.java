@@ -32,7 +32,6 @@ public final class HTMLHelpViewer {
 		this.helpContainer.add(this.scrollPane);
 	}
 
-	// Methods
 	public Container getHelp() {
 		return this.helpContainer;
 	}

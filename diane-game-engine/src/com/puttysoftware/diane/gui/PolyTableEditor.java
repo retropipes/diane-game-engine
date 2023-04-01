@@ -37,7 +37,6 @@ public final class PolyTableEditor {
 		this.page = oldPage;
 	}
 
-	// Methods
 	public PolyTable edit() {
 		String editorString;
 		if (this.page.isExperience()) {

@@ -13,7 +13,6 @@ class ImageScaler {
 	private static boolean SCALE_COMPUTED = false;
 	private static int NORMAL_DPI = 96;
 
-	// Methods
 	private static void computeImageScale() {
 		if (!ImageScaler.SCALE_COMPUTED) {
 			if (System.getProperty("os.name").startsWith("Mac OS X")) {

@@ -191,7 +191,6 @@ public final class PicturePicker {
 		return this.index;
 	}
 
-	// Methods
 	public JPanel getPicker() {
 		return this.pickerJPanel;
 	}

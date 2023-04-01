@@ -109,7 +109,6 @@ public class Integration {
 		}
 	}
 
-	// Methods
 	public void configureLookAndFeel() {
 		if (this.macOS) {
 			// macOS-specific stuff

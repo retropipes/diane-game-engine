@@ -64,7 +64,6 @@ public class XDataWriter implements DataIOWriter {
 		}
 	}
 
-	// Methods
 	@Override
 	public DataMode getDataIOMode() {
 		return DataMode.CUSTOM_XML;

@@ -41,7 +41,6 @@ public class TextDataWriter implements DataIOWriter {
 		}
 	}
 
-	// Methods
 	@Override
 	public DataMode getDataIOMode() {
 		return DataMode.TEXT;

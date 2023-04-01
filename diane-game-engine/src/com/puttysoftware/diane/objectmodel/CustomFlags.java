@@ -58,7 +58,6 @@ final class CustomFlags {
 		return Objects.hash(this.flags);
 	}
 
-	// Methods
 	public int length() {
 		return this.flags.size();
 	}

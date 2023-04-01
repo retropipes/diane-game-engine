@@ -29,7 +29,6 @@ public class SavedScoreManager extends ScoreManager {
 		}
 	}
 
-	// Methods
 	@Override
 	public boolean addScore(final long newScore) {
 		final var success = super.addScore(newScore);

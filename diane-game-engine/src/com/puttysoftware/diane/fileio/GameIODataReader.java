@@ -36,7 +36,6 @@ public class GameIODataReader implements DataIOReader {
 		}
 	}
 
-	// Methods
 	@Override
 	public DataMode getDataIOMode() {
 		return DataMode.GAME_IO;

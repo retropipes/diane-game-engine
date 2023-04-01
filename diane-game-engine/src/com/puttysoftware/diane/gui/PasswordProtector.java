@@ -155,7 +155,6 @@ public class PasswordProtector {
 		}
 	}
 
-	// Methods
 	public void setPassword(final XDataWriter passwordFile) {
 		this.passwordDialog.setTitle("Set Password"); //$NON-NLS-1$
 		this.passwordLabel.setText("Type the new password below (it will be hidden as you type):"); //$NON-NLS-1$

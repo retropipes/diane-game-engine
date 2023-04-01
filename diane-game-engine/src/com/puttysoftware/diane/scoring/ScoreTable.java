@@ -45,7 +45,6 @@ public class ScoreTable {
 		return this.table.get(pos).getName();
 	}
 
-	// Methods
 	public long getEntryScore(final int which, final int pos) {
 		return this.table.get(pos).getScore(which);
 	}

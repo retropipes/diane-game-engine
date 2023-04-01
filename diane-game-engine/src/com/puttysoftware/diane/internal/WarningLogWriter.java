@@ -96,7 +96,6 @@ class WarningLogWriter {
 		return sdf.format(time);
 	}
 
-	// Methods
 	void writeLogInfo() {
 		try {
 			// Make sure the needed directories exist first

@@ -31,7 +31,6 @@ class SolidProperties {
 		this.solidData = new FlagStorage(SolidProperties.SOLID_DATA_TYPES, DirectionQueryResolver.COUNT);
 	}
 
-	// Methods
 	@Override
 	public boolean equals(final Object obj) {
 		if (obj == null || this.getClass() != obj.getClass()) {

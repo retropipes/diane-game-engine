@@ -16,7 +16,6 @@ public final class ColorReplaceRules {
 		this.rules = new ArrayList<>();
 	}
 
-	// Methods
 	public void add(final Color find, final Color replace) {
 		final var value = new ColorReplaceRule(find, replace);
 		this.rules.add(value);

@@ -51,7 +51,6 @@ public class TextDataReader implements DataIOReader {
 		}
 	}
 
-	// Methods
 	@Override
 	public DataMode getDataIOMode() {
 		return DataMode.TEXT;

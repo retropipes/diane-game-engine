@@ -17,7 +17,6 @@ final class ColorReplaceRule {
 		this.replaceColor = replace;
 	}
 
-	// Methods
 	public BufferedImageIcon apply(final BufferedImageIcon input) {
 		if (input == null) {
 			throw new IllegalArgumentException("input == NULL!");

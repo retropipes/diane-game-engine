@@ -100,7 +100,6 @@ public class XDataReader implements DataIOReader {
 		}
 	}
 
-	// Methods
 	@Override
 	public DataMode getDataIOMode() {
 		return DataMode.CUSTOM_XML;

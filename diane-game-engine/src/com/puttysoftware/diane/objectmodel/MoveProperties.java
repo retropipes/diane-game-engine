@@ -35,7 +35,6 @@ class MoveProperties {
 		this.moveData = new FlagStorage(MoveProperties.MOVE_DATA_TYPES, DirectionQueryResolver.COUNT);
 	}
 
-	// Methods
 	@Override
 	public boolean equals(final Object obj) {
 		if (obj == null || this.getClass() != obj.getClass()) {

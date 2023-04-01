@@ -73,7 +73,6 @@ public class DataReader implements AutoCloseable {
 		}
 	}
 
-	// Methods
 	public File getFile() {
 		return this.file;
 	}

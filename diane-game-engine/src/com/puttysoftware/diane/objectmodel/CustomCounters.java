@@ -74,7 +74,6 @@ final class CustomCounters {
 		return true;
 	}
 
-	// Methods
 	public int length() {
 		return this.counters.size();
 	}

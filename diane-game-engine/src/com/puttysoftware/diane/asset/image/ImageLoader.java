@@ -26,8 +26,7 @@ public class ImageLoader {
 			}
 		}
 
-		// Methods
-		public static BufferedImageIcon getCachedImage(final String name, final URL url) {
+			public static BufferedImageIcon getCachedImage(final String name, final URL url) {
 			if (!ImageCache.cacheCreated) {
 				ImageCache.createCache();
 			}
@@ -72,8 +71,7 @@ public class ImageLoader {
 			return Objects.hash(this.name);
 		}
 
-		// Methods
-		public BufferedImageIcon image() {
+			public BufferedImageIcon image() {
 			return this.image;
 		}
 

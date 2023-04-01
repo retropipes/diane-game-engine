@@ -115,7 +115,6 @@ public final class Score {
 		return this.name;
 	}
 
-	// Methods
 	public long getScore() {
 		return this.scores[0];
 	}

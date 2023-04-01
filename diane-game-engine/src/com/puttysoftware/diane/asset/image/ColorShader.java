@@ -49,7 +49,6 @@ public class ColorShader {
 		return Objects.equals(this.shadeColor, other.shadeColor) && Objects.equals(this.shadeName, other.shadeName);
 	}
 
-	// Methods
 	public String getName() {
 		return this.shadeName;
 	}

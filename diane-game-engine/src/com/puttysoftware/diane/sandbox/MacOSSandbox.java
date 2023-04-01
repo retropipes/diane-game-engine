@@ -55,7 +55,6 @@ final class MacOSSandbox extends Sandbox {
 		this.flagCache.put(SandboxFlag.SUPER_COMMAND, System.getProperty("LaunchModifierFlagCommand") == "true");
 	}
 
-	// Methods
 	@Override
 	protected String getDirectory(final SystemDir dir) {
 		switch (dir) {

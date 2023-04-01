@@ -96,7 +96,6 @@ class ErrorLogWriter {
 		return sdf.format(time);
 	}
 
-	// Methods
 	void writeErrorInfo() {
 		try {
 			// Make sure the needed directories exist first

@@ -121,7 +121,6 @@ public final class PolyTableViewer {
 		}
 	}
 
-	// Methods
 	public static void view(final PolyTable page) {
 		String viewerString;
 		if (page.isExperience()) {

@@ -64,7 +64,6 @@ public class AvatarConstructionKit {
 		// Do nothing
 	}
 
-	// Methods
 	public static AvatarImageModel constructFromAvatarID(String avatarID) {
 		// Sanity check
 		if (avatarID == null || !avatarIDRegex.matcher(avatarID).matches()) {

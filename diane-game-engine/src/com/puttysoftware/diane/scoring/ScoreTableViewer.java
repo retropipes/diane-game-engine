@@ -10,7 +10,6 @@ public final class ScoreTableViewer {
 	private static final int ENTRIES_PER_PAGE = 10;
 	private static final String VIEWER_STRING = "Score Table Viewer"; //$NON-NLS-1$
 
-	// Methods
 	public static void view(final ScoreTable table, final String customTitle, final String[] unit) {
 		final var msgBuilder = new StringBuilder();
 		String msg = null;

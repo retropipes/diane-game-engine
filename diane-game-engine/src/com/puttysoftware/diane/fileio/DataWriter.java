@@ -62,7 +62,6 @@ public class DataWriter implements AutoCloseable {
 		}
 	}
 
-	// Methods
 	public File getFile() {
 		return this.file;
 	}

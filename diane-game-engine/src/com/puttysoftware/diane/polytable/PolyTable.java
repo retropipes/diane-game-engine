@@ -87,7 +87,6 @@ public final class PolyTable extends Polynomial {
 		return result;
 	}
 
-	// Methods
 	public int getMaxRange() {
 		return this.maxRange;
 	}

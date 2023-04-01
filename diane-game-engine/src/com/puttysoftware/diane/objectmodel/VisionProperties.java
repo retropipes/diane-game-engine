@@ -31,7 +31,6 @@ class VisionProperties {
 		this.visionData = new FlagStorage(VisionProperties.VISION_DATA_TYPES, DirectionQueryResolver.COUNT);
 	}
 
-	// Methods
 	@Override
 	public boolean equals(final Object obj) {
 		if (obj == null || this.getClass() != obj.getClass()) {

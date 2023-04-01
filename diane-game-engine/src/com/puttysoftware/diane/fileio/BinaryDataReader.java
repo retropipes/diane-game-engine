@@ -49,7 +49,6 @@ public class BinaryDataReader implements DataIOReader {
 		}
 	}
 
-	// Methods
 	@Override
 	public DataMode getDataIOMode() {
 		return DataMode.BINARY;

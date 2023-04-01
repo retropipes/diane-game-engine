@@ -36,7 +36,6 @@ public class ScoreManager {
 		this.viewerTitle = customTitle;
 	}
 
-	// Methods
 	public boolean addScore(final long newScore) {
 		var success = true;
 		this.name = null;

@@ -39,7 +39,6 @@ public class BinaryDataWriter implements DataIOWriter {
 		}
 	}
 
-	// Methods
 	@Override
 	public DataMode getDataIOMode() {
 		return DataMode.BINARY;

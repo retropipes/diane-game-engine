@@ -162,7 +162,6 @@ public final class SXSPicturePicker {
 		return this.index;
 	}
 
-	// Methods
 	public JPanel getPicker() {
 		return this.pickerJPanel;
 	}

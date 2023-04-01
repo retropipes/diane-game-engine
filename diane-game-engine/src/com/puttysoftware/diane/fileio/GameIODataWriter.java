@@ -27,7 +27,6 @@ public class GameIODataWriter implements DataIOWriter {
 		}
 	}
 
-	// Methods
 	@Override
 	public DataMode getDataIOMode() {
 		return DataMode.GAME_IO;

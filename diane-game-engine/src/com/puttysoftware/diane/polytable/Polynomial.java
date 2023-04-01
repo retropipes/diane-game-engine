@@ -102,7 +102,6 @@ public class Polynomial {
 		return this.coefficients[power][param - 1];
 	}
 
-	// Methods
 	public int getMaxPower() {
 		return this.max;
 	}
