@@ -8,47 +8,47 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public final class ColorReplaceRules {
-	// Fields
-	private final ArrayList<ColorReplaceRule> rules;
+    // Fields
+    private final ArrayList<ColorReplaceRule> rules;
 
-	// Constructor
-	public ColorReplaceRules() {
-		this.rules = new ArrayList<>();
-	}
+    // Constructor
+    public ColorReplaceRules() {
+        this.rules = new ArrayList<>();
+    }
 
-	public void add(final Color find, final Color replace) {
-		final var value = new ColorReplaceRule(find, replace);
-		this.rules.add(value);
-	}
+    public void add(final Color find, final Color replace) {
+        final var value = new ColorReplaceRule(find, replace);
+        this.rules.add(value);
+    }
 
-	public BufferedImageIcon applyAll(final BufferedImageIcon input) {
-		if (input == null) {
-			throw new IllegalArgumentException("input == NULL!");
-		}
-		var result = input;
-		for (final ColorReplaceRule rule : this.rules) {
-			result = rule.apply(result);
-		}
-		return result;
-	}
+    public BufferedImageIcon applyAll(final BufferedImageIcon input) {
+        if (input == null) {
+            throw new IllegalArgumentException("input == NULL!");
+        }
+        var result = input;
+        for (final ColorReplaceRule rule : this.rules) {
+            result = rule.apply(result);
+        }
+        return result;
+    }
 
-	public void clear() {
-		this.rules.clear();
-	}
+    public void clear() {
+        this.rules.clear();
+    }
 
-	@Override
-	public boolean equals(final Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (!(obj instanceof final ColorReplaceRules other)) {
-			return false;
-		}
-		return Objects.equals(this.rules, other.rules);
-	}
+    @Override
+    public boolean equals(final Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof final ColorReplaceRules other)) {
+            return false;
+        }
+        return Objects.equals(this.rules, other.rules);
+    }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(this.rules);
-	}
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.rules);
+    }
 }

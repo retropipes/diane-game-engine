@@ -6,70 +6,70 @@ package com.puttysoftware.diane.scoring;
 import java.util.ArrayList;
 
 public class ScoreTable {
-	protected static final String DEFAULT_UNIT = ""; //$NON-NLS-1$
-	// Fields and Constants
-	protected int scoreCount;
-	protected ArrayList<Score> table;
-	protected String[] unit;
+    protected static final String DEFAULT_UNIT = ""; //$NON-NLS-1$
+    // Fields and Constants
+    protected int scoreCount;
+    protected ArrayList<Score> table;
+    protected String[] unit;
 
-	// Constructors
-	public ScoreTable() {
-		this.scoreCount = 1;
-		this.table = new ArrayList<>(10);
-		int x;
-		for (x = 0; x < 10; x++) {
-			this.table.set(x, new Score());
-		}
-		this.unit = new String[1];
-		this.unit[0] = ScoreTable.DEFAULT_UNIT;
-	}
+    // Constructors
+    public ScoreTable() {
+        this.scoreCount = 1;
+        this.table = new ArrayList<>(10);
+        int x;
+        for (x = 0; x < 10; x++) {
+            this.table.set(x, new Score());
+        }
+        this.unit = new String[1];
+        this.unit[0] = ScoreTable.DEFAULT_UNIT;
+    }
 
-	public ScoreTable(final int mv, final int length, final String[] customUnit) {
-		this.scoreCount = mv;
-		this.table = new ArrayList<>(length);
-		int x;
-		for (x = 0; x < length; x++) {
-			this.table.add(new Score(mv));
-		}
-		this.unit = new String[mv];
-		for (x = 0; x < mv; x++) {
-			if (customUnit[x] == null || customUnit[x].isEmpty()) {
-				this.unit[x] = ScoreTable.DEFAULT_UNIT;
-			} else {
-				this.unit[x] = " " + customUnit[x]; //$NON-NLS-1$
-			}
-		}
-	}
+    public ScoreTable(final int mv, final int length, final String[] customUnit) {
+        this.scoreCount = mv;
+        this.table = new ArrayList<>(length);
+        int x;
+        for (x = 0; x < length; x++) {
+            this.table.add(new Score(mv));
+        }
+        this.unit = new String[mv];
+        for (x = 0; x < mv; x++) {
+            if (customUnit[x] == null || customUnit[x].isEmpty()) {
+                this.unit[x] = ScoreTable.DEFAULT_UNIT;
+            } else {
+                this.unit[x] = " " + customUnit[x]; //$NON-NLS-1$
+            }
+        }
+    }
 
-	public String getEntryName(final int pos) {
-		return this.table.get(pos).getName();
-	}
+    public String getEntryName(final int pos) {
+        return this.table.get(pos).getName();
+    }
 
-	public long getEntryScore(final int which, final int pos) {
-		return this.table.get(pos).getScore(which);
-	}
+    public long getEntryScore(final int which, final int pos) {
+        return this.table.get(pos).getScore(which);
+    }
 
-	public int getLength() {
-		return this.table.size();
-	}
+    public int getLength() {
+        return this.table.size();
+    }
 
-	public int getScoreCount() {
-		return this.scoreCount;
-	}
+    public int getScoreCount() {
+        return this.scoreCount;
+    }
 
-	public String getUnit() {
-		return this.unit[0];
-	}
+    public String getUnit() {
+        return this.unit[0];
+    }
 
-	public String[] getUnits() {
-		return this.unit;
-	}
+    public String[] getUnits() {
+        return this.unit;
+    }
 
-	public void setEntryName(final int pos, final String newName) {
-		this.table.get(pos).setName(newName);
-	}
+    public void setEntryName(final int pos, final String newName) {
+        this.table.get(pos).setName(newName);
+    }
 
-	public void setEntryScore(final int pos, final long newScore) {
-		this.table.get(pos).setScore(newScore);
-	}
+    public void setEntryScore(final int pos, final long newScore) {
+        this.table.get(pos).setScore(newScore);
+    }
 }

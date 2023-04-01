@@ -9,9 +9,9 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 public class BrowserLauncher {
-	public static void openURL(final String url) throws IOException, URISyntaxException {
-		if (Desktop.isDesktopSupported()) {
-			Desktop.getDesktop().browse(new URI(url));
-		}
-	}
+    public static void openURL(final String url) throws IOException, URISyntaxException {
+        if (Desktop.isDesktopSupported()) {
+            Desktop.getDesktop().browse(new URI(url));
+        }
+    }
 }
