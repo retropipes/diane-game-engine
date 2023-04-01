@@ -21,7 +21,7 @@ public class ImageShader {
 			}
 		}
 
-			public static BufferedImageIcon getCachedImage(final String name, final BufferedImageIcon input,
+		public static BufferedImageIcon getCachedImage(final String name, final BufferedImageIcon input,
 				final ColorShader shade) {
 			if (!ImageCache.cacheCreated) {
 				ImageCache.createCache();
@@ -67,7 +67,7 @@ public class ImageShader {
 			return Objects.hash(this.name);
 		}
 
-			public BufferedImageIcon image() {
+		public BufferedImageIcon image() {
 			return this.image;
 		}
 

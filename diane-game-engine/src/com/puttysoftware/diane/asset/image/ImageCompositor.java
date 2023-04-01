@@ -21,7 +21,7 @@ public class ImageCompositor {
 			}
 		}
 
-			public static BufferedImageIcon getCachedImage(final String name, final BufferedImageIcon... inputs) {
+		public static BufferedImageIcon getCachedImage(final String name, final BufferedImageIcon... inputs) {
 			if (!ImageCache.cacheCreated) {
 				ImageCache.createCache();
 			}
@@ -66,7 +66,7 @@ public class ImageCompositor {
 			return Objects.hash(this.name);
 		}
 
-			public BufferedImageIcon image() {
+		public BufferedImageIcon image() {
 			return this.image;
 		}
 
