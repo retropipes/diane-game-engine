@@ -18,7 +18,6 @@ class RandomnessSource {
      *
      * @return the source
      */
-    // Methods
     private static Random getSource() {
         return RandomnessSource.theSource;
     }

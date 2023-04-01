@@ -12,7 +12,6 @@ public final class ErrorLogger {
         this.name = programName;
     }
 
-    // Methods
     public void logError(final Throwable t) {
         final var elw = new ErrorLogWriter(t, this.name);
         elw.writeErrorInfo();

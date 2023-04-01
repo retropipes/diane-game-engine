@@ -14,7 +14,6 @@ public abstract class MenuManagerShell {
         this.menuContainer = new JPanel();
     }
 
-    // Methods
     public final JPanel getMenuContainer() {
         return this.menuContainer;
     }

@@ -41,7 +41,6 @@ final class JavaSandbox extends Sandbox {
                 Toolkit.getDefaultToolkit().getLockingKeyState(KeyEvent.VK_CAPS_LOCK));
     }
 
-    // Methods
     @Override
     protected String getDirectory(final SystemDir dir) {
         return switch (dir) {

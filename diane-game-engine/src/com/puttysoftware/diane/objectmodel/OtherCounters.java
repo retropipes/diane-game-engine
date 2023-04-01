@@ -30,7 +30,6 @@ class OtherCounters {
         this.otherData = new NumberStorage(OtherCounters.OTHER_DATA_TYPES);
     }
 
-    // Methods
     @Override
     public boolean equals(final Object obj) {
         if (obj == null || this.getClass() != obj.getClass()) {

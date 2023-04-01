@@ -36,7 +36,6 @@ public abstract class Sandbox {
 
     protected abstract String getDirectory(final SystemDir dir);
 
-    // Methods
     public final String getCachesDirectory() {
         return this.getDirectory(SystemDir.CACHES);
     }

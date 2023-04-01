@@ -210,7 +210,6 @@ public abstract class GameObject implements ObjectModel {
         return this.op.hasFriction();
     }
 
-    // Methods
     @Override
     public final int hashCode() {
         return Objects.hash(this.mp, this.oc, this.op, this.sp, this.cc, this.cf, this.ct, this.uniqueID);

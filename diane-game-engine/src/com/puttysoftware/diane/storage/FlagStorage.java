@@ -71,7 +71,6 @@ public class FlagStorage {
         this.dataStore = new boolean[product];
     }
 
-    // Methods
     /**
      * Check for equality.
      *

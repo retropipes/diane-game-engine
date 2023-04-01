@@ -32,7 +32,6 @@ public abstract class GameShell {
         Diane.installCustomErrorHandler(new GameShellErrorHandler());
     }
 
-    // Methods
     public final void handleError(final Throwable problem) {
         if (this.errorConfig != null && this.errorConfig.isDialogDisplayed()) {
             // Display error message

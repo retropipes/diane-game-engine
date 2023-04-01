@@ -142,7 +142,6 @@ public final class GraphicalHelpViewer {
         }
     }
 
-    // Methods
     public Container getHelp() {
         return this.helpContainer;
     }

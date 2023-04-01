@@ -39,7 +39,6 @@ public class XMLDataWriter implements DataIOWriter {
         this.fileIO.close();
     }
 
-    // Methods
     @Override
     public DataMode getDataIOMode() {
         return DataMode.XML;

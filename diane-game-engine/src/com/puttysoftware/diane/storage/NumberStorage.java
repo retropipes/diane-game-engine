@@ -71,7 +71,6 @@ public class NumberStorage {
         this.dataStore = Arrays.copyOf(source.dataStore, product);
     }
 
-    // Methods
     /**
      * Check for equality.
      *

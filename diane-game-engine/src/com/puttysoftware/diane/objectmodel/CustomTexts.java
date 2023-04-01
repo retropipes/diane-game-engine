@@ -58,7 +58,6 @@ final class CustomTexts {
         return Objects.hash(this.texts);
     }
 
-    // Methods
     public int length() {
         return this.texts.size();
     }

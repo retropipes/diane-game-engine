@@ -9,7 +9,6 @@ public interface DataIOWriter extends AutoCloseable {
     @Override
     void close() throws DataIOException;
 
-    // Methods
     DataMode getDataIOMode();
 
     File getFile();

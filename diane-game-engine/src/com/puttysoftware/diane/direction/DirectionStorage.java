@@ -70,7 +70,6 @@ public class DirectionStorage {
         this.dataStore = Arrays.copyOf(source.dataStore, product);
     }
 
-    // Methods
     /**
      * Check for equality.
      *

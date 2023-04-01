@@ -116,7 +116,6 @@ public class CommonDialogs {
         }
     }
 
-    // Methods
     /**
      * Displays a dialog.
      *
@@ -130,7 +129,6 @@ public class CommonDialogs {
         }
     }
 
-    // Methods
     /**
      * Displays a dialog in a new thread.
      *

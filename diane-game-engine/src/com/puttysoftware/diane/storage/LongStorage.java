@@ -71,7 +71,6 @@ public class LongStorage {
         this.dataStore = Arrays.copyOf(source.dataStore, product);
     }
 
-    // Methods
     /**
      * Check for equality.
      *

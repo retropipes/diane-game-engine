@@ -22,7 +22,6 @@ public class ResourceStreamReader implements AutoCloseable {
         this.br = new BufferedReader(new InputStreamReader(is, encoding));
     }
 
-    // Methods
     @Override
     public void close() throws IOException {
         this.br.close();

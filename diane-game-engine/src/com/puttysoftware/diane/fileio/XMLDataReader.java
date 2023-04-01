@@ -49,7 +49,6 @@ public class XMLDataReader implements DataIOReader {
         this.fileIO.close();
     }
 
-    // Methods
     @Override
     public DataMode getDataIOMode() {
         return DataMode.XML;

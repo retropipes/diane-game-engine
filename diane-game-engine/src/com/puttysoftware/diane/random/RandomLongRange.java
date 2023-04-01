@@ -60,7 +60,6 @@ public class RandomLongRange {
      *
      * @param newMin the new minimum
      */
-    // Methods
     public void setMinimum(final long newMin) {
         this.minimum = newMin;
     }

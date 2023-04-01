@@ -127,7 +127,6 @@ public class ProductData {
         return this.prereleaseVersion;
     }
 
-    // Methods
     /**
      * @return the updateURL
      */

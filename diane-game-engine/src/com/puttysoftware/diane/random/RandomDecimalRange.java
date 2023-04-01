@@ -55,7 +55,6 @@ public class RandomDecimalRange {
      *
      * @param newMin the new minimum
      */
-    // Methods
     public static void setMinimum(final double newMin) {
         RandomDecimalRange.minimum = newMin;
     }

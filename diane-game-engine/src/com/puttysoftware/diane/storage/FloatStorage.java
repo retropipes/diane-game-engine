@@ -71,7 +71,6 @@ public class FloatStorage {
         this.dataStore = new float[product];
     }
 
-    // Methods
     /**
      * Check for equality.
      *

@@ -15,7 +15,6 @@ public class GameIODataAccess implements AutoCloseable {
         this.raf = new RandomAccessFile(filename, "rwd");
     }
 
-    // Methods
     @Override
     public void close() throws IOException {
         this.raf.close();

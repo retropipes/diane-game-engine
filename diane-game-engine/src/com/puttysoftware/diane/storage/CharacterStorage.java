@@ -71,7 +71,6 @@ public class CharacterStorage {
         this.dataStore = new char[product];
     }
 
-    // Methods
     /**
      * Check for equality.
      *

@@ -71,7 +71,6 @@ public class DecimalStorage {
         this.dataStore = new double[product];
     }
 
-    // Methods
     /**
      * Check for equality.
      *

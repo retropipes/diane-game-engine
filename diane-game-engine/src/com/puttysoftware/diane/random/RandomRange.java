@@ -72,7 +72,6 @@ public class RandomRange {
      *
      * @param newMin the new minimum
      */
-    // Methods
     public void setMinimum(final int newMin) {
         this.minimum = newMin;
     }

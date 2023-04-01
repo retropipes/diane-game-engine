@@ -65,7 +65,6 @@ public final class UpdateCheckResults {
         return this.prereleaseVersion;
     }
 
-    // Methods
     /**
      *
      * @return the has update status

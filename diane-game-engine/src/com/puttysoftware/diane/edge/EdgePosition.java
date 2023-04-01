@@ -14,7 +14,6 @@ public class EdgePosition {
         this.offset = newOffset;
     }
 
-    // Methods
     public double getOffset() {
         return this.offset;
     }

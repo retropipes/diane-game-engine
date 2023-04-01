@@ -36,7 +36,6 @@ class OtherProperties {
         this.setDestroyable(true);
     }
 
-    // Methods
     @Override
     public boolean equals(final Object obj) {
         if (obj == null || this.getClass() != obj.getClass()) {

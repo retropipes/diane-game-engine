@@ -71,7 +71,6 @@ public class ByteStorage {
         this.dataStore = new byte[product];
     }
 
-    // Methods
     /**
      * Check for equality.
      *

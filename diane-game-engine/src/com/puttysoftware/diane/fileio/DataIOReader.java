@@ -11,7 +11,6 @@ public interface DataIOReader extends AutoCloseable {
     @Override
     void close() throws DataIOException;
 
-    // Methods
     DataMode getDataIOMode();
 
     File getFile();
