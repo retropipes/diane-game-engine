@@ -95,7 +95,7 @@ public abstract class Screen extends WindowAdapter {
     }
 
     public void statusMessage(final String msg) {
-        CommonDialogs.showDialog(msg);
+        CommonDialogs.showDialogLater(msg);
     }
 
     public void setMusic(final DianeMusicIndex newMusic) {
