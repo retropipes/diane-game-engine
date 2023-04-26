@@ -32,18 +32,18 @@ public class ProductData {
         if (code == ProductData.CODE_ALPHA) {
             if (beta > 0) {
                 rt_vl = "-alpha" + beta;
-                rt_vs = "-a" + beta;
+                rt_vs = "a" + beta;
             } else {
                 rt_vl = "-alpha";
-                rt_vs = "-a";
+                rt_vs = "a";
             }
         } else if (code == ProductData.CODE_BETA) {
             if (beta > 0) {
                 rt_vl = "-beta" + beta;
-                rt_vs = "-b" + beta;
+                rt_vs = "b" + beta;
             } else {
                 rt_vl = "-beta";
-                rt_vs = "-b";
+                rt_vs = "b";
             }
         } else {
             rt_vl = "";
@@ -67,19 +67,19 @@ public class ProductData {
         if (code == ProductData.CODE_ALPHA) {
             if (beta > 0) {
                 rt_vl = "-alpha" + beta;
-                rt_vs = "-a" + beta;
+                rt_vs = "a" + beta;
             } else {
                 rt_vl = "-alpha";
-                rt_vs = "-a";
+                rt_vs = "a";
             }
             rt_url = "alpha_"; //$NON-NLS-1$
         } else if (code == ProductData.CODE_BETA) {
             if (beta > 0) {
                 rt_vl = "-beta" + beta;
-                rt_vs = "-b" + beta;
+                rt_vs = "b" + beta;
             } else {
                 rt_vl = "-beta";
-                rt_vs = "-b";
+                rt_vs = "b";
             }
             rt_url = "beta_"; //$NON-NLS-1$
         } else {
