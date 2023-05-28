@@ -7,11 +7,9 @@ public class Point1D {
     public int x;
 
     public Point1D() {
-        super();
     }
 
     public Point1D(final int nx) {
-        super();
-        x = nx;
+	this.x = nx;
     }
 }

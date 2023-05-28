@@ -19,25 +19,7 @@ class RandomnessSource {
      * @return the source
      */
     private static Random getSource() {
-        return RandomnessSource.theSource;
-    }
-
-    /**
-     * Next double.
-     *
-     * @return the double
-     */
-    static double nextDouble() {
-        return RandomnessSource.getSource().nextDouble();
-    }
-
-    /**
-     * Next integer.
-     *
-     * @return the integer
-     */
-    static int nextInt() {
-        return RandomnessSource.getSource().nextInt();
+	return RandomnessSource.theSource;
     }
 
     /**
@@ -46,7 +28,25 @@ class RandomnessSource {
      * @return the bounded integer
      */
     static int nextBoundedInt(final int bound) {
-        return RandomnessSource.getSource().nextInt(bound);
+	return RandomnessSource.getSource().nextInt(bound);
+    }
+
+    /**
+     * Next double.
+     *
+     * @return the double
+     */
+    static double nextDouble() {
+	return RandomnessSource.getSource().nextDouble();
+    }
+
+    /**
+     * Next integer.
+     *
+     * @return the integer
+     */
+    static int nextInt() {
+	return RandomnessSource.getSource().nextInt();
     }
 
     /**
@@ -55,7 +55,7 @@ class RandomnessSource {
      * @return the long
      */
     static long nextLong() {
-        return RandomnessSource.getSource().nextLong();
+	return RandomnessSource.getSource().nextLong();
     }
 
     /**
@@ -63,6 +63,6 @@ class RandomnessSource {
      */
     // Constructor
     private RandomnessSource() {
-        // Do nothing
+	// Do nothing
     }
 }

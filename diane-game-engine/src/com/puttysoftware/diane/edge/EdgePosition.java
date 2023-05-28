@@ -11,10 +11,10 @@ public class EdgePosition {
 
     // Constructor
     private EdgePosition(final double newOffset) {
-        this.offset = newOffset;
+	this.offset = newOffset;
     }
 
     public double getOffset() {
-        return this.offset;
+	return this.offset;
     }
 }

@@ -24,7 +24,7 @@ final class JavaSandbox extends Sandbox {
     private static final String SHARED_PUBLIC_FALLBACK_DIR = "SharedPublic"; //$NON-NLS-1$
 
     private static String getLibraryFallbackDirectory() {
-        return System.getenv(JavaSandbox.FALLBACK_PREFIX) + File.pathSeparator + JavaSandbox.LIBRARY_FALLBACK_DIR;
+	return System.getenv(JavaSandbox.FALLBACK_PREFIX) + File.pathSeparator + JavaSandbox.LIBRARY_FALLBACK_DIR;
     }
 
     // Fields
@@ -32,47 +32,45 @@ final class JavaSandbox extends Sandbox {
 
     // Constructor
     JavaSandbox() {
-        this.flagCache = new HashMap<>();
+	this.flagCache = new HashMap<>();
     }
 
     @Override
     public void cacheFlags() {
-        this.flagCache.put(SandboxFlag.CAPS_LOCK,
-                Toolkit.getDefaultToolkit().getLockingKeyState(KeyEvent.VK_CAPS_LOCK));
+	this.flagCache.put(SandboxFlag.CAPS_LOCK,
+		Toolkit.getDefaultToolkit().getLockingKeyState(KeyEvent.VK_CAPS_LOCK));
     }
 
     @Override
     protected String getDirectory(final SystemDir dir) {
-        return switch (dir) {
-            case APPLICATION, SYSTEM_APPLICATION -> JavaSandbox.getLibraryFallbackDirectory();
-            case APPLICATION_SUPPORT, SYSTEM_APPLICATION_SUPPORT -> JavaSandbox.getLibraryFallbackDirectory()
-                    + File.pathSeparator + JavaSandbox.APP_SUPPORT_FALLBACK_DIR;
-            case AUTOSAVED_INFORMATION -> JavaSandbox.getLibraryFallbackDirectory() + File.pathSeparator
-                    + JavaSandbox.AUTOSAVE_FALLBACK_DIR;
-            case CACHES, SYSTEM_CACHES -> JavaSandbox.getLibraryFallbackDirectory() + File.pathSeparator
-                    + JavaSandbox.CACHES_FALLBACK_DIR;
-            case DOCUMENTS -> JavaSandbox.getLibraryFallbackDirectory() + File.pathSeparator
-                    + JavaSandbox.DOCUMENTS_FALLBACK_DIR;
-            case DESKTOP -> JavaSandbox.getLibraryFallbackDirectory() + File.pathSeparator
-                    + JavaSandbox.DESKTOP_FALLBACK_DIR;
-            case DOWNLOADS -> JavaSandbox.getLibraryFallbackDirectory() + File.pathSeparator
-                    + JavaSandbox.DOWNLOADS_FALLBACK_DIR;
-            case LIBRARY, SYSTEM_LIBRARY -> JavaSandbox.getLibraryFallbackDirectory();
-            case MOVIES ->
-                JavaSandbox.getLibraryFallbackDirectory() + File.pathSeparator + JavaSandbox.MOVIES_FALLBACK_DIR;
-            case MUSIC ->
-                JavaSandbox.getLibraryFallbackDirectory() + File.pathSeparator + JavaSandbox.MUSIC_FALLBACK_DIR;
-            case PICTURES -> JavaSandbox.getLibraryFallbackDirectory() + File.pathSeparator
-                    + JavaSandbox.PICTURES_FALLBACK_DIR;
-            case SHARED_PUBLIC -> JavaSandbox.getLibraryFallbackDirectory() + File.pathSeparator
-                    + JavaSandbox.SHARED_PUBLIC_FALLBACK_DIR;
-            case SYSTEM_USER, USER_HOME -> System.getProperty("user.home"); //$NON-NLS-1$
-            default -> JavaSandbox.getLibraryFallbackDirectory();
-        };
+	return switch (dir) {
+	case APPLICATION, SYSTEM_APPLICATION -> JavaSandbox.getLibraryFallbackDirectory();
+	case APPLICATION_SUPPORT, SYSTEM_APPLICATION_SUPPORT -> JavaSandbox.getLibraryFallbackDirectory()
+		+ File.pathSeparator + JavaSandbox.APP_SUPPORT_FALLBACK_DIR;
+	case AUTOSAVED_INFORMATION -> JavaSandbox.getLibraryFallbackDirectory() + File.pathSeparator
+		+ JavaSandbox.AUTOSAVE_FALLBACK_DIR;
+	case CACHES, SYSTEM_CACHES -> JavaSandbox.getLibraryFallbackDirectory() + File.pathSeparator
+		+ JavaSandbox.CACHES_FALLBACK_DIR;
+	case DOCUMENTS -> JavaSandbox.getLibraryFallbackDirectory() + File.pathSeparator
+		+ JavaSandbox.DOCUMENTS_FALLBACK_DIR;
+	case DESKTOP -> JavaSandbox.getLibraryFallbackDirectory() + File.pathSeparator
+		+ JavaSandbox.DESKTOP_FALLBACK_DIR;
+	case DOWNLOADS -> JavaSandbox.getLibraryFallbackDirectory() + File.pathSeparator
+		+ JavaSandbox.DOWNLOADS_FALLBACK_DIR;
+	case LIBRARY, SYSTEM_LIBRARY -> JavaSandbox.getLibraryFallbackDirectory();
+	case MOVIES -> JavaSandbox.getLibraryFallbackDirectory() + File.pathSeparator + JavaSandbox.MOVIES_FALLBACK_DIR;
+	case MUSIC -> JavaSandbox.getLibraryFallbackDirectory() + File.pathSeparator + JavaSandbox.MUSIC_FALLBACK_DIR;
+	case PICTURES -> JavaSandbox.getLibraryFallbackDirectory() + File.pathSeparator
+		+ JavaSandbox.PICTURES_FALLBACK_DIR;
+	case SHARED_PUBLIC -> JavaSandbox.getLibraryFallbackDirectory() + File.pathSeparator
+		+ JavaSandbox.SHARED_PUBLIC_FALLBACK_DIR;
+	case SYSTEM_USER, USER_HOME -> System.getProperty("user.home"); //$NON-NLS-1$
+	default -> JavaSandbox.getLibraryFallbackDirectory();
+	};
     }
 
     @Override
     public boolean getFlag(final SandboxFlag flag) {
-        return this.flagCache.getOrDefault(flag, false);
+	return this.flagCache.getOrDefault(flag, false);
     }
 }

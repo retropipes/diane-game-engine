@@ -15,49 +15,49 @@ public abstract class Appearance {
     private final ColorReplaceRules replacements;
 
     public Appearance(final String name, final DianeImageIndex imageIndex) {
-        this.cacheName = name;
-        this.whichImage = imageIndex;
-        this.shading = null;
-        this.replacements = null;
+	this.cacheName = name;
+	this.whichImage = imageIndex;
+	this.shading = null;
+	this.replacements = null;
     }
 
     public Appearance(final String name, final DianeImageIndex imageIndex, final ColorReplaceRules replaceRules) {
-        this.cacheName = name;
-        this.whichImage = imageIndex;
-        this.shading = null;
-        this.replacements = replaceRules;
+	this.cacheName = name;
+	this.whichImage = imageIndex;
+	this.shading = null;
+	this.replacements = replaceRules;
     }
 
     public Appearance(final String name, final DianeImageIndex imageIndex, final ColorShader shader) {
-        this.cacheName = name;
-        this.whichImage = imageIndex;
-        this.shading = shader;
-        this.replacements = null;
+	this.cacheName = name;
+	this.whichImage = imageIndex;
+	this.shading = shader;
+	this.replacements = null;
     }
 
     public final String getCacheName() {
-        return this.cacheName;
+	return this.cacheName;
     }
 
     public abstract BufferedImageIcon getImage();
 
     public final ColorReplaceRules getReplacementRules() {
-        return this.replacements;
+	return this.replacements;
     }
 
     public final ColorShader getShading() {
-        return this.shading;
+	return this.shading;
     }
 
     protected final DianeImageIndex getWhichImage() {
-        return this.whichImage;
+	return this.whichImage;
     }
 
     public final boolean hasReplacementRules() {
-        return this.replacements != null;
+	return this.replacements != null;
     }
 
     public final boolean hasShading() {
-        return this.shading != null;
+	return this.shading != null;
     }
 }

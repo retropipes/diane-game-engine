@@ -15,31 +15,31 @@ public class EdgePattern {
 
     // Constructor
     public EdgePattern(final EdgePosition newPos, final EdgeDirection newDir, final EdgeType newType,
-            final Color newColor, final boolean invert) {
-        this.direction = newDir;
-        this.position = newPos;
-        this.type = newType;
-        this.color = newColor;
-        this.inverted = invert;
+	    final Color newColor, final boolean invert) {
+	this.direction = newDir;
+	this.position = newPos;
+	this.type = newType;
+	this.color = newColor;
+	this.inverted = invert;
     }
 
     public Color getColor() {
-        return this.color;
+	return this.color;
     }
 
     public EdgeDirection getDirection() {
-        return this.direction;
+	return this.direction;
     }
 
     public EdgePosition getPosition() {
-        return this.position;
+	return this.position;
     }
 
     public EdgeType getType() {
-        return this.type;
+	return this.type;
     }
 
     public boolean isInverted() {
-        return this.inverted;
+	return this.inverted;
     }
 }

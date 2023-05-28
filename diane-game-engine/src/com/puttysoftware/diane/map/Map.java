@@ -12,22 +12,22 @@ public class Map {
 
     // Constructors
     public Map(final int... dimensions) {
-        this.data = new ObjectStorage(dimensions);
+	this.data = new ObjectStorage(dimensions);
     }
 
     public void fill(final ObjectModel with) {
-        this.data.fill(with);
+	this.data.fill(with);
     }
 
     public ObjectModel getCell(final int... location) {
-        return (ObjectModel) this.data.getCell(location);
+	return (ObjectModel) this.data.getCell(location);
     }
 
     public int getSize(final int dimension) {
-        return this.data.getShape()[dimension];
+	return this.data.getShape()[dimension];
     }
 
     public void setCell(final ObjectModel o, final int... location) {
-        this.data.setCell(o, location);
+	this.data.setCell(o, location);
     }
 }

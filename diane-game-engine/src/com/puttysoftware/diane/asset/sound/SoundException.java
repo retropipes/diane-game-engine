@@ -14,29 +14,29 @@ public class SoundException extends RuntimeException implements Externalizable {
     }
 
     public SoundException(final String message) {
-        super(message);
+	super(message);
     }
 
     public SoundException(final String message, final Throwable cause) {
-        super(message, cause);
+	super(message, cause);
     }
 
     public SoundException(final String message, final Throwable cause, final boolean enableSuppression,
-            final boolean writableStackTrace) {
-        super(message, cause, enableSuppression, writableStackTrace);
+	    final boolean writableStackTrace) {
+	super(message, cause, enableSuppression, writableStackTrace);
     }
 
     public SoundException(final Throwable cause) {
-        super(cause);
+	super(cause);
     }
 
     @Override
     public void readExternal(final ObjectInput in) throws IOException, ClassNotFoundException {
-        throw new NotSerializableException();
+	throw new NotSerializableException();
     }
 
     @Override
     public void writeExternal(final ObjectOutput out) throws IOException {
-        throw new NotSerializableException();
+	throw new NotSerializableException();
     }
 }

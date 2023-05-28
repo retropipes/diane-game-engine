@@ -4,25 +4,25 @@ Any questions should be directed to the author via email at: support@puttysoftwa
 package com.puttysoftware.diane.gui;
 
 public interface ModeCommands {
+    void createCommandsPane();
+
+    void disableDirtyCommands();
+
+    void disableLoadedCommands();
+
+    void disableModeCommands();
+
+    void enableDirtyCommands();
+
+    void enableLoadedCommands();
+
+    void enableModeCommands();
+
     void enterMode();
 
     void exitMode();
 
-    void enableModeCommands();
-
-    void disableModeCommands();
-
     void setInitialState();
-
-    void createCommandsPane();
-
-    void enableLoadedCommands();
-
-    void disableLoadedCommands();
-
-    void enableDirtyCommands();
-
-    void disableDirtyCommands();
 
     void setStatusMessage(String msg);
 }

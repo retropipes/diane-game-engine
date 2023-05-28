@@ -12,14 +12,14 @@ public class DataIOException extends IOException {
     }
 
     public DataIOException(final String message) {
-        super(message);
+	super(message);
     }
 
     public DataIOException(final String message, final Throwable cause) {
-        super(message, cause);
+	super(message, cause);
     }
 
     public DataIOException(final Throwable cause) {
-        super(cause);
+	super(cause);
     }
 }

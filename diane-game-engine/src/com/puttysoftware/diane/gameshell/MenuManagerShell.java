@@ -11,15 +11,14 @@ public abstract class MenuManagerShell {
 
     // Constructors
     public MenuManagerShell() {
-        this.menuContainer = new JPanel();
+	this.menuContainer = new JPanel();
     }
 
     public final JPanel getMenuContainer() {
-        return this.menuContainer;
+	return this.menuContainer;
     }
 
     public abstract void populateMenus();
 
-    public abstract void updateMenuItemState(final boolean loaded,
-            final boolean dirty);
+    public abstract void updateMenuItemState(final boolean loaded, final boolean dirty);
 }

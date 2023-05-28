@@ -3,11 +3,16 @@ Copyleft (C) 2019-present Eric Ahnell
 Any questions should be directed to the author via email at: support@puttysoftware.com */
 package com.puttysoftware.diane.asset.image;
 
-import java.awt.Color;
+import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class ImageShader {
+import javax.imageio.ImageIO;
+
+import com.puttysoftware.diane.Diane;
+
+public class DianeImageLoader {
     private static class ImageCache {
 	// Fields
 	private static ArrayList<ImageCacheEntry> cache;
@@ -21,8 +26,7 @@ public class ImageShader {
 	    }
 	}
 
-	public static BufferedImageIcon getCachedImage(final String name, final BufferedImageIcon input,
-		final ColorShader shade) {
+	public static BufferedImageIcon getCachedImage(final String name, final URL url) {
 	    if (!ImageCache.cacheCreated) {
 		ImageCache.createCache();
 	    }
@@ -33,7 +37,7 @@ public class ImageShader {
 		}
 	    }
 	    // Not found: Add to cache
-	    final var newImage = ImageShader.shadeUncached(input, shade);
+	    final var newImage = ImageScaler.getScaledImage(DianeImageLoader.loadUncached(url));
 	    final var newEntry = new ImageCacheEntry(newImage, name);
 	    ImageCache.cache.add(newEntry);
 	    return newImage;
@@ -76,23 +80,21 @@ public class ImageShader {
 	}
     }
 
-    public static BufferedImageIcon shade(final String name, final BufferedImageIcon input, final ColorShader shade) {
-	return ImageCache.getCachedImage(name, input, shade);
+    public static BufferedImageIcon load(final DianeImageIndex image, final URL url) {
+	return ImageCache.getCachedImage(image.getName(), url);
     }
 
-    static BufferedImageIcon shadeUncached(final BufferedImageIcon input, final ColorShader shade) {
-	if (input == null) {
+    public static BufferedImageIcon load(final String name, final URL url) {
+	return ImageCache.getCachedImage(name, url);
+    }
+
+    static BufferedImageIcon loadUncached(final URL url) {
+	try {
+	    final var image = ImageIO.read(url);
+	    return new BufferedImageIcon(image);
+	} catch (final IOException ie) {
+	    Diane.handleError(ie);
 	    return null;
 	}
-	final var width = input.getWidth();
-	final var height = input.getHeight();
-	final var result = new BufferedImageIcon(input);
-	for (var x = 0; x < width; x++) {
-	    for (var y = 0; y < height; y++) {
-		final var c = new Color(input.getRGB(x, y), true);
-		result.setRGB(x, y, shade.applyShade(c).getRGB());
-	    }
-	}
-	return result;
     }
 }

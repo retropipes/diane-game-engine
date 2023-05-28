@@ -8,7 +8,7 @@ public final class DianeSoundPlayer {
     protected static final int EXTERNAL_BUFFER_SIZE = 4096; // 4Kb
 
     public static void play(final DianeSoundIndex index) {
-        new SoundResource(index.getURL()).play();
+	new SoundResource(index.getURL()).play();
     }
 
     // Constructor

@@ -16,71 +16,71 @@ public class XMLDataWriter implements DataIOWriter {
     private final File file;
 
     public XMLDataWriter(final File filename) throws IOException {
-        this.outStream = new FileOutputStream(filename);
-        this.fileIO = new XMLEncoder(this.outStream);
-        this.file = filename;
+	this.outStream = new FileOutputStream(filename);
+	this.fileIO = new XMLEncoder(this.outStream);
+	this.file = filename;
     }
 
     public XMLDataWriter(final OutputStream stream) {
-        this.outStream = stream;
-        this.fileIO = new XMLEncoder(stream);
-        this.file = null;
+	this.outStream = stream;
+	this.fileIO = new XMLEncoder(stream);
+	this.file = null;
     }
 
     // Constructors
     public XMLDataWriter(final String filename) throws IOException {
-        this.outStream = new FileOutputStream(filename);
-        this.fileIO = new XMLEncoder(this.outStream);
-        this.file = new File(filename);
+	this.outStream = new FileOutputStream(filename);
+	this.fileIO = new XMLEncoder(this.outStream);
+	this.file = new File(filename);
     }
 
     @Override
     public void close() throws DataIOException {
-        this.fileIO.close();
+	this.fileIO.close();
     }
 
     @Override
     public DataMode getDataIOMode() {
-        return DataMode.XML;
+	return DataMode.XML;
     }
 
     @Override
     public File getFile() {
-        return this.file;
+	return this.file;
     }
 
     @Override
     public void writeBoolean(final boolean b) throws DataIOException {
-        this.fileIO.writeObject(b);
+	this.fileIO.writeObject(b);
     }
 
     @Override
     public void writeByte(final byte b) throws DataIOException {
-        this.fileIO.writeObject(b);
+	this.fileIO.writeObject(b);
     }
 
     @Override
     public void writeDouble(final double d) throws DataIOException {
-        this.fileIO.writeObject(d);
+	this.fileIO.writeObject(d);
     }
 
     @Override
     public void writeInt(final int i) throws DataIOException {
-        this.fileIO.writeObject(i);
+	this.fileIO.writeObject(i);
     }
 
     @Override
     public void writeLong(final long l) throws DataIOException {
-        this.fileIO.writeObject(l);
+	this.fileIO.writeObject(l);
     }
 
     @Override
     public void writeString(final String s) throws DataIOException {
-        this.fileIO.writeObject(s);
+	this.fileIO.writeObject(s);
     }
 
     @Override
     public void writeUnsignedByte(final int b) throws DataIOException {
-        this.writeInt(b);
+	this.writeInt(b);
     }
 }

@@ -7,11 +7,10 @@ public class Point3D extends Point2D {
     public int z;
 
     public Point3D() {
-        super();
     }
 
     public Point3D(final int nx, final int ny, final int nz) {
-        super(nx, ny);
-        z = nz;
+	super(nx, ny);
+	this.z = nz;
     }
 }
