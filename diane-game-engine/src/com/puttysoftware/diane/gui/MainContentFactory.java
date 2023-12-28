@@ -5,21 +5,32 @@ package com.puttysoftware.diane.gui;
 
 import java.awt.Dimension;
 
-import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 public class MainContentFactory {
     private static int CONTENT_WIDTH = 800;
     private static int CONTENT_HEIGHT = 600;
-
+    
     public static JPanel content() {
 	final var result = new JPanel();
 	result.setPreferredSize(new Dimension(MainContentFactory.CONTENT_WIDTH, MainContentFactory.CONTENT_HEIGHT));
 	return result;
     }
 
-    public static JScrollPane scrollingContent(final JComponent view) {
+    public static MainContent mainContent() {
+	final var result = new MainContent();
+	result.setPreferredSize(new Dimension(MainContentFactory.CONTENT_WIDTH, MainContentFactory.CONTENT_HEIGHT));
+	return result;
+    }
+
+    public static MainScrollingContent mainScrollingContent(final MainContent view) {
+	final var result = new MainScrollingContent(view);
+	result.setPreferredSize(new Dimension(MainContentFactory.CONTENT_WIDTH, MainContentFactory.CONTENT_HEIGHT));
+	return result;
+    }
+
+    public static JScrollPane scrollingContent(final JPanel view) {
 	final var result = new JScrollPane(view);
 	result.setPreferredSize(new Dimension(MainContentFactory.CONTENT_WIDTH, MainContentFactory.CONTENT_HEIGHT));
 	return result;

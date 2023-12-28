@@ -80,6 +80,10 @@ public class DianeImageLoader {
 	}
     }
 
+    public static BufferedImageIcon load(final DianeImageIndex image) {
+	return ImageCache.getCachedImage(image.getName(), image.getURL());
+    }
+    
     public static BufferedImageIcon load(final DianeImageIndex image, final URL url) {
 	return ImageCache.getCachedImage(image.getName(), url);
     }

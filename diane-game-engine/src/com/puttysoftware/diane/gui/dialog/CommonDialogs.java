@@ -19,6 +19,7 @@ public class CommonDialogs {
     public static final int YES_OPTION = 0;
     public static final int NO_OPTION = 1;
     public static final int CANCEL_OPTION = 2;
+    public static final int CLOSED_OPTION = -1;
     public static final int DEFAULT_OPTION = -1;
     public static final int CANCEL = -1;
 

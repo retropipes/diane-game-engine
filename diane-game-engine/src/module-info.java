@@ -6,6 +6,15 @@
  */
 module com.puttysoftware.diane {
     requires transitive java.desktop;
+    requires transitive java.logging;
+
+    provides javax.sound.sampled.spi.AudioFileReader
+	    with com.github.trilarion.sound.vorbis.sampled.spi.VorbisAudioFileReader;
+    provides javax.sound.sampled.spi.FormatConversionProvider
+	    with com.github.trilarion.sound.vorbis.sampled.spi.VorbisFormatConversionProvider;
+
+    uses javax.sound.sampled.spi.AudioFileReader;
+    uses javax.sound.sampled.spi.FormatConversionProvider;
 
     exports com.puttysoftware.diane;
     exports com.puttysoftware.diane.ack;
