@@ -9,15 +9,14 @@ import java.awt.event.WindowFocusListener;
 import java.awt.event.WindowListener;
 
 import javax.swing.JButton;
-import javax.swing.JPanel;
 
 import com.puttysoftware.diane.asset.music.DianeMusicIndex;
 import com.puttysoftware.diane.gui.dialog.CommonDialogs;
 
-public abstract class Screen extends WindowAdapter {
+public abstract class ContentScreen extends WindowAdapter {
     // Fields
     protected final MainWindow theFrame;
-    protected JPanel theContent;
+    protected MainContent theContent;
     private String value;
     private Thread valueTask;
     private boolean viewReady;
@@ -26,7 +25,7 @@ public abstract class Screen extends WindowAdapter {
     private JButton defaultButton;
 
     // Constructors
-    protected Screen() {
+    protected ContentScreen() {
 	this.theFrame = MainWindow.mainWindow();
 	this.viewReady = false;
     }
@@ -50,7 +49,7 @@ public abstract class Screen extends WindowAdapter {
 	}
     }
 
-    JPanel content() {
+    MainContent content() {
 	this.checkView();
 	return this.theContent;
     }
@@ -129,8 +128,8 @@ public abstract class Screen extends WindowAdapter {
 	this.valueTask = new Thread() {
 	    @Override
 	    public void run() {
-		Screen.this.checkView();
-		Screen.this.showScreen();
+		ContentScreen.this.checkView();
+		ContentScreen.this.showScreen();
 	    }
 	};
 	this.valueTask.start();

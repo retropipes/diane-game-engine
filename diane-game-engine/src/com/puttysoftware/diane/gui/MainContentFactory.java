@@ -11,7 +11,7 @@ import javax.swing.JScrollPane;
 public class MainContentFactory {
     private static int CONTENT_WIDTH = 800;
     private static int CONTENT_HEIGHT = 600;
-    
+
     public static JPanel content() {
 	final var result = new JPanel();
 	result.setPreferredSize(new Dimension(MainContentFactory.CONTENT_WIDTH, MainContentFactory.CONTENT_HEIGHT));
@@ -19,15 +19,11 @@ public class MainContentFactory {
     }
 
     public static MainContent mainContent() {
-	final var result = new MainContent();
-	result.setPreferredSize(new Dimension(MainContentFactory.CONTENT_WIDTH, MainContentFactory.CONTENT_HEIGHT));
-	return result;
+	return new MainContent(new Dimension(MainContentFactory.CONTENT_WIDTH, MainContentFactory.CONTENT_HEIGHT));
     }
 
     public static MainScrollingContent mainScrollingContent(final MainContent view) {
-	final var result = new MainScrollingContent(view);
-	result.setPreferredSize(new Dimension(MainContentFactory.CONTENT_WIDTH, MainContentFactory.CONTENT_HEIGHT));
-	return result;
+	return new MainScrollingContent(view, new Dimension(MainContentFactory.CONTENT_WIDTH, MainContentFactory.CONTENT_HEIGHT));
     }
 
     public static JScrollPane scrollingContent(final JPanel view) {

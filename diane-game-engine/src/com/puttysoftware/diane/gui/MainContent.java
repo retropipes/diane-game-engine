@@ -16,7 +16,7 @@ public class MainContent extends JPanel implements Externalizable {
 	this.resizeEnabled = true;
     }
 
-    protected MainContent(Dimension contentSize) {
+    protected MainContent(final Dimension contentSize) {
 	this.resizeEnabled = false;
 	super.setPreferredSize(contentSize);
 	super.setMinimumSize(contentSize);
@@ -25,26 +25,12 @@ public class MainContent extends JPanel implements Externalizable {
     }
 
     @Override
-    public final void writeExternal(ObjectOutput out) throws IOException {
+    public final void readExternal(final ObjectInput in) throws IOException, ClassNotFoundException {
 	throw new NotSerializableException();
     }
 
     @Override
-    public final void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
-	throw new NotSerializableException();
-    }
-
-    @Override
-    public final void setPreferredSize(Dimension preferredSize) {
-	if (!this.resizeEnabled) {
-	    // Deny
-	    throw new UnsupportedOperationException();
-	}
-	super.setPreferredSize(preferredSize);
-    }
-
-    @Override
-    public final void setMaximumSize(Dimension maximumSize) {
+    public final void setMaximumSize(final Dimension maximumSize) {
 	if (!this.resizeEnabled) {
 	    // Deny
 	    throw new UnsupportedOperationException();
@@ -53,7 +39,7 @@ public class MainContent extends JPanel implements Externalizable {
     }
 
     @Override
-    public final void setMinimumSize(Dimension minimumSize) {
+    public final void setMinimumSize(final Dimension minimumSize) {
 	if (!this.resizeEnabled) {
 	    // Deny
 	    throw new UnsupportedOperationException();
@@ -62,7 +48,25 @@ public class MainContent extends JPanel implements Externalizable {
     }
 
     @Override
-    public final void setSize(int width, int height) {
+    public final void setPreferredSize(final Dimension preferredSize) {
+	if (!this.resizeEnabled) {
+	    // Deny
+	    throw new UnsupportedOperationException();
+	}
+	super.setPreferredSize(preferredSize);
+    }
+
+    @Override
+    public final void setSize(final Dimension d) {
+	if (!this.resizeEnabled) {
+	    // Deny
+	    throw new UnsupportedOperationException();
+	}
+	super.setSize(d);
+    }
+
+    @Override
+    public final void setSize(final int width, final int height) {
 	if (!this.resizeEnabled) {
 	    // Deny
 	    throw new UnsupportedOperationException();
@@ -71,11 +75,7 @@ public class MainContent extends JPanel implements Externalizable {
     }
 
     @Override
-    public final void setSize(Dimension d) {
-	if (!this.resizeEnabled) {
-	    // Deny
-	    throw new UnsupportedOperationException();
-	}
-	super.setSize(d);
+    public final void writeExternal(final ObjectOutput out) throws IOException {
+	throw new NotSerializableException();
     }
 }

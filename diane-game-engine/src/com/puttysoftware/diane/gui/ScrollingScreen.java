@@ -9,24 +9,24 @@ import java.awt.event.WindowFocusListener;
 import java.awt.event.WindowListener;
 
 import javax.swing.JButton;
-import javax.swing.JPanel;
 
 import com.puttysoftware.diane.asset.music.DianeMusicIndex;
 import com.puttysoftware.diane.gui.dialog.CommonDialogs;
 
-public abstract class Screen extends WindowAdapter {
+public abstract class ScrollingScreen extends WindowAdapter {
     // Fields
     protected final MainWindow theFrame;
-    protected JPanel theContent;
+    protected MainScrollingContent theContent;
     private String value;
     private Thread valueTask;
     private boolean viewReady;
+    private MainContent view;
     private String title;
     private DianeMusicIndex music;
     private JButton defaultButton;
 
     // Constructors
-    protected Screen() {
+    protected ScrollingScreen() {
 	this.theFrame = MainWindow.mainWindow();
 	this.viewReady = false;
     }
@@ -50,7 +50,7 @@ public abstract class Screen extends WindowAdapter {
 	}
     }
 
-    JPanel content() {
+    MainScrollingContent content() {
 	this.checkView();
 	return this.theContent;
     }
@@ -104,7 +104,8 @@ public abstract class Screen extends WindowAdapter {
     }
 
     final void setUpView() {
-	this.theContent = MainContentFactory.mainContent();
+	this.view = MainContentFactory.mainContent();
+	this.theContent = MainContentFactory.mainScrollingContent(this.view);
 	this.populateMainPanel();
 	this.theContent.setOpaque(true);
     }
@@ -129,8 +130,8 @@ public abstract class Screen extends WindowAdapter {
 	this.valueTask = new Thread() {
 	    @Override
 	    public void run() {
-		Screen.this.checkView();
-		Screen.this.showScreen();
+		ScrollingScreen.this.checkView();
+		ScrollingScreen.this.showScreen();
 	    }
 	};
 	this.valueTask.start();

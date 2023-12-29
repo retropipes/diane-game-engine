@@ -11,7 +11,6 @@ import java.io.IOException;
 import java.util.LinkedList;
 
 import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JRootPane;
@@ -24,37 +23,38 @@ import com.puttysoftware.diane.asset.music.DianeMusicPlayer;
 import com.puttysoftware.diane.gui.dialog.CommonDialogs;
 import com.puttysoftware.diane.internal.DefaultAssets;
 
-public final class MainWindow {
-    private static MainWindow window;
+public final class MainScrollingWindow {
+    private static MainScrollingWindow window;
 
     public static void createMainWindow(final int width, final int height) {
-	if (MainWindow.window == null) {
-	    MainWindow.window = new MainWindow(width, height);
-	    MainWindow.window.frame.setIconImage(CommonDialogs.icon());
+	if (MainScrollingWindow.window == null) {
+	    MainScrollingWindow.window = new MainScrollingWindow(width, height);
+	    MainScrollingWindow.window.frame.setIconImage(CommonDialogs.icon());
 	}
     }
 
-    public static MainWindow mainWindow() {
-	return MainWindow.window;
+    public static MainScrollingWindow mainWindow() {
+	return MainScrollingWindow.window;
     }
 
     static JFrame owner() {
-	return MainWindow.mainWindow().frame;
+	return MainScrollingWindow.mainWindow().frame;
     }
 
     private final JFrame frame;
     private final Dimension contentSize;
-    private JComponent content;
+    private MainScrollingContent content;
+    private MainContent view;
     private DianeMusicIndex currentMusic;
     private JButton currentDefault;
     private int savedDepth;
     private int savedTitleDepth;
-    private final LinkedList<JComponent> savedContentStack;
+    private final LinkedList<MainScrollingContent> savedContentStack;
     private final LinkedList<String> savedTitleStack;
     private final LinkedList<DianeMusicIndex> savedMusicStack;
     private final LinkedList<JButton> savedDefaultButtonStack;
 
-    private MainWindow(final int width, final int height) {
+    private MainScrollingWindow(final int width, final int height) {
 	this.frame = new JFrame();
 	this.frame.getRootPane().setWindowDecorationStyle(JRootPane.FRAME);
 	this.frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
@@ -84,7 +84,7 @@ public final class MainWindow {
 	this.frame.addWindowListener(l);
     }
 
-    public void attachContent(final JComponent customContent) {
+    public void attachContent(final MainScrollingContent customContent) {
 	// Alias for compatibility
 	this.setAndSave(customContent);
     }
@@ -95,16 +95,17 @@ public final class MainWindow {
 	}
     }
 
-    public boolean checkContent(final JComponent customContent) {
+    public boolean checkContent(final MainScrollingContent customContent) {
 	return this.content.equals(customContent);
     }
 
-    JComponent content() {
+    MainScrollingContent content() {
 	return this.content;
     }
 
-    public MainContent createContent() {
-	return MainContentFactory.mainContent();
+    public MainScrollingContent createContent() {
+	this.view = MainContentFactory.mainContent();
+	return MainContentFactory.mainScrollingContent(this.view);
     }
 
     public int getHeight() {
@@ -117,6 +118,10 @@ public final class MainWindow {
 
     public int getWidth() {
 	return this.content.getWidth();
+    }
+
+    public MainContent getView() {
+	return this.view;
     }
 
     public boolean isEnabled() {
@@ -176,7 +181,7 @@ public final class MainWindow {
 	}
     }
 
-    public void setAndSave(final JComponent customContent) {
+    public void setAndSave(final MainScrollingContent customContent) {
 	this.savedContentStack.push(this.content);
 	this.savedMusicStack.push(this.currentMusic);
 	this.savedDefaultButtonStack.push(this.currentDefault);
@@ -188,7 +193,7 @@ public final class MainWindow {
 	this.currentDefault = null;
     }
 
-    public void setAndSave(final JComponent customContent, final String title) {
+    public void setAndSave(final MainScrollingContent customContent, final String title) {
 	this.savedContentStack.push(this.content);
 	this.savedTitleStack.push(this.frame.getTitle());
 	this.savedMusicStack.push(this.currentMusic);
@@ -202,7 +207,7 @@ public final class MainWindow {
 	this.currentDefault = null;
     }
 
-    public void setAndSave(final JComponent customContent, final String title, final DianeMusicIndex music) {
+    public void setAndSave(final MainScrollingContent customContent, final String title, final DianeMusicIndex music) {
 	this.savedContentStack.push(this.content);
 	this.savedTitleStack.push(this.frame.getTitle());
 	this.savedMusicStack.push(this.currentMusic);
@@ -224,7 +229,7 @@ public final class MainWindow {
 	}
     }
 
-    public void setAndSave(final JComponent customContent, final String title, final DianeMusicIndex music,
+    public void setAndSave(final MainScrollingContent customContent, final String title, final DianeMusicIndex music,
 	    final JButton defaultButton) {
 	this.savedContentStack.push(this.content);
 	this.savedTitleStack.push(this.frame.getTitle());
@@ -248,7 +253,7 @@ public final class MainWindow {
 	this.frame.getRootPane().setDefaultButton(defaultButton);
     }
 
-    public void setAndSave(final JComponent customContent, final String title, final JButton defaultButton) {
+    public void setAndSave(final MainScrollingContent customContent, final String title, final JButton defaultButton) {
 	this.savedContentStack.push(this.content);
 	this.savedTitleStack.push(this.frame.getTitle());
 	this.savedMusicStack.push(this.currentMusic);
@@ -263,7 +268,7 @@ public final class MainWindow {
 	this.frame.getRootPane().setDefaultButton(defaultButton);
     }
 
-    public void setAndSave(final Screen screen) {
+    public void setAndSave(final ScrollingScreen screen) {
 	this.savedContentStack.push(this.content);
 	this.savedTitleStack.push(this.frame.getTitle());
 	this.savedMusicStack.push(this.currentMusic);

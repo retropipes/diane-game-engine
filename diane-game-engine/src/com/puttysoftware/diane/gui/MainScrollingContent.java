@@ -12,12 +12,12 @@ import javax.swing.JScrollPane;
 public final class MainScrollingContent extends JScrollPane implements Externalizable {
     private final boolean resizeEnabled;
 
-    protected MainScrollingContent(MainContent view) {
+    protected MainScrollingContent(final MainContent view) {
 	super(view);
 	this.resizeEnabled = true;
     }
 
-    protected MainScrollingContent(MainContent view, Dimension contentSize) {
+    protected MainScrollingContent(final MainContent view, final Dimension contentSize) {
 	super(view);
 	this.resizeEnabled = false;
 	super.setPreferredSize(contentSize);
@@ -27,26 +27,12 @@ public final class MainScrollingContent extends JScrollPane implements Externali
     }
 
     @Override
-    public final void writeExternal(ObjectOutput out) throws IOException {
+    public void readExternal(final ObjectInput in) throws IOException, ClassNotFoundException {
 	throw new NotSerializableException();
     }
 
     @Override
-    public final void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
-	throw new NotSerializableException();
-    }
-
-    @Override
-    public final void setPreferredSize(Dimension preferredSize) {
-	if (!this.resizeEnabled) {
-	    // Deny
-	    throw new UnsupportedOperationException();
-	}
-	super.setPreferredSize(preferredSize);
-    }
-
-    @Override
-    public final void setMaximumSize(Dimension maximumSize) {
+    public void setMaximumSize(final Dimension maximumSize) {
 	if (!this.resizeEnabled) {
 	    // Deny
 	    throw new UnsupportedOperationException();
@@ -55,7 +41,7 @@ public final class MainScrollingContent extends JScrollPane implements Externali
     }
 
     @Override
-    public final void setMinimumSize(Dimension minimumSize) {
+    public void setMinimumSize(final Dimension minimumSize) {
 	if (!this.resizeEnabled) {
 	    // Deny
 	    throw new UnsupportedOperationException();
@@ -64,7 +50,25 @@ public final class MainScrollingContent extends JScrollPane implements Externali
     }
 
     @Override
-    public final void setSize(int width, int height) {
+    public void setPreferredSize(final Dimension preferredSize) {
+	if (!this.resizeEnabled) {
+	    // Deny
+	    throw new UnsupportedOperationException();
+	}
+	super.setPreferredSize(preferredSize);
+    }
+
+    @Override
+    public void setSize(final Dimension d) {
+	if (!this.resizeEnabled) {
+	    // Deny
+	    throw new UnsupportedOperationException();
+	}
+	super.setSize(d);
+    }
+
+    @Override
+    public void setSize(final int width, final int height) {
 	if (!this.resizeEnabled) {
 	    // Deny
 	    throw new UnsupportedOperationException();
@@ -73,11 +77,7 @@ public final class MainScrollingContent extends JScrollPane implements Externali
     }
 
     @Override
-    public final void setSize(Dimension d) {
-	if (!this.resizeEnabled) {
-	    // Deny
-	    throw new UnsupportedOperationException();
-	}
-	super.setSize(d);
+    public void writeExternal(final ObjectOutput out) throws IOException {
+	throw new NotSerializableException();
     }
 }
